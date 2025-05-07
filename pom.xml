@@ -10,6 +10,7 @@
 
     <modules>
         <module>msvc.clientes</module>
+        <module>msvc_sucursal/msvc_sucursal</module>
     </modules>
 
     <properties>
