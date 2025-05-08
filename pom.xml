@@ -10,7 +10,8 @@
 
     <modules>
         <module>msvc.clientes</module>
-        <module>msvc_sucursal/msvc_sucursal</module>
+        <module>msvc_sucursal</module>
+        <module>msvc_comprobante_venta</module>
     </modules>
 
     <properties>
