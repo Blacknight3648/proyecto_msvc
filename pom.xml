@@ -15,6 +15,7 @@
         <module>msvc-productos</module>
         <module>msvc_comprobante_venta</module>
         <module>msvc_sucursal</module>
+        <module>msvc-gestionusuarios</module>
     </modules>
 
     <properties>
