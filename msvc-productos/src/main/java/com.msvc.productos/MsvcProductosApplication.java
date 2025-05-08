@@ -1,13 +1,13 @@
-package com.msvc_clientes;
+package com.msvc.productos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class MsvcProductosApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(MsvcProductosApplication.class, args);
 	}
 
 }
