@@ -7,6 +7,8 @@
     <groupId>org.example</groupId>
     <artifactId>MSVC-PERFULANDIA</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!-- Configuración correcta para un proyecto Maven con módulos -->
+    <packaging>pom</packaging>
 
     <modules>
         <module>msvc.clientes</module>
