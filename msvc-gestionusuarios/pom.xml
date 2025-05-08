@@ -5,9 +5,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.2.5</version> <!-- O la versión que uses -->
+		<relativePath/> <!-- evita herencia desde ../pom.xml -->
 	</parent>
+
 	<groupId>com.smedinamsvc-gestionusuarios</groupId>
 	<artifactId>msvc-gestionusuarios</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -64,7 +65,9 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.38</version>
 			<scope>provided</scope>
+			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
