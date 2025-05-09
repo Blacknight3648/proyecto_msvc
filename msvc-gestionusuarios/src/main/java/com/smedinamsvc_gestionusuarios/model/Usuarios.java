@@ -1,8 +1,9 @@
-package com.smedinamsvc_gestionusuarios.model.JPA;
+package com.smedinamsvc_gestionusuarios.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -13,7 +14,7 @@ public class Usuarios {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // ID único en la base de datos lo genera automático
+    private Long id;
 
     @Column(name = "rut_usuario", nullable = false, unique = true)
     private Integer rutUsuario;
@@ -39,8 +40,13 @@ public class Usuarios {
     @Column(nullable = false)
     private String contrasenia;
 
-    // Futuro: Relación con rol o permisos
-    // @ManyToOne
-    // @JoinColumn(name = "rol_id")
-    // private Rol rol;
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_roles",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "rol_id")
+    )
+    private Set<Rol> roles; //El sirve para agregar los roles y que si se repiten no se agregue, es decir,
+                            //ayuda a eliminar la redundancia. Esta es una forma de hacer un "filtro"
 }
+
