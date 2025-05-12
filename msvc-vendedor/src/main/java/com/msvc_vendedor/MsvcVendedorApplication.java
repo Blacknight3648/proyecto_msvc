@@ -1,13 +1,13 @@
-package com.msvc_vendedor;
+package com.smedinamsvc_gestionusuarios;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsvcVendedorApplication {
+public class MsvcGestionusuariosApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsvcVendedorApplication.class, args);
+		SpringApplication.run(MsvcGestionusuariosApplication.class, args);
 	}
 
 }
