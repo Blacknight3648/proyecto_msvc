@@ -13,7 +13,7 @@
     <groupId>msvc.gestionusuarios</groupId>
     <artifactId>msvc-gestionusuarios</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>msvc-gestionusuarios</name>
+    <name>msvc.gestionusuarios</name>
     <description>Microservicio de gestión de usuarios y roles</description>
     <url/>
     
