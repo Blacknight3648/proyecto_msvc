@@ -1,9 +1,8 @@
 package controller;
 
 import jakarta.validation.Valid;
-import model.ProductoModel;
+import model.entity.ProductoModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
