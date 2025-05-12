@@ -1,23 +1,23 @@
 package com.smedinamsvc_gestionusuarios.DTO;
 
-import lombok.Data;
-import lombok.ToString;
-
+import lombok.*;
 import java.time.LocalDate;
-
-import jakarta.validation.constraints.Email;
+import java.util.Set;
 
 @Data
-@ToString
-@Email //Anotación para validar un Email
-public class UsuarioDTO {
+@NoArgsConstructor
 
+@AllArgsConstructor
+public class UsuarioDTO {
+    private Long id;
     private Integer rutUsuario;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private LocalDate fechaNacimiento;
     private String nombreUsuario;
-    private Email correoElectronico;
-
+    private String correoElectronico;
+    //Se usa Set y no List porque así se evitan elementos repetidos
+    //Es decir, elimina la redundancia de datos
+    private Set<String> roles; // Solo guarda los nombres de los roles
 }

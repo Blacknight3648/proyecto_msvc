@@ -19,7 +19,10 @@ public class Rol {
     @Column(name = "nombre_rol", nullable = false, unique = true)
     private String nombreRol;
 
+
+    //Se usa Set y no List porque así se evitan elementos repetidos
+    //Es decir, elimina la redundancia de datos
     @ManyToMany(mappedBy = "roles")
-    private Set<Usuarios> usuarios;
+    private Set<Usuario> usuarios;
 }
 

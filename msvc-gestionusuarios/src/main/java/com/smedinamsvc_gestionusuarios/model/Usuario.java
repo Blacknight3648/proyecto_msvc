@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuarios {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,13 +40,16 @@ public class Usuarios {
     @Column(nullable = false)
     private String contrasenia;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "usuario_roles",
         joinColumns = @JoinColumn(name = "usuario_id"),
         inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
-    private Set<Rol> roles; //El sirve para agregar los roles y que si se repiten no se agregue, es decir,
-                            //ayuda a eliminar la redundancia. Esta es una forma de hacer un "filtro"
+    //Se usa Set y no List porque así se evitan elementos repetidos
+    //Es decir, elimina la redundancia de datos
+    private Set<Rol> roles;
 }
+
+
 
