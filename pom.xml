@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>msvc.clientes</module>
+        <module>msvc-clientes</module>
         <module>msvc-productos</module>
         <module>msvc_comprobante_venta</module>
         <module>msvc_sucursal</module>

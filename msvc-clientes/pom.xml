@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.msvc.clientes</groupId>
-	<artifactId>msvc.clientes</artifactId>
+	<artifactId>msvc-clientes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>msvc.clientes</name>
 	<description>Perfulandia msvc clientes</description>
