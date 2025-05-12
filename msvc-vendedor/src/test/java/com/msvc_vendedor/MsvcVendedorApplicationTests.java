@@ -1,10 +1,10 @@
-package com.smedinamsvc_gestionusuarios;
+package com.msvc_vendedor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsvcGestionusuariosApplicationTests {
+class MsvcVendedorApplicationTests {
 
 	@Test
 	void contextLoads() {

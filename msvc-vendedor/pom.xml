@@ -8,10 +8,10 @@
 		<version>3.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.smedinamsvc-gestionusuarios</groupId>
-	<artifactId>msvc-gestionusuarios</artifactId>
+	<groupId>com.msvc-vendedor</groupId>
+	<artifactId>msvc-vendedor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>msvc-gestionusuarios</name>
+	<name>msvc-vendedor</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
