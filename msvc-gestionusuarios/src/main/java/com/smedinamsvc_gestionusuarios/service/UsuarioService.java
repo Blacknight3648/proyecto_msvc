@@ -8,6 +8,11 @@ public interface UsuarioService {
     UsuarioDTO obtenerPorId(Long id);
     UsuarioDTO crear(UsuarioDTO usuarioDTO);
     UsuarioDTO actualizar(Long id, UsuarioDTO usuarioDTO);
-    void eliminar(Long id);
+    void suspender(Long id);
+    
+    // Métodos opcionales:
+    List<UsuarioDTO> obtenerSuspendidos();
+    void reactivar(Long id);
 }
+
 
