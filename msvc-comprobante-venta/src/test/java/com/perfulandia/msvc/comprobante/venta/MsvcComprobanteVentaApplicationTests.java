@@ -1,4 +1,4 @@
-package com.perfulandia.msvc_comprobante_venta;
+package com.perfulandia.msvc.comprobante.venta;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

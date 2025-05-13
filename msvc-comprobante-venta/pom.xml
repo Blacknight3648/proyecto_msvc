@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.perfulandia</groupId>
-	<artifactId>msvc_sucursal</artifactId>
+	<artifactId>msvc-comprobante-venta</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>msvc_sucursal</name>
+	<name>msvc_comprobante_venta</name>
 	<description>msvc sucursal</description>
 	<url/>
 	<licenses>

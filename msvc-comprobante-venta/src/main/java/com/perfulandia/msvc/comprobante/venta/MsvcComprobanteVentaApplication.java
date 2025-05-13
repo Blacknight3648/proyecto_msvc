@@ -1,4 +1,4 @@
-package com.perfulandia.msvc_comprobante_venta;
+package com.perfulandia.msvc.comprobante.venta;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
