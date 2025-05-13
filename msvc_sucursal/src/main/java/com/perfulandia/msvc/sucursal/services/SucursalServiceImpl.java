@@ -1,8 +1,8 @@
-package com.perfulandia.msvc_sucursal.services;
+package com.perfulandia.msvc.sucursal.services;
 
-import com.perfulandia.msvc_sucursal.exceptions.SucursalException;
-import com.perfulandia.msvc_sucursal.models.Sucursal;
-import com.perfulandia.msvc_sucursal.repositories.SucursalRepository;
+import com.perfulandia.msvc.sucursal.exceptions.SucursalException;
+import com.perfulandia.msvc.sucursal.models.Sucursal;
+import com.perfulandia.msvc.sucursal.repositories.SucursalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

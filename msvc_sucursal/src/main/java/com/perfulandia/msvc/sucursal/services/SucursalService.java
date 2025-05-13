@@ -1,6 +1,6 @@
-package com.perfulandia.msvc_sucursal.services;
+package com.perfulandia.msvc.sucursal.services;
 
-import com.perfulandia.msvc_sucursal.models.Sucursal;
+import com.perfulandia.msvc.sucursal.models.Sucursal;
 
 import java.util.List;
 
