@@ -16,10 +16,10 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rut_usuario", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private Integer rutUsuario;
 
-    @Column(nullable = false)
+    @Column(name = "nombres", nullable = false)
     private String nombres;
 
     @Column(name = "apellido_paterno", nullable = false)
