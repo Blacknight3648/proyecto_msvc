@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api1/roles")
+@RequestMapping("/api/v1/roles")
 public class RolController {
 
     private final RolService rolService;
@@ -18,7 +18,7 @@ public class RolController {
     public RolController(RolService rolService) {
         this.rolService = rolService;
     }
-
+ 
     @GetMapping
     public ResponseEntity<List<Rol>> obtenerTodosLosRoles() {
         return ResponseEntity.ok(rolService.obtenerTodosLosRoles());
