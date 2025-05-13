@@ -48,5 +48,17 @@ public class Usuario {
 }
 
 
-
+// Ejemplo de usuario para agregar:
+// {
+//   "rutUsuario": 2682XXXXX,
+//   "nombres": "Solgrey Natasha María Medina Lira",
+//   "apellidoPaterno": "Medina",
+//   "apellidoMaterno": "Lira",
+//   "fechaNacimiento": "2002-10-11",
+//   "nombreUsuario": "@solgrey",
+//   "correoElectronico": "sol.medina@duocuc.cl",
+//   "contrasenia": "M1234.",
+//   "roles": null,
+//   "activo": true
+// }
 
