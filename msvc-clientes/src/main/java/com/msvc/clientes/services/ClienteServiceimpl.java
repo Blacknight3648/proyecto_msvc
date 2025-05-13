@@ -34,7 +34,7 @@ public class ClienteServiceimpl implements ClienteService{
     }
 
     @Override
-    public Cliente delete(Cliente cliente) {
+    public Cliente suspend(Cliente cliente) {
         return null;
     }
 
