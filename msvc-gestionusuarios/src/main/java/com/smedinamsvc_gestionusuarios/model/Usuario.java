@@ -19,14 +19,8 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private Integer rutUsuario;
 
-    @Column(name = "nombres", nullable = false)
+    @Column(name = "nombreCompleto", nullable = false)
     private String nombres;
-
-    @Column(name = "apellido_paterno", nullable = false)
-    private String apellidoPaterno;
-
-    @Column(name = "apellido_materno", nullable = false)
-    private String apellidoMaterno;
 
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
@@ -40,16 +34,19 @@ public class Usuario {
     @Column(nullable = false)
     private String contrasenia;
 
+    @Column(nullable = false)
+    private boolean activo = true; // nuevo campo para saber si el usuario está suspendido o no
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "usuario_roles",
         joinColumns = @JoinColumn(name = "usuario_id"),
         inverseJoinColumns = @JoinColumn(name = "rol_id")
     )
-    //Se usa Set y no List porque así se evitan elementos repetidos
-    //Es decir, elimina la redundancia de datos
     private Set<Rol> roles;
+
 }
+
 
 
 
