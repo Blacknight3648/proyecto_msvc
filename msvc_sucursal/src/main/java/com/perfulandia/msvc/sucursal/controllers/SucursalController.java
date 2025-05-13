@@ -1,7 +1,7 @@
-package com.perfulandia.msvc_sucursal.controllers;
+package com.perfulandia.msvc.sucursal.controllers;
 
-import com.perfulandia.msvc_sucursal.models.Sucursal;
-import com.perfulandia.msvc_sucursal.services.SucursalService;
+import com.perfulandia.msvc.sucursal.models.Sucursal;
+import com.perfulandia.msvc.sucursal.services.SucursalService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

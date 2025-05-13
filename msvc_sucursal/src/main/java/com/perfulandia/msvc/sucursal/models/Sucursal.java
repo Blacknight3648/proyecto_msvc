@@ -1,4 +1,4 @@
-package com.perfulandia.msvc_sucursal.models;
+package com.perfulandia.msvc.sucursal.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

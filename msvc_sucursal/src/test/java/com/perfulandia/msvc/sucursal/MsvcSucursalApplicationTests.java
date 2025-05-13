@@ -1,4 +1,4 @@
-package com.perfulandia.msvc_sucursal;
+package com.perfulandia.msvc.sucursal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
