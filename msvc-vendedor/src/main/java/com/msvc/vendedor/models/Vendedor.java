@@ -1,4 +1,4 @@
-package com.msvc.clientes.models;
+package com.msvc.vendedor.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,38 +9,27 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="clientes")
+@Table(name = "vendedores")
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor
-public class Cliente {
+public class Vendedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id_cliente")
-    private Long idCliente;
+    @Column(name = "id_vendedor")
+    private Long idVendedor;
 
-    @Column(name="run_cliente",nullable = false)
+    @Column(name = "run_vendedor")
     @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run cliente debe ser 11.111.111-X")
-    private String runCliente;
+    private String runVendedor;
 
-    @Column(name="fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento", nullable = false)
     @NotNull(message = "El campo fecha de nacimiento no puede estar vacio")
     private LocalDate fechaNacimiento;
 
-
     @Column(name = "nombre_completo",nullable = false)
-    @NotBlank(message = "El campo nombre completo de cliente no puede estar vacio")
+    @NotBlank(message = "El campo nombre completo de vendedor no puede estar vacio")
     private String nombreCompleto;
-
-
-
-
-
-
-
-
-
-
 
 
 }
