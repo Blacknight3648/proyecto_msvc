@@ -1,6 +1,7 @@
 package com.smedinamsvc_gestionusuarios.service.impl;
 
 import com.smedinamsvc_gestionusuarios.DTO.UsuarioDTO;
+import com.smedinamsvc_gestionusuarios.DTO.RequestDTO.UsuarioRequestDTO;
 import com.smedinamsvc_gestionusuarios.model.Rol;
 import com.smedinamsvc_gestionusuarios.model.Usuario;
 import com.smedinamsvc_gestionusuarios.repository.UsuarioRepository;
@@ -37,9 +38,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     // Crea un nuevo usuario a partir del DTO recibido
     @Override
-    public UsuarioDTO crear(UsuarioDTO dto) {
-        Usuario usuario = mapToEntity(dto);
-        usuario.setContrasenia(passwordEncoder.encode(dto.getContrasenia())); // Encriptamos la contraseña
+    public UsuarioDTO crear(UsuarioRequestDTO requestDTO) {
+        Usuario usuario = mapToEntity(requestDTO);
         return mapToDTO(usuarioRepository.save(usuario));
     }
 
@@ -101,15 +101,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     // Mapea de DTO a entidad (para guardar en base de datos)
-    private Usuario mapToEntity(UsuarioDTO dto) {
+    private Usuario mapToEntity(UsuarioRequestDTO dto) {
         Usuario usuario = new Usuario();
         usuario.setRutUsuario(dto.getRutUsuario());
         usuario.setNombres(dto.getNombres());
         usuario.setFechaNacimiento(dto.getFechaNacimiento());
         usuario.setNombreUsuario(dto.getNombreUsuario());
         usuario.setCorreoElectronico(dto.getCorreoElectronico());
-        usuario.setActivo(true); // Nuevo usuario se crea activo
-        usuario.setContrasenia("SIN_ENCRIPTAR"); // Se reemplaza al guardar
+        usuario.setActivo(dto.isActivo());
+        usuario.setContrasenia(passwordEncoder.encode(dto.getContrasenia()));
         usuario.setRoles(new HashSet<>()); // Se pueden asignar roles posteriormente
         return usuario;
     }

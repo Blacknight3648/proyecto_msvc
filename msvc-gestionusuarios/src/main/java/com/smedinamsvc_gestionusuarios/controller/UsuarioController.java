@@ -1,6 +1,7 @@
 package com.smedinamsvc_gestionusuarios.controller;
 
 import com.smedinamsvc_gestionusuarios.DTO.UsuarioDTO;
+import com.smedinamsvc_gestionusuarios.DTO.RequestDTO.UsuarioRequestDTO;
 import com.smedinamsvc_gestionusuarios.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +36,10 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> create(@Valid @RequestBody UsuarioDTO dto) {
+    public ResponseEntity<UsuarioDTO> create(@Valid @RequestBody UsuarioRequestDTO requestDTO) {
         return ResponseEntity
                 .status(201)
-                .body(usuarioService.crear(dto));
+                .body(usuarioService.crear(requestDTO));
     }
 
     @PutMapping("/{id}")
@@ -47,6 +48,7 @@ public class UsuarioController {
                 .status(200)
                 .body(usuarioService.actualizar(id, dto));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -58,3 +60,4 @@ public class UsuarioController {
 }
 
 
+///Para modificar datos del usuario se deben mostrar todos y ahí se selecciona el que se desa modificar
