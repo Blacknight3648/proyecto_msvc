@@ -2,13 +2,11 @@ package com.msvc.clientes.controllers;
 
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.services.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +29,15 @@ public class ClienteController {
 
         Cliente cliente = this.clienteService.findById(id);
         return ResponseEntity.status(200).body(cliente);
+
+    }
+
+    @PostMapping
+    public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente cliente){
+
+        return ResponseEntity
+                .status(200)
+                .body(this.clienteService.save(cliente));
 
     }
 

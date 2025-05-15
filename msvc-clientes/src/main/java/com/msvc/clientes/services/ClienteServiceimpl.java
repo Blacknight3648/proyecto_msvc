@@ -3,6 +3,7 @@ package com.msvc.clientes.services;
 import com.msvc.clientes.Exceptions.ClienteException;
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.repository.ClienteRepository;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class ClienteServiceimpl implements ClienteService{
 
     @Override
     public Cliente save(Cliente cliente) {
-        return null;
+        return clienteRepository.save(cliente);
     }
 
     @Override
