@@ -13,8 +13,8 @@ public class ProductoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idProducto")
-    private Long IdProducto;
+    @Column(name = "id_producto")
+    private Long idProducto;
 
     @Column(nullable = false)
     @NotBlank(message = "El campo nombre no puede estar vacio.")
