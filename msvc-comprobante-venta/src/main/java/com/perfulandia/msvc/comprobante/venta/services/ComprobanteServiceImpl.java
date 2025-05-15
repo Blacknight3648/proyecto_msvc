@@ -5,12 +5,17 @@ import com.perfulandia.msvc.comprobante.venta.clients.SucursalClientRest;
 import com.perfulandia.msvc.comprobante.venta.clients.VendedorClientRest;
 import com.perfulandia.msvc.comprobante.venta.models.entities.Comprobante;
 import com.perfulandia.msvc.comprobante.venta.repositories.ComprobanteRepository;
+
+import lombok.Data;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Data
+//Se agrega el Data para que se usen los métodos de forma automática
 public class ComprobanteServiceImpl implements ComprobanteService {
 
     @Autowired
