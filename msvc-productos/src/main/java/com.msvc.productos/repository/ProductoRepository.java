@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<ProductoModel, Long> {
 
-    List<ProductoModel> findByIdCliente(Long idCliente);
+    List<ProductoModel> findByIdCarrito(Long idCarrito);
 
     List<ProductoModel> findByIdComprobante(Long idComprobante);
 

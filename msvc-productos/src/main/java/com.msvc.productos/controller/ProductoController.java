@@ -1,8 +1,11 @@
 package com.msvc.productos.controller;
 
+import com.msvc.productos.dtos.ProductoDTO;
 import jakarta.validation.Valid;
 import com.msvc.productos.model.entity.ProductoModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +23,14 @@ public class ProductoController {
 
     @GetMapping
     public ResponseEntity<List<ProductoModel>> findAll(){
-        List<ProductoModel> producto = this.productoService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(this.productoService.findAll());
+    }
+
+    @GetMapping
+    public ResponseEntity<ProductoModel> findById(@PathVariable Long id) {
         return ResponseEntity
                 .status(200)
-                .body(producto);
+                .body(this.productoService.findById(id));
     }
     @GetMapping("/{id}")
     public ResponseEntity<ProductoModel> save (@PathVariable Long id) {
