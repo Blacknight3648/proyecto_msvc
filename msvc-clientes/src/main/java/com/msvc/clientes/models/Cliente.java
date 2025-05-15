@@ -32,6 +32,10 @@ public class Cliente {
     @NotBlank(message = "El campo nombre completo de cliente no puede estar vacio")
     private String nombreCompleto;
 
+    @Column(name = "estado_cuenta")
+    @NotNull(message = "El campo estado de cuenta no puede ser nulo")
+    private boolean estadoCuenta;
+
 
 
 

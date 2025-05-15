@@ -31,7 +31,9 @@ public class ClienteServiceimpl implements ClienteService{
 
     @Override
     public Cliente save(Cliente cliente) {
+        cliente.setEstadoCuenta(true);
         return clienteRepository.save(cliente);
+
     }
 
     @Override

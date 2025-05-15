@@ -27,6 +27,7 @@ public class VendedorServiceimpl implements VendedorService{
 
     @Override
     public Vendedor save(Vendedor vendedor) {
+        vendedor.setEstadoCuenta(true);
         return vendedorRepository.save(vendedor);
     }
 
