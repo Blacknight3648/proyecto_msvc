@@ -11,7 +11,7 @@ import com.msvc.productos.services.ProductoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/paciente")
+@RequestMapping("/api/v1/productos")
 @Validated
 public class ProductoController {
 
@@ -38,5 +38,18 @@ public class ProductoController {
         return ResponseEntity
                 .status(201)
                 .body(saved);
+    }
+    @GetMapping("/clientes/{id}")
+    public ResponseEntity<List<ProductoModel>> findByIdProducto(@PathVariable Long id) {
+        return ResponseEntity
+                .status(200)
+                .body(this.productoService.findByClienteId(id));
+    }
+
+    @GetMapping("/comprobante/{id}")
+    public ResponseEntity<List<ProductoModel>> findByIdComprobante(@PathVariable Long id) {
+        return ResponseEntity
+                .status(200)
+                .body(this.productoService.findByComprobanteId(id));
     }
 }
