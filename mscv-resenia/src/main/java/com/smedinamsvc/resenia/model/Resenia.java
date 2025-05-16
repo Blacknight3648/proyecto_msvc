@@ -1,4 +1,4 @@
-package com.smedinamsvc.resenia.model.Entity;
+package com.smedinamsvc.resenia.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,8 +25,12 @@ public class Resenia {
     @Column(name="id_resenia")
     private Integer id;
 
+    @Column(name = "producto_id", nullable = false)
+    private Integer productoId;
+
     @Column(name = "resenia", nullable = false)
     @NotBlank(message = "El campo de reseña, no puede estar vacío")
     private String resenia;
+
 
 }
