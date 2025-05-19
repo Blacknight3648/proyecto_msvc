@@ -33,6 +33,12 @@ public class VendedorServiceimpl implements VendedorService{
 
     @Override
     public Vendedor suspend(Vendedor vendedor) {
-        return null;
+
+        vendedor.setEstadoCuenta(false);
+        return this.vendedorRepository.findById(vendedor.getIdVendedor()).orElseThrow(
+
+                ()->new VendedorException("El vendedor con id "+ vendedor.getIdVendedor()+" no se encuentra en la base de datos")
+
+        );
     }
 }

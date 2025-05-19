@@ -10,6 +10,6 @@ import com.smedinamsvc.resenia.dtos.ProductoDTO;
 public interface ReseniaProductoClient {
 
     @GetMapping("/{id}")
-    ProductoDTO getProductoById(@PathVariable("id") Integer id);
+    ProductoDTO getProductoById(@PathVariable("id") Long id);
 
 }

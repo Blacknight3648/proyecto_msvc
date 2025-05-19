@@ -23,10 +23,10 @@ public class Resenia {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name="id_resenia")
-    private Integer id;
+    private Long id;
 
     @Column(name = "producto_id", nullable = false)
-    private Integer productoId;
+    private Long productoId;
 
     @Column(name = "resenia", nullable = false)
     @NotBlank(message = "El campo de reseña, no puede estar vacío")

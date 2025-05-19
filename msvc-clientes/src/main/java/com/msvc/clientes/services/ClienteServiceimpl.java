@@ -37,7 +37,13 @@ public class ClienteServiceimpl implements ClienteService{
 
     @Override
     public Cliente suspend(Cliente cliente) {
-        return null;
+
+        cliente.setEstadoCuenta(false);
+        return this.clienteRepository.findById(cliente.getIdCliente()).orElseThrow(
+
+                ()->new ClienteException("El cliente con id "+ cliente.getIdCliente() + " no se encuentra la base de datos")
+
+        );
     }
 
 

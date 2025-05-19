@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 public class ProductoDTO {
 
-    private Integer idProducto;
+    private Long idProducto;
     private String nombreProducto;
     private Integer precio;
     private String descProducto;
