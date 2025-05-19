@@ -21,14 +21,14 @@ public class ReseniaServiceImpl implements ReseniaService {
     }
 
     @Override
-    public List<Resenia> findByProductoId(Integer productoId) {
+    public List<Resenia> findByProductoId(Long productoId) {
         return reseniaRepository.findByProductoId(productoId);
     }
 
     @Override
-    public Resenia findById(Integer id) {
-        return reseniaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reseña no encontrada con ID: " + id));
+    public Resenia findById(Long id) {
+        return reseniaRepository.findByProductoId(id)
+                .orElseThrow(() -> new ReseniaExceptions("Reseña no encontrada con ID: "));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ReseniaServiceImpl implements ReseniaService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         if (!reseniaRepository.existsById(id)) {
             throw new RuntimeException("No se puede eliminar. Reseña no encontrada con ID: " + id);
         }

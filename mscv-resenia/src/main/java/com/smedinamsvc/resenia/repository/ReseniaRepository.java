@@ -11,6 +11,6 @@ import com.smedinamsvc.resenia.model.Resenia;
 public interface ReseniaRepository extends JpaRepository<Resenia, Integer> {
 
     // Método para buscar todas las reseñas de un producto específico
-    List<Resenia> findByProductoId(Integer productoId);
+    List<Resenia> findByProductoId(Long productoId);
 }
 
