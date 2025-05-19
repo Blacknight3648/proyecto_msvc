@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 public class Cliente {
 
+    private String runCliente;
     private LocalDate fechaNacimiento;
     private String nombreCompleto;
     private boolean estadoCuenta;
