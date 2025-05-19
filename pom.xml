@@ -12,7 +12,7 @@
 
     <modules>
         <module>msvc-clientes</module>
-        <module>msvc-productos</module>
+        <module>msvc-producto</module>
         <module>msvc-comprobante-venta</module>
         <module>msvc-sucursal</module>
         <module>msvc-vendedor</module>

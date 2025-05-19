@@ -39,5 +39,21 @@ public class CarritoController {
                 .body(this.carritoService.save(carrito));
     }
 
+    //MOSTRAR CARRITOS FILTRADO POR PRODUCTOS
+    @GetMapping("/producto/{id}")
+    public ResponseEntity<List<Carrito>> findByIdProducto(@PathVariable Long id) {
+        return ResponseEntity
+                .status(200)
+                .body(this.carritoService.findByProductoId(id));
+    }
+    @GetMapping("/vendedor/{id}")
+    public ResponseEntity<List<Carrito>> findByIdVendedor(@PathVariable Long id) {
+        return  ResponseEntity
+                .status(200)
+                .body(this.carritoService.findByVendedorId(id));
+    }
+
+
+
 
 }
