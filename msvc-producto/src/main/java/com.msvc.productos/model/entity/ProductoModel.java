@@ -1,5 +1,6 @@
 package com.msvc.productos.model.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,6 +28,15 @@ public class ProductoModel {
     @Column(nullable = false)
     @NotBlank(message = "El campo descripcion no puede estar vacio.")
     private String descProducto;
+
+    @Column(name = "id_carrito", nullable = false)
+    @NotNull(message = "El campo id_carrito no puede estar vacio")
+    private Long idCarrito;
+
+    @Column(name = "id_comprobante", nullable = false)
+    @NotNull(message = "El campo id_comprobante no puede estar vacio")
+    private Long idComprobante;
+
 
 
 

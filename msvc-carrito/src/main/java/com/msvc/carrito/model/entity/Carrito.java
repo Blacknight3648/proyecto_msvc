@@ -28,5 +28,13 @@ public class Carrito {
     @Column(name = "cupon", nullable = true)
     private String cupon;
 
+    @Column(name="id_cliente", nullable = false)
+    @NotNull(message = "El campo id_cliente no puede estar vacio")
+    private Long idCliente;
+
+    @Column(name="id_vendedor", nullable = false)
+    @NotNull(message = "El campo id_vendedor no puede estar vacio")
+    private Long idVendedor;
+
 
 }
