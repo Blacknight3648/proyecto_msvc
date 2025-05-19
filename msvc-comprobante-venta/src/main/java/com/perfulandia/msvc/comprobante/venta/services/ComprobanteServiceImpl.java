@@ -89,26 +89,36 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 
     @Override
     public Comprobante findById(Long id) {
-        return null;
+        return this.comprobanteRepository.findById(id).orElseThrow(
+                () -> new ComprobanteException("El comprobante con id "+id+" no se encuentra en la base de datos")
+        );
     }
 
     @Override
     public Comprobante save(Comprobante comprobante) {
-        return null;
+
+        try{
+            Vendedor vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
+            Cliente cliente = this.clienteClientRest.findById(comprobante.getIdCliente());
+            Sucursal sucursal = this.sucursalClientRest.findById(comprobante.getIdSucursal());
+        }catch (FeignException ex){
+            throw new ComprobanteException("Existen problemas con la asociación vendedor cliente comprobante");
+        }
+        return this.comprobanteRepository.save(comprobante);
     }
 
     @Override
     public List<Comprobante> findByClienteId(Long clienteId) {
-        return List.of();
+        return this.comprobanteRepository.findByIdCliente(clienteId);
     }
 
     @Override
     public List<Comprobante> findByVendedorId(Long vendedorId) {
-        return List.of();
+        return this.comprobanteRepository.findByIdVendedor(vendedorId);
     }
 
     @Override
     public List<Comprobante> findBySucursalId(Long sucursalId) {
-        return List.of();
+        return this.comprobanteRepository.findByIdSucursal(sucursalId);
     }
 }
