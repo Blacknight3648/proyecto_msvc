@@ -30,14 +30,14 @@ public class ReseniaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Resenia> buscarPorId(@PathVariable Integer id) {
+    public ResponseEntity<Resenia> buscarPorId(@PathVariable Long id) {
         return ResponseEntity
         .status(200)
         .body(reseniaService.findById(id));
     }
 
    @GetMapping("/producto/{productoId}")
-    public ResponseEntity<List<Resenia>> buscarPorProducto(@PathVariable Integer productoId) {
+    public ResponseEntity<List<Resenia>> buscarPorProducto(@PathVariable Long productoId) {
         return ResponseEntity
             .status(200)
             .body(this.reseniaService.findByProductoId(productoId));
@@ -51,7 +51,7 @@ public class ReseniaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         this.reseniaService.deleteById(id);
         return ResponseEntity
             .noContent()
