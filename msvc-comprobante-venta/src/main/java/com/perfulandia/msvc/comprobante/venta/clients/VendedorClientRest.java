@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "msvc-vendedor", url = "localhost:8023/api/v1/vendedor")
 public interface VendedorClientRest {
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     Vendedor findById(@PathVariable Long id);
 }

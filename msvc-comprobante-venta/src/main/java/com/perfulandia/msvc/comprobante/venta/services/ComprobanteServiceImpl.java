@@ -3,9 +3,18 @@ package com.perfulandia.msvc.comprobante.venta.services;
 import com.perfulandia.msvc.comprobante.venta.clients.ClienteClientRest;
 import com.perfulandia.msvc.comprobante.venta.clients.SucursalClientRest;
 import com.perfulandia.msvc.comprobante.venta.clients.VendedorClientRest;
+import com.perfulandia.msvc.comprobante.venta.dtos.ClienteDTO;
+import com.perfulandia.msvc.comprobante.venta.dtos.ComprobanteDTO;
+import com.perfulandia.msvc.comprobante.venta.dtos.SucursalDTO;
+import com.perfulandia.msvc.comprobante.venta.dtos.VendedorDTO;
+import com.perfulandia.msvc.comprobante.venta.exceptions.ComprobanteException;
+import com.perfulandia.msvc.comprobante.venta.models.Cliente;
+import com.perfulandia.msvc.comprobante.venta.models.Sucursal;
+import com.perfulandia.msvc.comprobante.venta.models.Vendedor;
 import com.perfulandia.msvc.comprobante.venta.models.entities.Comprobante;
 import com.perfulandia.msvc.comprobante.venta.repositories.ComprobanteRepository;
 
+import feign.FeignException;
 import lombok.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +41,50 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 
 
     @Override
-    public List<Comprobante> findAll() {
-        return List.of();
+    public List<ComprobanteDTO> findAll() {
+        return this.comprobanteRepository.findAll().stream().map(comprobante ->{
+
+            Vendedor vendedor = null;
+            try{
+                vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
+            }catch (FeignException ex){
+                throw new ComprobanteException("El vendedor buscado no existe");
+            }
+
+            Cliente cliente = null;
+            try{
+                cliente = this.clienteClientRest.findById(comprobante.getIdCliente());
+            }catch(FeignException ex){
+                throw new ComprobanteException("El cliente buscado no existe");
+            }
+
+            Sucursal sucursal = null;
+            try{
+                sucursal = this.sucursalClientRest.findById(comprobante.getIdComprobante());
+            }catch(FeignException ex){
+                throw new ComprobanteException("La sucursal buscada no existe");
+            }
+
+            VendedorDTO vendedorDTO = new VendedorDTO();
+            vendedorDTO.setRunVendedor(vendedor.getRunVendedor());
+            vendedorDTO.setFechaNacimiento(vendedor.getFechaNacimiento());
+            vendedorDTO.setNombreCompleto(vendedor.getNombreCompleto());
+
+            ClienteDTO clienteDTO = new ClienteDTO();
+            clienteDTO.setRunCliente(cliente.getRunCliente());
+            clienteDTO.setFechaNacimiento(cliente.getFechaNacimiento());
+            clienteDTO.setNombreCompleto(cliente.getNombreCompleto());
+
+            SucursalDTO sucursalDTO = new SucursalDTO();
+            sucursalDTO.setNombreSucursal(sucursal.getNombreSucursal());
+            sucursalDTO.setDireccionSucursal(sucursal.getDireccionSucursal());
+
+            ComprobanteDTO comprobanteDTO = new ComprobanteDTO();
+            comprobanteDTO.setVendedor(vendedorDTO);
+            comprobanteDTO.setCliente(clienteDTO);
+            comprobanteDTO.setSucursal(sucursalDTO);
+            return comprobanteDTO;
+        }).toList();
     }
 
     @Override

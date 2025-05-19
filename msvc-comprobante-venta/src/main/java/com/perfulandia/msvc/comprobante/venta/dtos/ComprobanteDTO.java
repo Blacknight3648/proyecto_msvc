@@ -9,6 +9,9 @@ public class ComprobanteDTO {
 
     private LocalDateTime horaComprobante;
     private Integer total;
+    private VendedorDTO vendedor;
+    private ClienteDTO cliente;
+    private SucursalDTO sucursal;
 
 
 }
