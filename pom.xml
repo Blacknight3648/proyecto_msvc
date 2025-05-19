@@ -18,6 +18,7 @@
         <module>msvc-vendedor</module>
         <module>msvc-carrito</module>
         <module>mscv-resenia</module>
+        <module>mscv-proveedor</module>
 
     </modules>
 
