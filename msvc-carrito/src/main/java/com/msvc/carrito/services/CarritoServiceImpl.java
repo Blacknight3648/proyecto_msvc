@@ -4,6 +4,7 @@ import com.msvc.carrito.ProductoClientRest;
 import com.msvc.carrito.clients.ClienteClientRest;
 import com.msvc.carrito.clients.VendedorClientRest;
 import com.msvc.carrito.dtos.CarritoDTO;
+import com.msvc.carrito.dtos.ClienteDTO;
 import com.msvc.carrito.dtos.VendedorDTO;
 import com.msvc.carrito.exceptions.CarritoException;
 import com.msvc.carrito.model.Cliente;
@@ -43,35 +44,60 @@ public class CarritoServiceImpl implements  CarritoService {
                 throw new CarritoException("El vendedor buscado no existe");
             }
 
+            Cliente cliente = null;
+
+            try{
+                cliente = this.clienteClientRest.findById(carrito.getIdCliente());
+
+
+            }catch (FeignException ex) {
+                throw new CarritoException("El cliente no existe en la base de datos");
+            }
+
             VendedorDTO vendedorDTO = new VendedorDTO();
             vendedorDTO.setRunVendedor(vendedor.getRunVendedor());
             vendedorDTO.setNombreCompleto(vendedor.getNombreCompleto());
 
-            V
+            ClienteDTO clienteDTO = new ClienteDTO();
+            clienteDTO.setRunCliente(cliente.getRunCliente());
+            clienteDTO.setNombreCompleto(cliente.getNombreCompleto());
+
+            CarritoDTO carritoDTO = new CarritoDTO();
+            carritoDTO.setProducto(String.valueOf(carritoDTO));
+            carritoDTO.setCliente(String.valueOf(carritoDTO));
+            carritoDTO.setVendedor(String.valueOf(carritoDTO));
+            return carritoDTO;
 
 
-            Cliente cliente = null;
         }).toList();
     }
 
     @Override
     public Carrito findById(Long id) {
-        return null;
+        return this.carritoRepository.findById(id).orElseThrow(
+                () -> new CarritoException("El carrito con id: " + id + " no se encuentra en la base de datos")
+        );
     }
 
     @Override
     public Carrito save(Carrito carrito) {
-        return null;
+        try {
+            Vendedor vendedor = this.vendedorClientRest.findById(carrito.getIdVendedor());
+            Cliente cliente = this.clienteClientRest.findById(carrito.getIdCliente());
+        }catch (FeignException ex) {
+            throw new CarritoException("Existen problemas con la asocion vendedor cliente");
+        }
+        return this.carritoRepository.save(carrito);
     }
 
     @Override
     public List<Carrito> findByProductoId(Long productoId) {
-        return List.of();
+        return this.carritoRepository.findByIdProducto(productoId);
     }
 
     @Override
     public List<Carrito> findByVendedorId(Long vendedorId) {
-        return List.of();
+        return this.carritoRepository.findByIdVendedor(vendedorId);
     }
 
 }

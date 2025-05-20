@@ -19,6 +19,14 @@ public class Carrito {
     @NotNull(message = "El campo producto no puede estar vacio")
     private String producto;
 
+    @Column(name = "vendedor", nullable = false)
+    @NotNull(message = "El campo vendedor no puede estar vacio")
+    private String vendedor;
+
+    @Column(name = "cliente", nullable = false)
+    @NotNull(message = "El campo producto no puede estar vacio")
+    private String cliente;
+
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
 
