@@ -1,6 +1,7 @@
-package com.perfulandia.msvc.sucursal.dtos;
+package com.msvc.vendedor.exception;
 
-import com.perfulandia.msvc.sucursal.exceptions.SucursalException;
+
+import com.msvc.vendedor.dtos.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     private ErrorDTO createErrorDTO(int status, Date date, Map<String, String> errorMap){
+
         ErrorDTO errorDTO = new ErrorDTO();
 
         errorDTO.setStatus(status);
@@ -24,31 +26,39 @@ public class GlobalExceptionHandler {
         errorDTO.setErrors(errorMap);
 
         return errorDTO;
+
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDTO> handleValidationFields(MethodArgumentNotValidException exception){
-        Map<String, String> errorMap = new HashMap<>();
+
+        Map<String, String> errorMap =  new HashMap<>();
         for (FieldError fieldError : exception.getBindingResult().getFieldErrors()){
-            errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
+
+            errorMap.put(fieldError.getField(),fieldError.getDefaultMessage());
+
         }
 
         return ResponseEntity.status(400)
-                .body(this.createErrorDTO(HttpStatus.BAD_REQUEST.value(), new Date(), errorMap));
+                .body(this.createErrorDTO(HttpStatus.BAD_REQUEST.value(),new Date(),errorMap));
+
     }
 
-    @ExceptionHandler(SucursalException.class)
-    public ResponseEntity<ErrorDTO> handleSucursalException(SucursalException exception){
-        if(exception.getMessage().contains("no se encuentra en la base de datos")){
-            Map<String, String> errorMap = Collections.singletonMap("Sucursal no encontrada", exception.getMessage());
+    @ExceptionHandler(VendedorException.class)
+    public ResponseEntity<ErrorDTO> handleVendedorException(VendedorException exception){
+
+        if (exception.getMessage().contains("no se encuentra en la base de datos")){
+            Map<String, String> errorMap = Collections.singletonMap("Vendedor no encontrada", exception.getMessage());
             return ResponseEntity.status(404)
-                    .body(this.createErrorDTO(HttpStatus.NOT_FOUND.value(), new Date(), errorMap));
-        }else{
-            Map<String, String> errorMap = Collections.singletonMap("Sucursal existente", exception.getMessage());
-            return ResponseEntity.status(409)
                     .body(this.createErrorDTO(HttpStatus.CONFLICT.value(), new Date(), errorMap));
-        }
-    }
+        }else{
 
+            Map<String, String> errorMap = Collections.singletonMap("Vendedor existe", exception.getMessage());
+            return ResponseEntity.status(409)
+                    .body(this.createErrorDTO(HttpStatus.CONTINUE.value(), new Date(), errorMap));
+
+        }
+
+    }
 
 }
