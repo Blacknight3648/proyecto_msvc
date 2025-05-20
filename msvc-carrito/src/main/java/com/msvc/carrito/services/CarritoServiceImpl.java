@@ -8,15 +8,16 @@ import com.msvc.carrito.dtos.ClienteDTO;
 import com.msvc.carrito.dtos.VendedorDTO;
 import com.msvc.carrito.exceptions.CarritoException;
 import com.msvc.carrito.model.Cliente;
-import com.msvc.carrito.model.Producto;
 import com.msvc.carrito.model.Vendedor;
 import com.msvc.carrito.model.entity.Carrito;
 import com.msvc.carrito.repositories.CarritoRepository;
 import feign.FeignException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class CarritoServiceImpl implements  CarritoService {

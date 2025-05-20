@@ -1,6 +1,5 @@
 package com.msvc.carrito.repositories;
 
-import com.msvc.carrito.model.Producto;
 import com.msvc.carrito.model.entity.Carrito;
 import org.springframework.data.jpa.repository.JpaRepository;
 
