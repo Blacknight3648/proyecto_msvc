@@ -95,17 +95,31 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     }
 
     @Override
-    public Comprobante save(Comprobante comprobante) {
+public Comprobante save(Comprobante comprobante) {
 
-        try{
-            Vendedor vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
-            Cliente cliente = this.clienteClientRest.findById(comprobante.getIdCliente());
-            Sucursal sucursal = this.sucursalClientRest.findById(comprobante.getIdSucursal());
-        }catch (FeignException ex){
-            throw new ComprobanteException("Existen problemas con la asociación vendedor cliente comprobante");
-        }
-        return this.comprobanteRepository.save(comprobante);
+    try {
+        Vendedor vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
+        if (vendedor == null) throw new ComprobanteException("El vendedor no existe");
+
+        Cliente cliente = this.clienteClientRest.findById(comprobante.getIdCliente());
+        if (cliente == null) throw new ComprobanteException("El cliente no existe");
+
+        Sucursal sucursal = this.sucursalClientRest.findById(comprobante.getIdSucursal());
+        if (sucursal == null) throw new ComprobanteException("La sucursal no existe");
+
+    } catch (FeignException ex) {
+        throw new ComprobanteException("Error al validar vendedor, cliente o sucursal");
     }
+
+    return this.comprobanteRepository.save(comprobante);
+}
+
+//Sol:
+
+// Se agregan validaciones explícitas para verificar la existencia del vendedor, cliente y sucursal
+// antes de guardar el comprobante. Esto asegura integridad referencial entre microservicios y permite
+// manejar errores específicos en caso de que alguno no exista.
+
 
     @Override
     public List<Comprobante> findByClienteId(Long clienteId) {

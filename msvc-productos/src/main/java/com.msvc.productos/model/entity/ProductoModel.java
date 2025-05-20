@@ -38,8 +38,4 @@ public class ProductoModel {
     private Long idComprobante;
 
 
-
-
-
-
 }
