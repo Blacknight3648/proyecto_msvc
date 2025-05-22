@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "msvc-carrito", url = "localhost:8026/api/v1/carritos")
+@FeignClient(name = "msvc-carrito", url = "http://localhost:8026/api/v1/carritos")
 public interface CarritoClientRest {
 
     @GetMapping
