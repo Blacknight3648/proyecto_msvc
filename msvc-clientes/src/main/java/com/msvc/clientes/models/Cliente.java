@@ -36,15 +36,8 @@ public class Cliente {
     @NotNull(message = "El campo estado de cuenta no puede ser nulo")
     private boolean estadoCuenta;
 
-
-
-
-
-
-
-
-
-
+    @Column(name = "suspendido", nullable = false)
+    private Boolean suspendido = false;
 
 
 }

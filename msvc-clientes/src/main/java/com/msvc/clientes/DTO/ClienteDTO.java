@@ -8,10 +8,10 @@ import java.time.LocalDate;
 @AllArgsConstructor @NoArgsConstructor
 public class ClienteDTO {
 
-
     private String runCliente;
     private LocalDate fechaNacimiento;
     private String nombreCompleto;
     private boolean estadoCuenta;
+    private Boolean suspendido; //Se agrega la suspensión de usuario
 
 }

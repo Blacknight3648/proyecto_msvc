@@ -37,17 +37,15 @@ public class ClienteServiceimpl implements ClienteService{
     }
 
     @Override
-    public Cliente suspend(ClienteDTO clienteDTO) {
+    public Cliente suspend(Long id, ClienteDTO clienteDTO) {
 
-        Cliente cliente =  new Cliente();
-
-        boolean estadoCuenta = clienteDTO.isEstadoCuenta();
-
-        return this.clienteRepository.findById(cliente.getIdCliente()).orElseThrow(
-
-                ()->new ClienteException("El cliente con id "+ cliente.getIdCliente() + " no se encuentra la base de datos")
-
+        Cliente cliente = this.clienteRepository.findById(id).orElseThrow(
+                () -> new ClienteException("El cliente con id " + id + " no se encuentra en la base de datos")
         );
+        
+        cliente.setSuspendido(clienteDTO.getSuspendido());
+
+        return clienteRepository.save(cliente);
     }
 
 

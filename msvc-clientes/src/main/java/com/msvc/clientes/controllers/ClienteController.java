@@ -20,38 +20,30 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public ResponseEntity<List<Cliente>>findAll(){
+    public ResponseEntity<List<Cliente>> findAll() {
         List<Cliente> clientes = this.clienteService.findAll();
         return ResponseEntity.status(200).body(clientes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> findById(@PathVariable Long id){
-
+    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
         Cliente cliente = this.clienteService.findById(id);
         return ResponseEntity.status(200).body(cliente);
-
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente cliente){
-
-        return ResponseEntity
-                .status(201)
-                .body(this.clienteService.save(cliente));
-
+    public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente cliente) {
+        Cliente nuevoCliente = this.clienteService.save(cliente);
+        return ResponseEntity.status(201).body(nuevoCliente);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Cliente> suspend(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO){
-
-        return ResponseEntity
-                .status(200)
-                .body(this.clienteService.suspend(clienteDTO));
-
+    @PutMapping("/{id}/suspender")
+    public ResponseEntity<Cliente> suspend(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO) {
+        Cliente clienteSuspendido = this.clienteService.suspend(id, clienteDTO);
+        return ResponseEntity.status(200).body(clienteSuspendido);
     }
-
-
-
 
 }
+
+
+
