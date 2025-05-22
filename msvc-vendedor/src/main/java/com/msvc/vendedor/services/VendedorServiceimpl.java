@@ -4,9 +4,11 @@ import com.msvc.vendedor.exception.VendedorException;
 import com.msvc.vendedor.models.Vendedor;
 import com.msvc.vendedor.repositories.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class VendedorServiceimpl implements VendedorService{
 
     @Autowired

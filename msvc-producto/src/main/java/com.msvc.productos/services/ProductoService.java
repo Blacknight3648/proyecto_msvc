@@ -9,7 +9,6 @@ public interface ProductoService {
     List<ProductoModel> findAll();
     ProductoModel findById(Long id);
     ProductoModel save(ProductoModel productoModel);
-    List<ProductoModel> findByClienteId(Long clienteId);
-    List<ProductoModel> findByComprobanteId (Long comprobanteId);
+
 
 }

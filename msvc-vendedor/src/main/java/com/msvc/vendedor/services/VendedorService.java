@@ -4,6 +4,7 @@ import com.msvc.vendedor.models.Vendedor;
 
 import java.util.List;
 
+
 public interface VendedorService {
 
     List<Vendedor> findAll();

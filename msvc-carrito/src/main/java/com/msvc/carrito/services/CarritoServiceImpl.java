@@ -14,9 +14,11 @@ import com.msvc.carrito.model.entity.Carrito;
 import com.msvc.carrito.repositories.CarritoRespository;
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CarritoServiceImpl implements  CarritoService {
 
     @Autowired
