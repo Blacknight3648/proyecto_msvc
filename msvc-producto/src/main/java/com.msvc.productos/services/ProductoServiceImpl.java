@@ -38,15 +38,7 @@ public class ProductoServiceImpl implements ProductoService {
         return null;
     }
 
-    @Override
-    public List<ProductoModel> findByClienteId(Long clienteId) {
-        return List.of();
-    }
 
-    @Override
-    public List<ProductoModel> findByComprobanteId(Long comprobanteId) {
-        return List.of();
-    }
 
 
 

@@ -1,5 +1,6 @@
 package com.msvc.clientes.controllers;
 
+import com.msvc.clientes.DTO.ClienteDTO;
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.services.ClienteService;
 import jakarta.validation.Valid;
@@ -36,8 +37,17 @@ public class ClienteController {
     public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente cliente){
 
         return ResponseEntity
-                .status(200)
+                .status(201)
                 .body(this.clienteService.save(cliente));
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> suspend(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO){
+
+        return ResponseEntity
+                .status(200)
+                .body(this.clienteService.suspend(clienteDTO));
 
     }
 

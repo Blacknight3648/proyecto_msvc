@@ -26,19 +26,13 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.OK).body(this.productoService.findAll());
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<ProductoModel> findById(@PathVariable Long id) {
         return ResponseEntity
                 .status(200)
                 .body(this.productoService.findById(id));
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductoModel> save (@PathVariable Long id) {
-        ProductoModel producto = this.productoService.findById(id);
-        return ResponseEntity
-                .status(200)
-                .body(producto);
-    }
+
     @PostMapping
     public ResponseEntity<ProductoModel> save(@Valid @RequestBody ProductoModel producto) {
         ProductoModel saved = this.productoService.save(producto);
@@ -46,17 +40,5 @@ public class ProductoController {
                 .status(201)
                 .body(saved);
     }
-    @GetMapping("/clientes/{id}")
-    public ResponseEntity<List<ProductoModel>> findByIdProducto(@PathVariable Long id) {
-        return ResponseEntity
-                .status(200)
-                .body(this.productoService.findByClienteId(id));
-    }
 
-    @GetMapping("/comprobante/{id}")
-    public ResponseEntity<List<ProductoModel>> findByIdComprobante(@PathVariable Long id) {
-        return ResponseEntity
-                .status(200)
-                .body(this.productoService.findByComprobanteId(id));
-    }
 }

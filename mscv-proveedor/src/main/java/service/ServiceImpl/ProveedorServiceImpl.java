@@ -15,24 +15,41 @@ public class ProveedorServiceImpl implements ProveedorService {
     @Autowired
     private ProveedorRepository proveedorRepository;
 
+    @Autowired
+    private ProveedorRepository proveedorRepository;
 
     @Override
     public List<Proveedor> findAll() {
-        return List.of();
+        return this.proveedorRepository.findAll();
     }
 
     @Override
-    public Proveedor findById(Long id) {
-        return null;
+    public Proveedor findById(Long id){
+
+        return this.proveedorRepository.findById(id).orElseThrow(
+                ()-> new ClienteException("El cliente con id "+ id + " no se encuentra en la base de datos")
+
+        );
     }
 
     @Override
-    public Proveedor save(Proveedor proveedor) {
-        return null;
+    public Cliente save(Cliente cliente) {
+        cliente.setEstadoCuenta(true);
+        return clienteRepository.save(cliente);
+
     }
 
     @Override
-    public Proveedor suspend(Proveedor proveedor) {
-        return null;
+    public Cliente suspend(ClienteDTO clienteDTO) {
+
+        Cliente cliente =  new Cliente();
+
+        boolean estadoCuenta = clienteDTO.isEstadoCuenta();
+
+        return this.clienteRepository.findById(cliente.getIdCliente()).orElseThrow(
+
+                ()->new ClienteException("El cliente con id "+ cliente.getIdCliente() + " no se encuentra la base de datos")
+
+        );
     }
 }
