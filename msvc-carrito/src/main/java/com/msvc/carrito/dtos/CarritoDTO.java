@@ -2,18 +2,10 @@ package com.msvc.carrito.dtos;
 
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class CarritoDTO {
-
-
-    private String producto;
-    private Integer cantidad;
-    private Integer preciototal;
-    private String cupon;
-    private ClienteDTO cliente;
     private VendedorDTO vendedor;
+    private ClienteDTO cliente;
+    private ProductoDTO producto;
 }
