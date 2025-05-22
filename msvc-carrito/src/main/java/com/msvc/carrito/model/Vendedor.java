@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @NoArgsConstructor @AllArgsConstructor
 public class Vendedor {
 
+    private Long IdVendedor;
     private String runVendedor;
     private LocalDate fechaNacimiento;
     private String nombreCompleto;

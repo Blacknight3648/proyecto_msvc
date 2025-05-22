@@ -1,35 +1,33 @@
 package com.msvc.carrito.controller;
 
-import com.msvc.carrito.dtos.CarritoDTO;
 import com.msvc.carrito.model.entity.Carrito;
 import com.msvc.carrito.services.CarritoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/carritos")
-@Validated
 public class CarritoController {
 
     @Autowired
     private CarritoService carritoService;
 
     @GetMapping
-    private ResponseEntity<List<CarritoDTO>> findAll(){
+    public ResponseEntity<List<com.msvc.carrito.dtos.CarritoDTO>> findAll() {
         return ResponseEntity
                 .status(200)
                 .body(this.carritoService.findAll());
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Carrito> findById(@PathVariable Long id) {
-        return  ResponseEntity
-                .status(HttpStatus.OK)
+        return ResponseEntity
+                .status(200)
                 .body(this.carritoService.findById(id));
     }
     @PostMapping
@@ -38,22 +36,14 @@ public class CarritoController {
                 .status(HttpStatus.CREATED)
                 .body(this.carritoService.save(carrito));
     }
-
-    //MOSTRAR CARRITOS FILTRADO POR PRODUCTOS
-    @GetMapping("/producto/{id}")
-    public ResponseEntity<List<Carrito>> findByIdProducto(@PathVariable Long id) {
+    @GetMapping("/cliente/{id}")
+    public ResponseEntity<List<Carrito>> findByIdCliente(@PathVariable Long id) {
         return ResponseEntity
                 .status(200)
-                .body(this.carritoService.findByProductoId(id));
+                .body(this.carritoService.findByClienteId(id));
     }
     @GetMapping("/vendedor/{id}")
-    public ResponseEntity<List<Carrito>> findByIdVendedor(@PathVariable Long id) {
-        return  ResponseEntity
-                .status(200)
-                .body(this.carritoService.findByVendedorId(id));
+    public ResponseEntity<List<Carrito>> findByIdMedico(@PathVariable Long id) {
+        return ResponseEntity.status(200).body(this.carritoService.findByVendedorId(id));
     }
-
-
-
-
 }

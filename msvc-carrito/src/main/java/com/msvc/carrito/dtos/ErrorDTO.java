@@ -2,6 +2,7 @@ package com.msvc.carrito.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 import java.util.Map;
@@ -14,9 +15,8 @@ public class ErrorDTO {
 
     private Map<String, String> errors;
 
-
     @Override
-    public String toString() {
+    public String toString(){
         return "{" +
                 "status=" + status +
                 ", date=" + date +
