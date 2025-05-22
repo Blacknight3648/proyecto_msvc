@@ -1,10 +1,10 @@
-package com.msvc.producto;
+package com.msvc.productos;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsvcProductoApplicationTests {
+class MsvcProductosApplicationTests {
 
 	@Test
 	void contextLoads() {
