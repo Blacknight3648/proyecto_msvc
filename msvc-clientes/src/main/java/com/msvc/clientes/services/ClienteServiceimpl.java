@@ -1,5 +1,6 @@
 package com.msvc.clientes.services;
 
+import com.msvc.clientes.DTO.ClienteDTO;
 import com.msvc.clientes.Exceptions.ClienteException;
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.repository.ClienteRepository;
@@ -36,9 +37,12 @@ public class ClienteServiceimpl implements ClienteService{
     }
 
     @Override
-    public Cliente suspend(Cliente cliente) {
+    public Cliente suspend(ClienteDTO clienteDTO) {
 
-        cliente.setEstadoCuenta(false);
+        Cliente cliente =  new Cliente();
+
+        boolean estadoCuenta = clienteDTO.isEstadoCuenta();
+
         return this.clienteRepository.findById(cliente.getIdCliente()).orElseThrow(
 
                 ()->new ClienteException("El cliente con id "+ cliente.getIdCliente() + " no se encuentra la base de datos")
