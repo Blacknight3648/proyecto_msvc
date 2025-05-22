@@ -8,11 +8,11 @@
 		<version>3.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.socrigtech.msvc.perfulandia</groupId>
-	<artifactId>msvc-productos</artifactId>
+	<groupId>com.msvc.producto</groupId>
+	<artifactId>msvc-producto</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>msvc-productos</name>
-	<description>productos</description>
+	<name>msvc-producto</name>
+	<description>Microservicio de Producto </description>
 	<url/>
 	<licenses>
 		<license/>
@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.38</version>
+			<version>1.38.18</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
