@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class Producto {
 
+    private Long IdProducto;
     private String nombreProducto;
     private Integer precio;
     private String descProducto;

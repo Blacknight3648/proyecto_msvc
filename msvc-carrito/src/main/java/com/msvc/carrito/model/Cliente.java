@@ -9,8 +9,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Cliente {
 
+    private Long IdCliente;
     private String runCliente;
     private LocalDate fechaNacimiento;
     private String nombreCompleto;
     private boolean estadoCuenta;
+    private Long idProducto;
 }

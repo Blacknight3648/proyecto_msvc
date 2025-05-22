@@ -5,10 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CarritoRepository extends JpaRepository<Carrito, Long> {
+public interface CarritoRespository extends JpaRepository<Carrito, Long> {
 
-    List<Carrito> findByIdProducto(Long idProducto);
+    List<Carrito> findByIdCliente(Long idCliente);
 
     List<Carrito> findByIdVendedor(Long idVendedor);
-
 }

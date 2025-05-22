@@ -10,6 +10,6 @@ public interface CarritoService {
     List<CarritoDTO> findAll();
     Carrito findById(Long id);
     Carrito save(Carrito carrito);
-    List<Carrito> findByProductoId(Long productoId);
+    List<Carrito> findByClienteId(Long clienteId);
     List<Carrito> findByVendedorId(Long vendedorId);
 }
