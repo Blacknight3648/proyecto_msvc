@@ -1,12 +1,10 @@
 package com.msvc.services;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.msvc.exceptions.ProductoException;
 import com.msvc.model.entity.ProductoModel;
 import com.msvc.repository.ProductoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoModel findById(Long id) {
         return this.productoRepository.findById(id).orElseThrow(
-                () -> new ProductoException("El producto con el id: " + id+"no se encuentra en la base de datos")
+            () -> new ProductoException("El producto con el id: " + id + " no se encuentra en la base de datos")
         );
     }
 
@@ -35,6 +33,5 @@ public class ProductoServiceImpl implements ProductoService {
                     + " ya existe en la base de datos");
         }
         return this.productoRepository.save(productoModel);
-
     }
 }

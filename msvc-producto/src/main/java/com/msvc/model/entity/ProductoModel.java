@@ -8,7 +8,8 @@ import lombok.*;
 @Entity
 @Table(name = "productos")
 @Getter @Setter @ToString
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductoModel {
 
     @Id
@@ -17,15 +18,15 @@ public class ProductoModel {
     private Long idProducto;
 
     @Column(nullable = false)
-    @NotBlank(message = "El campo nombre no puede estar vacio.")
+    @NotBlank(message = "El campo nombre no puede estar vacío.")
     private String nombre;
 
     @Column(nullable = false)
-    @NotNull(message = "El campo precio no puede estar vacio.")
+    @NotNull(message = "El campo precio no puede estar vacío.")
     private Integer precio;
 
-    @Column(nullable = false)
-    @NotBlank(message = "El campo descripcion no puede estar vacio.")
+    @Column(name = "desc_producto", nullable = false)
+    @NotBlank(message = "El campo descripción no puede estar vacío.")
     private String descProducto;
 
 }

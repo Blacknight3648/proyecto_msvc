@@ -10,5 +10,5 @@ import com.msvc.model.ComprobanteVenta;
 public interface ComprobanteClientRest {
 
     @GetMapping("/{id}")
-    ComprobanteVenta findById(@PathVariable Long id);
+    ComprobanteVenta findById(@PathVariable("id") Long id);
 }

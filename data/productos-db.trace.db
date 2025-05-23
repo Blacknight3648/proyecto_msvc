@@ -1,0 +1,3 @@
+2025-05-23 16:25:02.924552-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PRODUCTOS" not found (this database is empty); SQL statement:
+select pm1_0.id_producto,pm1_0.desc_producto,pm1_0.nombre,pm1_0.precio from productos pm1_0 [42104-232]

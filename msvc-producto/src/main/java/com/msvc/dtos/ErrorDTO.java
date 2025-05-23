@@ -1,6 +1,5 @@
 package com.msvc.dtos;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +15,8 @@ public class ErrorDTO {
     private Map<String, String> errors;
 
     @Override
-    public String toString(){
-        return  "{" +
+    public String toString() {
+        return "ErrorDTO{" +
                 "status=" + status +
                 ", date=" + date +
                 ", errors=" + errors +
