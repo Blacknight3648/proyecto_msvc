@@ -45,7 +45,9 @@ public class ClienteServiceimpl implements ClienteService{
         
         cliente.setEstadoCuenta(clienteDTO.isEstadoCuenta());
 
-        return clienteRepository.save(cliente);
+        Cliente update = clienteRepository.save(cliente);
+
+        return update;
     }
 
 

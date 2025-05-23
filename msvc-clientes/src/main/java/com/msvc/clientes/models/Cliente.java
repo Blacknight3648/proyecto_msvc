@@ -27,7 +27,6 @@ public class Cliente {
     @NotNull(message = "El campo fecha de nacimiento no puede estar vacio")
     private LocalDate fechaNacimiento;
 
-
     @Column(name = "nombre_completo",nullable = false)
     @NotBlank(message = "El campo nombre completo de cliente no puede estar vacio")
     private String nombreCompleto;

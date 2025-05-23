@@ -37,10 +37,10 @@ public class ClienteController {
         return ResponseEntity.status(201).body(nuevoCliente);
     }
 
-    @PutMapping("/{id}/suspender")
+    @PutMapping("/{id}")
     public ResponseEntity<Cliente> suspend(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO) {
-        Cliente clienteSuspendido = this.clienteService.suspend(id, clienteDTO);
-        return ResponseEntity.status(200).body(clienteSuspendido);
+        Cliente clienteSuspendido = clienteService.suspend(id, clienteDTO);
+        return ResponseEntity.status(202).body(clienteSuspendido);
     }
 
 }
