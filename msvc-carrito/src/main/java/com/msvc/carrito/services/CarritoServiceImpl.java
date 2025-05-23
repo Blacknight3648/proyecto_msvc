@@ -90,11 +90,9 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public Carrito save(Carrito carrito) {
         try {
-            // Validaciones mínimas para asegurar que existan los datos antes de guardar
-            Vendedor vendedor = this.vendedorClientRest.findById(carrito.getIdVendedor());
+
             Cliente cliente = this.clienteClientRest.findById(carrito.getIdCliente());
 
-            // Validar producto asociado al cliente
             this.productoClientRest.findById(cliente.getIdProducto());
 
         } catch (FeignException ex) {
@@ -112,4 +110,5 @@ public class CarritoServiceImpl implements CarritoService {
     public List<Carrito> findByClienteId(Long clienteId) {
         return this.carritoRespository.findByIdCliente(clienteId);
     }
+
 }
