@@ -19,7 +19,7 @@ public class ProductoModel {
 
     @Column(nullable = false)
     @NotBlank(message = "El campo nombre no puede estar vacio.")
-    private String nombreProducto;
+    private String nombre;
 
     @Column(nullable = false)
     @NotNull(message = "El campo precio no puede estar vacio.")

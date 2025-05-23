@@ -32,8 +32,8 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoModel save(ProductoModel productoModel) {
-        if(this.productoRepository.findBynombre(productoModel.getNombreProducto()).isPresent()) {
-            throw new ProductoException("El producto con el nombre: " + productoModel.getNombreProducto()
+        if(this.productoRepository.findByNombre(productoModel.getNombre()).isPresent()) {
+            throw new ProductoException("El producto con el nombre: " + productoModel.getNombre()
                     + " ya existe en la base de datos");
         }
         return this.productoRepository.save(productoModel);
