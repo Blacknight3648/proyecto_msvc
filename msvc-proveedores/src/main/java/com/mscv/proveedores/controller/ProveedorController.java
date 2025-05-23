@@ -3,7 +3,6 @@ package com.mscv.proveedores.controller;
 import com.mscv.proveedores.DTO.ProveedorDTO;
 import com.mscv.proveedores.model.Proveedores;
 
-import Service.ProveedorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import java.util.List;
 public class ProveedorController {
 
     @Autowired
-    private ProveedorService proveedorService;
+    private com.mscv.proveedores.service.ProveedorService proveedorService;
 
     @GetMapping
     public ResponseEntity<List<Proveedores>> findAll() {

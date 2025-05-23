@@ -1,4 +1,4 @@
-package Service;
+package com.mscv.proveedores.service;
 
 import com.mscv.proveedores.DTO.ProveedorDTO;
 import com.mscv.proveedores.Exceptions.ProveedorException;

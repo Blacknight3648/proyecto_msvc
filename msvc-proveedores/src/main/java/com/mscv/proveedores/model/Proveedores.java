@@ -1,6 +1,7 @@
 package com.mscv.proveedores.model;
 
-import Service.ProveedorServiceImpl;
+import com.mscv.proveedores.service.ProveedorServiceImpl;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

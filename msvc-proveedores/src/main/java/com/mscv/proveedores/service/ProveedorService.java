@@ -1,4 +1,4 @@
-package Service;
+package com.mscv.proveedores.service;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ public interface ProveedorService {
     ProveedorDTO save(ProveedorDTO proveedordDto);
      Proveedores suspend(Long id, ProveedorDTO proveedorDTO); // ejemplo si quieres suspender o eliminar lógicamente
      Proveedores save(Proveedores proveedor);
+     
 }
-
