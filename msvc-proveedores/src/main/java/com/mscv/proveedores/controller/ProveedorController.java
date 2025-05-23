@@ -1,2 +1,4 @@
-package com.mscv.proveedores.controller;public class ProveedorController {
+package com.mscv.proveedores.controller;
+
+public class ProveedorController {
 }

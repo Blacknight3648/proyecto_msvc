@@ -1,8 +1,8 @@
 package com.mscv.proveedores.Exceptions;
 
-public class ProveedorExceptions extends RuntimeException {
+public class ProveedorException extends RuntimeException {
 
-    public ProveedorExceptions(String message) {
+    public ProveedorException(String message) {
         super(message);
 
     }
