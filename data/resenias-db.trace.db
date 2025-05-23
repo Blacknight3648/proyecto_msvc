@@ -1,0 +1,6 @@
+2025-05-23 18:30:10.540203-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "RESENIA" not found (this database is empty); SQL statement:
+select r1_0.id_resenia,r1_0.producto_id,r1_0.resenia from resenia r1_0 [42104-232]
+2025-05-23 18:30:19.996711-04:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "RESENIA" not found (this database is empty); SQL statement:
+select r1_0.id_resenia,r1_0.producto_id,r1_0.resenia from resenia r1_0 [42104-232]
