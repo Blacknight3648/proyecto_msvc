@@ -12,6 +12,6 @@ public class ClienteDTO {
     private LocalDate fechaNacimiento;
     private String nombreCompleto;
     private boolean estadoCuenta;
-    private Boolean suspendido; //Se agrega la suspensión de usuario
+
 
 }

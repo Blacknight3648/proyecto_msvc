@@ -47,7 +47,7 @@ public class ReseniaServiceImpl implements ReseniaService {
     @Override
     public Resenia save(Resenia resenia) {
         // Puedes validar si el producto asociado existe antes de guardar
-        ProductoDTO producto = productoClient.getProductoById(resenia.getProductoId());
+        ProductoDTO producto = productoClient.getProductoById(resenia.getIdProducto());
         if (producto == null) {
             throw new ReseniaExceptions("No se puede guardar la reseña: producto no válido.");
         }

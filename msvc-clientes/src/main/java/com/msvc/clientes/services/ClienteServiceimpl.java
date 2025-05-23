@@ -43,7 +43,7 @@ public class ClienteServiceimpl implements ClienteService{
                 () -> new ClienteException("El cliente con id " + id + " no se encuentra en la base de datos")
         );
         
-        cliente.setSuspendido(clienteDTO.getSuspendido());
+        cliente.setEstadoCuenta(clienteDTO.isEstadoCuenta());
 
         return clienteRepository.save(cliente);
     }

@@ -26,7 +26,7 @@ public class Resenia {
     private Long id;
 
     @Column(name = "producto_id", nullable = false)
-    private Long productoId;
+    private Long idProducto;
 
     @Column(name = "resenia", nullable = false)
     @NotBlank(message = "El campo de reseña, no puede estar vacío")
