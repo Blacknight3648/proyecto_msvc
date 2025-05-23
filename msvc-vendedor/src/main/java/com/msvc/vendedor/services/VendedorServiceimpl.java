@@ -1,5 +1,6 @@
 package com.msvc.vendedor.services;
 
+import com.msvc.vendedor.dtos.VendedorDTO;
 import com.msvc.vendedor.exception.VendedorException;
 import com.msvc.vendedor.models.Vendedor;
 import com.msvc.vendedor.repositories.VendedorRepository;
@@ -34,13 +35,17 @@ public class VendedorServiceimpl implements VendedorService{
     }
 
     @Override
-    public Vendedor suspend(Vendedor vendedor) {
+    public Vendedor suspend(Long id, VendedorDTO vendedorDTO) {
 
-        vendedor.setEstadoCuenta(false);
-        return this.vendedorRepository.findById(vendedor.getIdVendedor()).orElseThrow(
-
-                ()->new VendedorException("El vendedor con id "+ vendedor.getIdVendedor()+" no se encuentra en la base de datos")
-
+        Vendedor vendedor = this.vendedorRepository.findById(id).orElseThrow(
+                () -> new VendedorException("El vendedor con id "+ id + " no se encuentra en la base de datos")
         );
+
+        vendedor.setEstadoCuenta(vendedorDTO.isEstadoCuenta());
+
+        Vendedor update = vendedorRepository.save(vendedor);
+
+        return update;
+
     }
 }

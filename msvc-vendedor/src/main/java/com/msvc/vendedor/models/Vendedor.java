@@ -19,7 +19,7 @@ public class Vendedor {
     @Column(name = "id_vendedor")
     private Long idVendedor;
 
-    @Column(name = "run_vendedor")
+    @Column(name = "run_vendedor", nullable = false)
     @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run cliente debe ser 11.111.111-X")
     private String runVendedor;
 

@@ -1,5 +1,6 @@
 package com.msvc.vendedor.controllers;
 
+import com.msvc.vendedor.dtos.VendedorDTO;
 import com.msvc.vendedor.models.Vendedor;
 import com.msvc.vendedor.services.VendedorService;
 import jakarta.validation.Valid;
@@ -35,12 +36,17 @@ public class VendedorController {
     @PostMapping
     public ResponseEntity<Vendedor> create(@Valid @RequestBody Vendedor vendedor){
 
-        return ResponseEntity
-                .status(200)
-                .body(this.vendedorService.save(vendedor));
+        Vendedor nuevVendedor = this.vendedorService.save(vendedor);
+        return ResponseEntity.status(201).body(nuevVendedor);
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Vendedor> suspend(@PathVariable Long id, @Valid @RequestBody VendedorDTO vendedorDTO) {
 
+        Vendedor vendedorSuspendido = vendedorService.suspend(id, vendedorDTO);
+        return ResponseEntity.status(202).body(vendedorSuspendido);
+
+    }
 
 }
