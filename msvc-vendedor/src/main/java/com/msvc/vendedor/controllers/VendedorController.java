@@ -34,13 +34,19 @@ public class VendedorController {
     }
 
     @PostMapping
-    public ResponseEntity<Vendedor> create(@PathVariable Long id, @Valid @RequestBody VendedorDTO vendedorDTO){
+    public ResponseEntity<Vendedor> create(@Valid @RequestBody Vendedor vendedor){
+
+        Vendedor nuevVendedor = this.vendedorService.save(vendedor);
+        return ResponseEntity.status(201).body(nuevVendedor);
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Vendedor> suspend(@PathVariable Long id, @Valid @RequestBody VendedorDTO vendedorDTO) {
 
         Vendedor vendedorSuspendido = vendedorService.suspend(id, vendedorDTO);
         return ResponseEntity.status(202).body(vendedorSuspendido);
 
     }
-
-
 
 }
