@@ -12,8 +12,8 @@ public class ProveedorDTO {
 
     private Long idProveedor;
 
-    @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run cliente debe ser 11.111.111-X")
-    private String runCliente;
+    @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run proveedor debe ser 11.111.111-X")
+    private String runProveedor;
 
     @NotNull(message = "La razón Social no puede estar vacía")
     private String razonSocial;

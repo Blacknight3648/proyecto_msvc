@@ -25,8 +25,8 @@ public class Proveedores {
     private Long idProveedor;
 
     @Column(name = "run_proveedor", nullable = false, unique = true)
-    @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run cliente debe ser 11.111.111-X")
-    private String runCliente;
+    @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run Proveedor debe ser 11.111.111-X")
+    private String runProveedor;
 
     @Column(name = "razon_social", nullable = false)
     @NotNull(message = "La razón Social no puede estar vacía")

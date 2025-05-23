@@ -10,7 +10,7 @@ public interface ProveedorService {
     List<Proveedores> findAll();
     Proveedores findById(Long id);
     ProveedorDTO save(ProveedorDTO proveedordDto);
-     Proveedores suspend(Long id, ProveedorDTO proveedorDTO); // ejemplo si quieres suspender o eliminar lógicamente
-     Proveedores save(Proveedores proveedor);
+    Proveedores suspend(Long id, ProveedorDTO proveedorDTO); // ejemplo si quieres suspender o eliminar lógicamente
+    Proveedores save(Proveedores proveedor);
      
 }
