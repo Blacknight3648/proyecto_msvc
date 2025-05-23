@@ -3,13 +3,13 @@ package com.msvc.productos.controller;
 import com.msvc.productos.dtos.ProductoDTO;
 import jakarta.validation.Valid;
 import com.msvc.productos.model.entity.ProductoModel;
+import com.msvc.productos.services.ProductoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import com.msvc.productos.services.ProductoService;
 
 import java.util.List;
 
@@ -22,23 +22,15 @@ public class ProductoController {
     private ProductoService productoService;
 
     @GetMapping
-    public ResponseEntity<List<ProductoModel>> findAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(this.productoService.findAll());
+    public ResponseEntity<List<ProductoModel>> findAll() {
+    return ResponseEntity.status(HttpStatus.OK).body(productoService.findAll());
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<ProductoModel> findById(@PathVariable Long id) {
-        return ResponseEntity
-                .status(200)
-                .body(this.productoService.findById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(productoService.findById(id));
     }
-
     @PostMapping
     public ResponseEntity<ProductoModel> save(@Valid @RequestBody ProductoModel producto) {
-        ProductoModel saved = this.productoService.save(producto);
-        return ResponseEntity
-                .status(201)
-                .body(saved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto));
     }
-
 }

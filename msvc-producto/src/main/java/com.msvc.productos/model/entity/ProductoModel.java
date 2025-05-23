@@ -29,13 +29,4 @@ public class ProductoModel {
     @NotBlank(message = "El campo descripcion no puede estar vacio.")
     private String descProducto;
 
-    @Column(name = "id_carrito", nullable = false)
-    @NotNull(message = "El campo id_carrito no puede estar vacio")
-    private Long idCarrito;
-
-    @Column(name = "id_comprobante", nullable = false)
-    @NotNull(message = "El campo id_comprobante no puede estar vacio")
-    private Long idComprobante;
-
-
 }
