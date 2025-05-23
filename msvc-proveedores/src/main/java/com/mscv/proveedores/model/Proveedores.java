@@ -1,5 +1,6 @@
 package com.mscv.proveedores.model;
 
+import Service.ProveedorServiceImpl;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -11,7 +12,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Proveedor {
+public class Proveedores {
+
+    public Proveedores save(ProveedorServiceImpl proveedorServiceImpl) {
+        return ((ProveedorServiceImpl) proveedorServiceImpl.repository).save(this);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
