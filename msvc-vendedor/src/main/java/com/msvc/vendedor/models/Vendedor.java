@@ -1,5 +1,6 @@
 package com.msvc.vendedor.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,10 +22,12 @@ public class Vendedor {
 
     @Column(name = "run_vendedor", nullable = false)
     @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run cliente debe ser 11.111.111-X")
+    @NotNull(message = "El campo run no puede estar vacio")
     private String runVendedor;
 
     @Column(name = "fecha_nacimiento", nullable = false)
-    @NotNull(message = "El campo fecha de nacimiento no puede estar vacio")
+    @NotNull(message = "El campo fecha de nacimiento no puede estar vacio con formato YYYY-MM-DD")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 
     @Column(name = "nombre_completo",nullable = false)
