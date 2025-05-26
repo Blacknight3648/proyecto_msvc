@@ -44,6 +44,8 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     public List<ComprobanteDTO> findAll() {
         return this.comprobanteRepository.findAll().stream().map(comprobante ->{
 
+
+
             Vendedor vendedor = null;
             try{
                 vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
@@ -83,6 +85,8 @@ public class ComprobanteServiceImpl implements ComprobanteService {
             comprobanteDTO.setVendedor(vendedorDTO);
             comprobanteDTO.setCliente(clienteDTO);
             comprobanteDTO.setSucursal(sucursalDTO);
+            comprobanteDTO.setTotal(comprobante.getTotal());
+            comprobanteDTO.setHoraComprobante(comprobante.getHoraComprobante());
             return comprobanteDTO;
         }).toList();
     }
