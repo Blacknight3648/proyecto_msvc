@@ -1,5 +1,6 @@
 package com.perfulandia.msvc.comprobante.venta.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -18,7 +19,8 @@ public class Comprobante {
     private Long idComprobante;
 
     @Column(name = "hora_comprobante", nullable = false)
-    @NotNull(message = "El campo hora comprobante no puede estar vacío")
+    @NotNull(message = "El campo hora comprobante no puede estar vacío, con formato YYYY-MM-DD")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime horaComprobante;
 
     @Column(nullable = false)
