@@ -19,8 +19,8 @@ public class Comprobante {
     private Long idComprobante;
 
     @Column(name = "hora_comprobante", nullable = false)
-    @NotNull(message = "El campo hora comprobante no puede estar vacío, con formato YYYY-MM-DD")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @NotNull(message = "El campo hora comprobante no puede estar vacío, con formato 'YYYY-MM-DD HH:MM:SS' ")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime horaComprobante;
 
     @Column(nullable = false)

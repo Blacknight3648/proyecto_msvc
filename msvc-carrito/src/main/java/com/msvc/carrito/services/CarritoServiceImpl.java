@@ -50,7 +50,7 @@ public class CarritoServiceImpl implements CarritoService {
             Producto producto;
             try {
                 cliente = this.clienteClientRest.findById(carrito.getIdCliente());
-                producto = this.productoClientRest.findById(cliente.getIdProducto());
+                producto = this.productoClientRest.findById(carrito.getIdProducto());
             } catch (FeignException ex) {
                 throw new CarritoException("El cliente o el producto no existe en la base de datos");
             }
@@ -59,11 +59,13 @@ public class CarritoServiceImpl implements CarritoService {
             vendedorDTO.setRunVendedor(vendedor.getRunVendedor());
             vendedorDTO.setNombreCompleto(vendedor.getNombreCompleto());
             vendedorDTO.setFechaNacimiento(vendedor.getFechaNacimiento());
+            vendedorDTO.setEstadoCuenta(vendedor.isEstadoCuenta());
 
             ClienteDTO clienteDTO = new ClienteDTO();
             clienteDTO.setRunCliente(cliente.getRunCliente());
             clienteDTO.setNombreCompleto(cliente.getNombreCompleto());
             clienteDTO.setFechaNacimiento(cliente.getFechaNacimiento());
+            clienteDTO.setEstadoCuenta(cliente.isEstadoCuenta());
 
             ProductoDTO productoDTO = new ProductoDTO(); // Se agrega el mapeo del producto al DTO
             productoDTO.setIdProducto(producto.getIdProducto());
@@ -91,9 +93,12 @@ public class CarritoServiceImpl implements CarritoService {
     public Carrito save(Carrito carrito) {
         try {
 
-            Cliente cliente = this.clienteClientRest.findById(carrito.getIdCliente());
+            this.clienteClientRest.findById(carrito.getIdCliente());
+            Producto producto = this.productoClientRest.findById(carrito.getIdProducto());
+            this.vendedorClientRest.findById(carrito.getIdVendedor());
 
-            this.productoClientRest.findById(cliente.getIdProducto());
+            int precioTotal = producto.getPrecio()*carrito.getCantidad();
+            carrito.setPreciototal(precioTotal);
 
         } catch (FeignException ex) {
             throw new CarritoException("Existen problemas con la asociación vendedor, cliente o producto");

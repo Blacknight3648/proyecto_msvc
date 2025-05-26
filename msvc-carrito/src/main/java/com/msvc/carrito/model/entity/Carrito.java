@@ -17,7 +17,7 @@ public class Carrito {
 
     @Column(name = "producto", nullable = false)
     @NotNull(message = "El campo producto no puede estar vacio")
-    private String producto;
+    private Long idProducto;
 
     @Column(name = "vendedor", nullable = false)
     @NotNull(message = "El campo vendedor no puede estar vacio")

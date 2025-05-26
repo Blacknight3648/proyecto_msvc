@@ -19,4 +19,13 @@ public class VendedorDTO {
     private LocalDate fechaNacimiento;
     private String nombreCompleto;
     private boolean estadoCuenta;
+
+    public boolean isEstadoCuenta() {
+        return estadoCuenta;
+    }
+
+    public void setEstadoCuenta(boolean estadoCuenta){
+        this.estadoCuenta= estadoCuenta;
+
+    }
 }
