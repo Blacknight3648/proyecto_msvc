@@ -35,6 +35,11 @@ public class ProveedorServiceImpl implements ProveedorService {
     }
 
     @Override
+    public Proveedores update(Proveedores proveedorDTO) {
+        return null;
+    }
+
+    @Override
     public Proveedores suspend(Long id, ProveedorDTO proveedorDTO) {
         Proveedores proveedor = this.proveedorRepository.findById(id).orElseThrow(
                 () -> new ProveedorException("El proveedor con id " + id + " no se encuentra en la base de datos")
@@ -53,4 +58,6 @@ public class ProveedorServiceImpl implements ProveedorService {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'save'");
     }
+
+
 }

@@ -43,6 +43,13 @@ public class ProveedorController {
         Proveedores proveedorSuspendido = this.proveedorService.suspend(id, proveedorDTO);
         return ResponseEntity.status(200).body(proveedorSuspendido);
     }
+
+    //Actualizacion de Proveedor por id
+    @PutMapping ("/{id}/actualizarProveedor")
+    public ResponseEntity<Proveedores> update(@Valid @RequestBody Proveedores proveedor){
+        Proveedores actualizarProveedor = this.update(proveedor).getBody();
+        return ResponseEntity.status(200).body(actualizarProveedor);
+    }
 }
 
 
