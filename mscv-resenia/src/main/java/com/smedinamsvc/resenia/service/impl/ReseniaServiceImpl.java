@@ -63,6 +63,18 @@ public class ReseniaServiceImpl implements ReseniaService {
         }
         reseniaRepository.deleteById(id);
     }
+
+    //Implementación del updateByID como métod0
+    @Override
+    public void updatebyId(Long id) {
+    }
+
+    //Actualizar el cuerpo de la resenia
+    @Override
+    public Resenia updateById(Resenia resenia){
+        ProductoDTO producto = productoClient.getProductoById((resenia.getProductoId()));
+        return resenia;
+    }
 }
 
 

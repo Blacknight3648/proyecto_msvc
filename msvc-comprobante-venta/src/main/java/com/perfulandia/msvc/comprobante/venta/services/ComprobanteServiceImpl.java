@@ -47,7 +47,6 @@ public class ComprobanteServiceImpl implements ComprobanteService {
         return this.comprobanteRepository.findAll().stream().map(comprobante ->{
 
 
-
             Vendedor vendedor = null;
             try{
                 vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());

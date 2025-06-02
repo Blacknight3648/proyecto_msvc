@@ -15,4 +15,8 @@ public interface ReseniaService {
 
     void deleteById(Long id);                             // Eliminar reseña por id
 
+    void updatebyId (Long id);
+
+    //Actualizar el cuerpo de la resenia
+    Resenia updateById(Resenia resenia);
 }

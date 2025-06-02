@@ -46,6 +46,13 @@ public class ReseniaController {
         reseniaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    //Actualizar las resenias
+    @PutMapping({"/{id}"})
+    public ResponseEntity<Resenia> actualizarResenia (@RequestBody Resenia resenia){
+        Resenia actualizarResenia = reseniaService.updateById(resenia);
+        return ResponseEntity.ok(actualizarResenia);
+    }
 }
 
 
