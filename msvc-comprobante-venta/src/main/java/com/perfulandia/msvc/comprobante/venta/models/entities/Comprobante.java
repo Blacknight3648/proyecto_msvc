@@ -38,4 +38,8 @@ public class Comprobante {
     @NotNull(message = "El campo id carrito no puede estar vacío")
     private Long idCarrito;
 
+    @Column(name = "factura", nullable = false)
+    @NotNull(message = "Debes confirmar si es factura o no.")
+    private Boolean factura;
+
 }

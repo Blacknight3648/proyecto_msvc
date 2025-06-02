@@ -114,7 +114,7 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     }
 
     @Override
-public Comprobante save(Comprobante comprobante) {
+    public Comprobante save(Comprobante comprobante) {
 
     try {
         Vendedor vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
@@ -131,7 +131,30 @@ public Comprobante save(Comprobante comprobante) {
     }
 
     return this.comprobanteRepository.save(comprobante);
-}
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (!comprobanteRepository.existsById(id)){
+            throw new ComprobanteException("No se puede eliminar: comprobante no encontrado");
+        }
+        comprobanteRepository.deleteById(id);
+    }
+
+    @Override
+    public Comprobante update(Long id, ComprobanteDTO comprobanteDTO) {
+
+        Comprobante comprobante = this.comprobanteRepository.findById(id).orElseThrow(
+                () -> new ComprobanteException("El comprobante con id: "+id+" no se encuentra en la base de datos.")
+        );
+
+        comprobante.setIdCarrito(comprobante.getIdCarrito());
+
+        Comprobante update = comprobanteRepository.save(comprobante);
+
+        return  update;
+    }
+
 
 //Sol:
 

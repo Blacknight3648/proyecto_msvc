@@ -13,6 +13,7 @@ public class ComprobanteDTO {
     private ClienteDTO cliente;
     private SucursalDTO sucursal;
     private CarritoDTO carrito;
+    private Boolean factura;
 
 
 }

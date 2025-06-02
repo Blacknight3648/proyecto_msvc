@@ -48,4 +48,9 @@ public class ComprobanteController {
     public ResponseEntity<List<Comprobante>> findByIdSucursal(@PathVariable Long id){
         return ResponseEntity.status(200).body(this.comprobanteService.findBySucursalId(id));
     }
+
+    @GetMapping("/carrito/{id}")
+    public ResponseEntity<List<Comprobante>> findByIdCarrito(@PathVariable Long id){
+        return ResponseEntity.status(200).body(this.comprobanteService.findByCarritoId(id));
+    }
 }

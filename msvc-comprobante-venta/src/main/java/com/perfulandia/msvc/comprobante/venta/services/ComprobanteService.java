@@ -9,6 +9,8 @@ public interface ComprobanteService {
     List<ComprobanteDTO> findAll();
     Comprobante findById(Long id);
     Comprobante save(Comprobante comprobante);
+    void deleteById(Long id);
+    Comprobante update(Long id, ComprobanteDTO comprobanteDTO);
     List<Comprobante> findByClienteId(Long clienteId);
     List<Comprobante> findByVendedorId(Long vendedorId);
     List<Comprobante> findBySucursalId(Long sucursalId);
