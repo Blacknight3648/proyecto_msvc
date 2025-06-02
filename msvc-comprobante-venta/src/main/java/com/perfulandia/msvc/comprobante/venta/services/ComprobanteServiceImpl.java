@@ -1,13 +1,12 @@
 package com.perfulandia.msvc.comprobante.venta.services;
 
+import com.perfulandia.msvc.comprobante.venta.clients.CarritoClientRest;
 import com.perfulandia.msvc.comprobante.venta.clients.ClienteClientRest;
 import com.perfulandia.msvc.comprobante.venta.clients.SucursalClientRest;
 import com.perfulandia.msvc.comprobante.venta.clients.VendedorClientRest;
-import com.perfulandia.msvc.comprobante.venta.dtos.ClienteDTO;
-import com.perfulandia.msvc.comprobante.venta.dtos.ComprobanteDTO;
-import com.perfulandia.msvc.comprobante.venta.dtos.SucursalDTO;
-import com.perfulandia.msvc.comprobante.venta.dtos.VendedorDTO;
+import com.perfulandia.msvc.comprobante.venta.dtos.*;
 import com.perfulandia.msvc.comprobante.venta.exceptions.ComprobanteException;
+import com.perfulandia.msvc.comprobante.venta.models.Carrito;
 import com.perfulandia.msvc.comprobante.venta.models.Cliente;
 import com.perfulandia.msvc.comprobante.venta.models.Sucursal;
 import com.perfulandia.msvc.comprobante.venta.models.Vendedor;
@@ -39,6 +38,9 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     @Autowired
     private VendedorClientRest vendedorClientRest;
 
+    @Autowired
+    private CarritoClientRest carritoClientRest;
+
 
     @Override
     public List<ComprobanteDTO> findAll() {
@@ -67,6 +69,13 @@ public class ComprobanteServiceImpl implements ComprobanteService {
                 throw new ComprobanteException("La sucursal buscada no existe");
             }
 
+            Carrito carrito = null;
+            try{
+                carrito = this.carritoClientRest.findById(comprobante.getIdCarrito());
+            }catch (FeignException ex){
+                throw new ComprobanteException("El carrito no existe");
+            }
+
             VendedorDTO vendedorDTO = new VendedorDTO();
             vendedorDTO.setRunVendedor(vendedor.getRunVendedor());
             vendedorDTO.setFechaNacimiento(vendedor.getFechaNacimiento());
@@ -81,11 +90,17 @@ public class ComprobanteServiceImpl implements ComprobanteService {
             sucursalDTO.setNombreSucursal(sucursal.getNombreSucursal());
             sucursalDTO.setDireccionSucursal(sucursal.getDireccionSucursal());
 
+            CarritoDTO carritoDTO = new CarritoDTO();
+            carritoDTO.setIdProducto(carrito.getIdProducto());
+            carritoDTO.setCantidad(carrito.getCantidad());
+            carritoDTO.setCupon(carrito.getCupon());
+            carritoDTO.setPrecioTotal(carrito.getPrecioTotal());
+
             ComprobanteDTO comprobanteDTO = new ComprobanteDTO();
             comprobanteDTO.setVendedor(vendedorDTO);
             comprobanteDTO.setCliente(clienteDTO);
             comprobanteDTO.setSucursal(sucursalDTO);
-            comprobanteDTO.setTotal(comprobante.getTotal());
+            comprobanteDTO.setCarrito(carritoDTO);
             comprobanteDTO.setHoraComprobante(comprobante.getHoraComprobante());
             return comprobanteDTO;
         }).toList();
@@ -138,5 +153,10 @@ public Comprobante save(Comprobante comprobante) {
     @Override
     public List<Comprobante> findBySucursalId(Long sucursalId) {
         return this.comprobanteRepository.findByIdSucursal(sucursalId);
+    }
+
+    @Override
+    public List<Comprobante> findByCarritoId(Long carritoId) {
+        return this.comprobanteRepository.findByIdCarrito(carritoId);
     }
 }

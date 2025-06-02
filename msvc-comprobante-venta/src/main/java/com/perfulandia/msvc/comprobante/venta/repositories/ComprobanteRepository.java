@@ -12,5 +12,6 @@ public interface ComprobanteRepository extends JpaRepository<Comprobante, Long> 
     List<Comprobante> findByIdCliente(Long idCliente);
     List<Comprobante> findByIdVendedor(Long idVendedor);
     List<Comprobante> findByIdSucursal(Long idSucursal);
+    List<Comprobante> findByIdCarrito(Long idCarrito);
 
 }

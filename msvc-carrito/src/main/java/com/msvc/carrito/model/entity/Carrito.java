@@ -19,19 +19,11 @@ public class Carrito {
     @NotNull(message = "El campo producto no puede estar vacio")
     private Long idProducto;
 
-    @Column(name = "vendedor", nullable = false)
-    @NotNull(message = "El campo vendedor no puede estar vacio")
-    private String vendedor;
-
-    @Column(name = "cliente", nullable = false)
-    @NotNull(message = "El campo producto no puede estar vacio")
-    private String cliente;
-
     @Column(name = "cantidad", nullable = false)
     private Integer cantidad;
 
     @Column(name = "preciototal", nullable = false)
-    private Integer preciototal;
+    private Integer precioTotal;
 
     @Column(name = "cupon", nullable = true)
     private String cupon;
@@ -43,6 +35,10 @@ public class Carrito {
     @Column(name="id_vendedor", nullable = false)
     @NotNull(message = "El campo id_vendedor no puede estar vacio")
     private Long idVendedor;
+
+    @Column(name = "factura", nullable = false)
+    @NotNull(message = "Debe especificar si es o no factura")
+    private Boolean factura;
 
 
 }

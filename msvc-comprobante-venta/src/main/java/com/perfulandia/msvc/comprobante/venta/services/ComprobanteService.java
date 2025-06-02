@@ -12,4 +12,5 @@ public interface ComprobanteService {
     List<Comprobante> findByClienteId(Long clienteId);
     List<Comprobante> findByVendedorId(Long vendedorId);
     List<Comprobante> findBySucursalId(Long sucursalId);
+    List<Comprobante> findByCarritoId(Long carritoId);
 }

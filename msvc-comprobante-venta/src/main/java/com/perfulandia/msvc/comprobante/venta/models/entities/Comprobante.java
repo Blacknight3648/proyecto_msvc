@@ -23,10 +23,6 @@ public class Comprobante {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime horaComprobante;
 
-    @Column(nullable = false)
-    @NotNull(message = "El campo costo no puede estar vacío")
-    private Integer total;
-
     @Column(name = "id_sucursal")
     @NotNull(message = "El campo id sucursal no puede estar vacío")
     private Long idSucursal;
@@ -37,5 +33,9 @@ public class Comprobante {
 
     @Column(name = "id_cliente")
     private Long idCliente;
+
+    @Column(name = "id_carrito")
+    @NotNull(message = "El campo id carrito no puede estar vacío")
+    private Long idCarrito;
 
 }

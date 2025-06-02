@@ -12,6 +12,7 @@ public class ComprobanteDTO {
     private VendedorDTO vendedor;
     private ClienteDTO cliente;
     private SucursalDTO sucursal;
+    private CarritoDTO carrito;
 
 
 }
