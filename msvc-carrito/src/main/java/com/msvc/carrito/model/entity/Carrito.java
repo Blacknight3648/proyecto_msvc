@@ -23,7 +23,7 @@ public class Carrito {
     private Integer cantidad;
 
     @Column(name = "preciototal", nullable = false)
-    private Integer precioTotal;
+    private int precioTotal;
 
     @Column(name = "cupon", nullable = true)
     private String cupon;
@@ -36,9 +36,6 @@ public class Carrito {
     @NotNull(message = "El campo id_vendedor no puede estar vacio")
     private Long idVendedor;
 
-    @Column(name = "factura", nullable = false)
-    @NotNull(message = "Debe especificar si es o no factura")
-    private Boolean factura;
 
 
 }

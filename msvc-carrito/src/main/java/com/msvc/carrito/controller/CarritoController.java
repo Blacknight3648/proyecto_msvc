@@ -43,7 +43,8 @@ public class CarritoController {
                 .body(this.carritoService.findByClienteId(id));
     }
     @GetMapping("/vendedor/{id}")
-    public ResponseEntity<List<Carrito>> findByIdMedico(@PathVariable Long id) {
+    public ResponseEntity<List<Carrito>> findByIdVendedor(@PathVariable Long id) {
         return ResponseEntity.status(200).body(this.carritoService.findByVendedorId(id));
     }
+    // Crea "deleteById" y "update".
 }

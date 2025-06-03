@@ -98,7 +98,7 @@ public class CarritoServiceImpl implements CarritoService {
             this.vendedorClientRest.findById(carrito.getIdVendedor());
 
             int precioTotal = producto.getPrecio()*carrito.getCantidad();
-            carrito.setPreciototal(precioTotal);
+            carrito.setPrecioTotal(precioTotal);
 
         } catch (FeignException ex) {
             throw new CarritoException("Existen problemas con la asociación vendedor, cliente o producto");
@@ -112,7 +112,33 @@ public class CarritoServiceImpl implements CarritoService {
     }
 
     @Override
+    public void deleteByid(Long id) {
+        if (!carritoRespository.existsById(id)){
+            throw new CarritoException("No se puede eliminar porque no se ha encontrado el carrito con la id solicitada");
+        }
+        carritoRespository.deleteById(id);
+    }
+
+    @Override
+    public Carrito update(Long id, CarritoDTO carritoDTO) {
+
+        Carrito carrito = this.carritoRespository.findById(id).orElseThrow(
+                () -> new CarritoException("El carrito con id: "+ id +" no se encuentra en la base de datos")
+        );
+        carrito.setCantidad(carrito.getCantidad());
+        carrito.setCupon(carrito.getCupon());
+        carrito.setIdProducto(carrito.getIdProducto());
+        carrito.setPrecioTotal(carrito.getPrecioTotal());
+
+        Carrito update = carritoRespository.save(carrito);
+
+        return update;
+    }
+
+
+    @Override
     public List<Carrito> findByClienteId(Long clienteId) {
+
         return this.carritoRespository.findByIdCliente(clienteId);
     }
 

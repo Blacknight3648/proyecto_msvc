@@ -12,4 +12,6 @@ public interface CarritoService {
     Carrito save(Carrito carrito);
     List<Carrito> findByClienteId(Long clienteId);
     List<Carrito> findByVendedorId(Long vendedorId);
+    void deleteByid(Long id);
+    Carrito update(Long id, CarritoDTO carritoDTO);
 }
