@@ -17,4 +17,7 @@ public class ProveedorDTO {
 
     @NotNull(message = "La razón Social no puede estar vacía")
     private String razonSocial;
+
+    @NotNull(message = "suspencion no puede ser nulo")
+    private Boolean suspencion;
 }

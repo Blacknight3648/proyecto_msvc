@@ -15,10 +15,6 @@ import lombok.*;
 @Builder
 public class Proveedores {
 
-    public Proveedores save(ProveedorServiceImpl proveedorServiceImpl) {
-        return ((ProveedorServiceImpl) proveedorServiceImpl.repository).save(this);
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_proveedor")
@@ -31,5 +27,9 @@ public class Proveedores {
     @Column(name = "razon_social", nullable = false)
     @NotNull(message = "La razón Social no puede estar vacía")
     private String razonSocial;
+
+    @Column(name = "suspencion", nullable = false)
+    @NotNull(message = "El campo suspencion no puede estar nulo")
+    private Boolean suspencion;
 }
 
