@@ -11,6 +11,7 @@ public class ClienteDTO {
     private String runCliente;
     private LocalDate fechaNacimiento;
     private String nombreCompleto;
+    private String correoCliente;
     private boolean estadoCuenta;
 
 
