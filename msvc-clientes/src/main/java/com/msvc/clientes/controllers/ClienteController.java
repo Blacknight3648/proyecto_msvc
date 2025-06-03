@@ -31,6 +31,13 @@ public class ClienteController {
         return ResponseEntity.status(200).body(cliente);
     }
 
+    @GetMapping("/{runCliente}")
+    public ResponseEntity<ClienteDTO> findByRun(String runCliente){
+        ClienteDTO clienteDTO = this.clienteService.findByRun(runCliente);
+        return ResponseEntity.status(200).body(clienteDTO);
+
+    }
+
     @PostMapping
     public ResponseEntity<Cliente> create(@Valid @RequestBody Cliente cliente) {
         Cliente nuevoCliente = this.clienteService.save(cliente);

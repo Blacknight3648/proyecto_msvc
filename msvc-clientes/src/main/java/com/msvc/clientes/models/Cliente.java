@@ -20,19 +20,26 @@ public class Cliente {
     @Column(name= "id_cliente")
     private Long idCliente;
 
-    @Column(name="run_cliente",nullable = false)
-    @NotNull(message = "El campo run no puede estar vacio")
+    @Column(name="run_cliente",nullable = false, unique = true)
+    @NotNull(message = "El campo run no puede ser nulo")
+    @NotBlank(message = "El campo run no puede estar vacio")
     @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run cliente debe ser 11111111-X")
     private String runCliente;
 
     @Column(name="fecha_nacimiento", nullable = false)
-    @NotNull(message = "El campo fecha de nacimiento no puede estar vacio con formato YYYY-MM-DD")
+    @NotNull(message = "El campo fecha de nacimiento no puede ser nulo")
+    @NotBlank(message = "El campo fecha de nacimiento no puede estar vacio con formato YYYY-MM-DD")
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 
     @Column(name = "nombre_completo",nullable = false)
     @NotBlank(message = "El campo nombre completo de cliente no puede estar vacio")
     private String nombreCompleto;
+
+    @Column(name = "correo_cliente", nullable = false)
+    @NotNull(message = "El campo correo no puede ser nulo")
+    @NotBlank(message = "El campo correo no puede estar vacio")
+    private  String correoCliente;
 
     @Column(name = "estado_cuenta")
     @NotNull(message = "El campo estado de cuenta no puede ser nulo")

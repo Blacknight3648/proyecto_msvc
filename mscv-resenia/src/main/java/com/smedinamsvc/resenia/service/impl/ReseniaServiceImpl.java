@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.smedinamsvc.resenia.Exceptions.ReseniaExceptions;
+import com.smedinamsvc.resenia.exceptions.ReseniaExceptions;
 import com.smedinamsvc.resenia.client.ReseniaProductoClient;
 import com.smedinamsvc.resenia.dtos.ProductoDTO;
 import com.smedinamsvc.resenia.model.Resenia;
