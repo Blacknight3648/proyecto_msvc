@@ -30,14 +30,14 @@ public class ClienteServiceimpl implements ClienteService{
     }
 
     @Override
-    public ClienteDTO findByRun(String runCliente){
+    public ClienteDTO findByRunCliente(String runCliente){
 
         String run = runCliente.toUpperCase();
 
         Cliente cliente = null;
 
         try {
-            this.clienteRepository.findByRun(run);
+            this.clienteRepository.findByRunCliente(run);
         }catch (FeignException ex){
             throw new ClienteException("El cliente con el rut "+ run + " no esta en la base de datos");
         }
@@ -60,7 +60,7 @@ public class ClienteServiceimpl implements ClienteService{
 
         // this.clienteRepository.findByRun(cliente.getRunCliente()).orElse();
 
-        if(!this.clienteRepository.findByRun(cliente.getRunCliente()).isPresent()){
+        if(!this.clienteRepository.findByRunCliente(cliente.getRunCliente()).isPresent()){
             return clienteRepository.save(cliente);
         }else{
             throw new RuntimeException();
