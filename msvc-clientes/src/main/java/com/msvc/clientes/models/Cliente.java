@@ -28,7 +28,6 @@ public class Cliente {
 
     @Column(name="fecha_nacimiento", nullable = false)
     @NotNull(message = "El campo fecha de nacimiento no puede ser nulo")
-    @NotBlank(message = "El campo fecha de nacimiento no puede estar vacio con formato YYYY-MM-DD")
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 

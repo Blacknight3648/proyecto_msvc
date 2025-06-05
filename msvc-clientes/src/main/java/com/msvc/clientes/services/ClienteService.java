@@ -9,7 +9,7 @@ public interface ClienteService {
 
     List<Cliente> findAll();
     Cliente findById(Long id);
-    ClienteDTO findByRun(String runCliente);
+    ClienteDTO findByRunCliente(String runCliente);
     Cliente save(Cliente cliente);
     Cliente update(Long id, ClienteDTO clienteDTO);
     Cliente suspend(Long id, ClienteDTO clienteDTO);
