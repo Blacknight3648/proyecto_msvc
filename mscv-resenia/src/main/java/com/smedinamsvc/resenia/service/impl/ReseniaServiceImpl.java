@@ -3,9 +3,9 @@ package com.smedinamsvc.resenia.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.smedinamsvc.resenia.exceptions.ReseniaExceptions;
 import org.springframework.stereotype.Service;
 
-import com.smedinamsvc.resenia.exceptions.ReseniaExceptions;
 import com.smedinamsvc.resenia.client.ReseniaProductoClient;
 import com.smedinamsvc.resenia.dtos.ProductoDTO;
 import com.smedinamsvc.resenia.model.Resenia;
@@ -32,7 +32,7 @@ public class ReseniaServiceImpl implements ReseniaService {
     }
 
     @Override
-    public List<Resenia> findByProductoId(Long productoId) {
+    public List<Resenia> findByProductoId(Long productoId) throws ReseniaExceptions {
         ProductoDTO producto = productoClient.getProductoById(productoId);
         if (producto == null) {
             throw new ReseniaExceptions("Producto con ID " + productoId + " no encontrado.");
@@ -41,14 +41,14 @@ public class ReseniaServiceImpl implements ReseniaService {
     }
 
     @Override
-    public Resenia findById(Long id) {
+    public Resenia findById(Long id) throws ReseniaExceptions {
         Optional<Resenia> resenia = reseniaRepository.findById(id);
         return resenia.orElseThrow(() ->
             new ReseniaExceptions("Reseña con ID " + id + " no encontrada."));
     }
 
     @Override
-    public Resenia save(Resenia resenia) {
+    public Resenia save(Resenia resenia) throws ReseniaExceptions {
         ProductoDTO producto = productoClient.getProductoById(resenia.getProductoId());
         if (producto == null) {
             throw new ReseniaExceptions("No se puede guardar la reseña: producto no válido.");
@@ -59,7 +59,11 @@ public class ReseniaServiceImpl implements ReseniaService {
     @Override
     public void deleteById(Long id) {
         if (!reseniaRepository.existsById(id)) {
-            throw new ReseniaExceptions("No se puede eliminar: reseña no encontrada con ID " + id);
+            try {
+                throw new ReseniaExceptions("No se puede eliminar: reseña no encontrada con ID " + id);
+            } catch (ReseniaExceptions e) {
+                throw new RuntimeException(e);
+            }
         }
         reseniaRepository.deleteById(id);
     }
