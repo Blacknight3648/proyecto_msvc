@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,12 +40,22 @@ public class ClienteServicesTest {
     @Test
     @DisplayName("Debe listar todo los medicos")
     public void shouldFindAllClientes(){
+
+        this.clientes.add(this.clientePrueba);
+
+        when(clienteRepository.findAll()).thenReturn(this.clientes);
+
+
         Cliente otroCliente = new Cliente();
         //Cliente otroCliente = new Cliente(1L,"22222111-3","2022-10-05","Cristopher", "frp@rr.cl", true);
 
-        List<Cliente> listadoClientes = Arrays.asList(this.clientePrueba, otroCliente);
+        List<Cliente> result = clienteServiceimpl.findAll();
 
-        when(clienteRepository.findAll());
+        assertThat(result).hasSize(101);
+        assertThat(result).contains(this.clientePrueba);
+
+        verify(clienteRepository, times(1)).findAll();
+
     }
 
 }

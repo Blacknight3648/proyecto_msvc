@@ -3,6 +3,8 @@ package com.msvc.clientes.controllers;
 import com.msvc.clientes.DTO.ClienteDTO;
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.services.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/clientes")
 @Validated
+@Tag(name= "Clientes", description = "Esta seccion pertenece a clientes")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
 
+
     @GetMapping("/mostrar_clientes")
+    @Operation(
+            summary = "Devuelve todos los medicos,",
+            description = "Este medtodo debe retornar una lista de clientes, en caso"+
+                    "de que no se encuentre nada retorna una lista vacia"
+    )
     public ResponseEntity<List<Cliente>> findAll() {
+
         List<Cliente> clientes = this.clienteService.findAll();
         return ResponseEntity.status(200).body(clientes);
     }
