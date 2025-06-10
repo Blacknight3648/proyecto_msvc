@@ -2,6 +2,8 @@ package com.msvc.controller.com.msvc.productos.controller.com.msvc.productos.con
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +17,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/v1/productos")
 @Validated
+@Tag(name= "Productos", description = "Esta seccion contiene los CRUD de producto")
 public class ProductoController {
 
     private final ProductoService productoService;
@@ -25,6 +28,10 @@ public class ProductoController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Find all Productos",
+            description = "Encuentra todos los productos"
+    )
     public ResponseEntity<List<ProductoModel>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(productoService.findAll());
     }
