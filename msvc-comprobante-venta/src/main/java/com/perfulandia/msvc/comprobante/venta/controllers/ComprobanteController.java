@@ -3,6 +3,7 @@ package com.perfulandia.msvc.comprobante.venta.controllers;
 import com.perfulandia.msvc.comprobante.venta.dtos.ComprobanteDTO;
 import com.perfulandia.msvc.comprobante.venta.models.entities.Comprobante;
 import com.perfulandia.msvc.comprobante.venta.services.ComprobanteService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/comprobantes")
 @Validated
+@Tag(name = "Comprobante", description = "Esta seccion contiene los CRUD de comprobante")
 public class ComprobanteController {
 
     @Autowired

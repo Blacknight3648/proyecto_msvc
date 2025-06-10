@@ -29,7 +29,7 @@ public class LoadDataBase implements CommandLineRunner {
                 Cliente cliente = new Cliente();
                 //cliente.setFechaNacimiento(faker.date().birthdayLocalDate());
                 cliente.setNombreCompleto(faker.name().fullName());
-                // cliente.setCorreoCliente(faker.);
+                //cliente.setCorreoCliente(faker);
 
                 String numeroString = faker.idNumber().valid().replaceAll("-","");
                 String ultimo = numeroString.substring(numeroString.length()-1);

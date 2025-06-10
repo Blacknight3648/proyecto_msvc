@@ -1,12 +1,16 @@
 package com.msvc.clientes.ControllerTest;
 
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClienteControllerTest {
@@ -16,7 +20,11 @@ public class ClienteControllerTest {
     @Test
     public void shouldRetunrAllClienteWhenListIsRequested(){
         ResponseEntity<String> response = testRestTemplate.getForEntity("/api/v1/clientes",String.class);
-        //assertThat();
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        int clientesCount = documentContext.read("$.length()");
+        assertThat(clientesCount).isEqualTo(10000);
 
     }
 }
