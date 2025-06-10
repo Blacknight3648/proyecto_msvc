@@ -12,8 +12,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenApi(){
         return new OpenAPI()
                 .info(new Info()
-                        .title()
-                        .description()
+                        .title("Api Restfull - MSVC - cliente")
+                        .description("Esta es la api dedicada a el msvc de cliente")
+                        .version("1.0.0")
                 );
     }
 }
