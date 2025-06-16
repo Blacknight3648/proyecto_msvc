@@ -7,18 +7,16 @@ import com.smedinamsvc.resenia.model.Resenia;
 
 public interface ReseniaService {
 
-    List<Resenia> findAll();                              // Listar todas las reseñas
+    List<Resenia> findAll();                                                        // Listar todas las reseñas
 
-    List<Resenia> findByProductoId(Long productoId) throws ReseniaExceptions;     // Listar reseñas por producto
+    List<Resenia> findByProductoId(Long productoId) throws ReseniaExceptions;       // Listar reseñas por producto
 
-    Resenia findById(Long id) throws ReseniaExceptions;                            // Buscar reseña por id
+    Resenia findById(Long id) throws ReseniaExceptions;                             // Buscar reseña por id
 
-    Resenia save(Resenia resenia) throws ReseniaExceptions;                        // Guardar reseña
+    Resenia save(Resenia resenia) throws ReseniaExceptions;                         // Guardar reseña
 
-    void deleteById(Long id);                             // Eliminar reseña por id
+    void deleteById(Long id);                                                       // Eliminar reseña por id
 
-    void updatebyId (Long id);
+    Resenia update(Resenia resenia) throws ReseniaExceptions;
 
-    //Actualizar el cuerpo de la resenia
-    Resenia updateById(Resenia resenia);
 }
