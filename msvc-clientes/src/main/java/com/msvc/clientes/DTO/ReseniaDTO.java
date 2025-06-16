@@ -1,4 +1,4 @@
-package com.msvc.dtos;
+package com.msvc.clientes.DTO;
 
 import lombok.*;
 

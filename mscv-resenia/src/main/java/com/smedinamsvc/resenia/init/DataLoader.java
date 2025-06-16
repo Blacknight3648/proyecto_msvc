@@ -16,34 +16,4 @@ import java.util.logging.Logger;
 @Component
 public class DataLoader implements CommandLineRunner {
 
-    @Autowired
-    private ReseniaRepository reseniaRepository;
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(DataLoader.class);
-
-
-    @Override
-    public void run(String... args) throws  Exception{
-        Faker faker = new Faker(Locale.of("es", "CL"));
-        if (reseniaRepository.count()==0){
-            for (int i=0;i<1000;i++){
-                Resenia resenia = new Resenia();
-
-                //Crear métodos Faker
-
-
-
-                /*
-                //cliente.setFechaNacimiento(faker.date().birthdayLocalDate());
-                cliente.setNombreCompleto(faker.name().fullName());
-                // cliente.setCorreoCliente(faker.);
-
-                String numeroString = faker.idNumber().valid().replaceAll("-","");
-                String ultimo = numeroString.substring(numeroString.length()-1);
-                String restante = numeroString.substring(0,numeroString.length()-1);
-                cliente.setRunCliente(restante+"-"+ultimo);
-
-                 */
-            }
-        }
-    }
 }

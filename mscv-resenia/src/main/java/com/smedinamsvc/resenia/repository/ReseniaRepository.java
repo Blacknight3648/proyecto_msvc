@@ -9,8 +9,5 @@ import com.smedinamsvc.resenia.model.Resenia;
 
 @Repository
 public interface ReseniaRepository extends JpaRepository<Resenia, Long> {
-    
-    
-    List<Resenia> findByProductoId(Long productoId);
 
 }
