@@ -19,4 +19,5 @@ public interface ReseniaService {
 
     Resenia update(Resenia resenia) throws ReseniaExceptions;
 
+    Resenia updateById(Resenia resenia);
 }

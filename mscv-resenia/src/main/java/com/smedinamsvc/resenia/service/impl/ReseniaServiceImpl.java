@@ -57,6 +57,11 @@ public class ReseniaServiceImpl implements ReseniaService {
         return null;
     }
 
+    @Override
+    public Resenia updateById(Resenia resenia) {
+        return null;
+    }
+
 }
 
 
