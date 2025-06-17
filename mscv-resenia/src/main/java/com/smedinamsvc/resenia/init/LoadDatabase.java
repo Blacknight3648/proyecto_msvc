@@ -11,50 +11,46 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
-import java.util.Random;
-
-/**
- * Clase que carga datos de prueba en la base de datos cuando el perfil activo es 'dev'.
- * Se generan 10,000 reseñas falsas utilizando la biblioteca Faker.
- */
-@Profile("dev") // Se ejecuta solo cuando el perfil 'dev' está activo
+@Profile("dev")
 @Component
 public class LoadDatabase implements CommandLineRunner {
 
+    /*
+    Se inyecta la información
+    del repositorio de manera
+    automatica
+    */
     @Autowired
     private ReseniaRepository reseniaRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(LoadDatabase.class);
+    //Se agregan datos falsos a la base de datos
+    private  static  final org.slf4j.Logger logger = (Logger) LoggerFactory.getLogger(LoadDatabase.class);
 
     @Override
-    public void run(String... args) {
-        Faker faker = new Faker(new Locale("es", "CL")); // Faker configurado para español chileno
-        Random random = new Random();
-
+    public void run(String... args) throws Exception {
+        //Se define el idioma de la base de datos: (Español y CL es el país: Chile)
+        Faker faker = new Faker(Locale.of("es", "CL"));
+        /*
+        Acá voy a definir los metodos con
+        un for y luego todo lo que yo
+        quiero generar
+        */
         if (reseniaRepository.count() == 0) {
-            logger.info("Insertando datos de prueba en la tabla 'resenia'...");
+            for (int i=0;i<1000;i++){
+                Resenia resenia = new Resenia(); //Se inicia una nueva resenia
 
-            for (int i = 0; i < 10000; i++) {
-                Resenia resenia = new Resenia();
+                resenia.setProductoId(faker.number().numberBetween(1L, 100L)); // ID del producto ficticio
+                resenia.setValoracion(faker.number().numberBetween(1, 5)); // Valoración entre 1 y 5
+                resenia.setResenia(faker.lorem().sentence()); // Comentario aleatorio
+                resenia.setIdCliente(faker.number().numberBetween(1L, 500L)); // ID cliente ficticio
 
-                // Simula IDs de productos y clientes entre 1 y 1000
-                resenia.setProductoId((long) faker.number().numberBetween(1, 1000));
-                resenia.setIdCliente((long) faker.number().numberBetween(1, 1000));
+                // No necesitas setear fechaHoraResenia, se hace automáticamente con @PrePersist
 
-                // Valoración aleatoria entre 1 y 5
-                resenia.setValoracion(faker.number().numberBetween(1, 6));
+                reseniaRepository.save(resenia); // Guarda en la base de datos
 
-                // Comentario aleatorio con longitud controlada
-                resenia.setResenia(faker.lorem().sentence(10));
+                logger.info("Insertada reseña: {}", resenia.toString());
 
-                // El campo fechaHoraResenia se autocompleta en @PrePersist
-                reseniaRepository.save(resenia);
             }
-
-            logger.info("Carga de datos de prueba completada.");
-        } else {
-            logger.info("La base de datos ya contiene datos. No se insertaron nuevas reseñas.");
         }
     }
 }
-
