@@ -2,6 +2,8 @@ package com.msvc.clientes.controllers;
 
 import com.msvc.clientes.DTO.ClienteDTO;
 import com.msvc.clientes.DTO.ErrorDTO;
+import com.msvc.clientes.assamblers.ClienteDTOModelAssembler;
+import com.msvc.clientes.assamblers.ClienteModelAssamabler;
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.services.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,35 +16,56 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
 @RestController
-@RequestMapping("/api/v1/clientes")
+@RequestMapping("/api/v2/clientes")
 @Validated
-@Tag(name= "Clientes", description = "Esta seccion pertenece a clientes")
-public class ClienteController {
+@Tag(name= "Clientes HATEOAS", description = "Esta seccion contiene los CRUD a clientes")
+public class ClienteControllerV2 {
 
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private ClienteModelAssamabler clienteModelAssamabler;
 
-    @GetMapping("/mostrar_clientes")
+    @Autowired
+    private ClienteDTOModelAssembler clienteDTOModelAssembler;
+
+
+    @GetMapping(value = "/mostrar_clientes" ) /* produces = MediaType.HAL_JSON_VALUE*/
     @Operation(
             summary = "Devuelve todos los medicos,",
             description = "Este medtodo debe retornar una lista de clientes, en caso"+
                     "de que no se encuentre nada retorna una lista vacia"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Se retornan todos los clientes")
+            @ApiResponse(responseCode = "200", description = "Se retornan todos los clientes", content = @Content (mediaType =MediaTypes.HAL_JSON_VALUE,schema = @Schema (implementation = Cliente.class)))
     })
-    public ResponseEntity<List<Cliente>> findAll() {
+    public ResponseEntity<CollectionModel<EntityModel<Cliente>>> findAll() {
 
-        List<Cliente> clientes = this.clienteService.findAll();
-        return ResponseEntity.status(200).body(clientes);
+        List<EntityModel<Cliente>> entityModels = this.clienteService.findAll()
+                .stream()
+                .map(clienteModelAssamabler::toModel)
+                .toList();
+        CollectionModel<EntityModel<Cliente>> collectionModel = CollectionModel.of(
+
+                entityModels,
+                linkTo(methodOn(ClienteControllerV2.class).findAll()).withSelfRel()
+
+        );
+        return ResponseEntity.status(200).body(collectionModel);
     }
 
     @GetMapping("/id/{id}")
@@ -65,15 +88,19 @@ public class ClienteController {
     @Parameters(value = {
             @Parameter(name = "id", description = "Este es el id unico de un cliente",required = true)
     })
-    public ResponseEntity<Cliente> findById(@PathVariable Long id) {
-        Cliente cliente = this.clienteService.findById(id);
-        return ResponseEntity.status(200).body(cliente);
+    public ResponseEntity<EntityModel<Cliente>> findById(@PathVariable Long id) {
+        EntityModel<Cliente> entityModel= this.clienteModelAssamabler.toModel(
+                clienteService.findById(id)
+        );
+        return ResponseEntity.status(200).body(entityModel);
     }
 
     @GetMapping("/run/{runCliente}")
-    public ResponseEntity<ClienteDTO> findByRun(String runCliente){
-        ClienteDTO clienteDTO = this.clienteService.findByRunCliente(runCliente);
-        return ResponseEntity.status(200).body(clienteDTO);
+    public ResponseEntity<EntityModel<ClienteDTO>> findByRun(String runCliente){
+        EntityModel<ClienteDTO> entityModel = this.clienteDTOModelAssembler.toModel(
+                clienteService.findByRunCliente(runCliente)
+        );
+        return ResponseEntity.status(200).body(entityModel);
 
     }
 
