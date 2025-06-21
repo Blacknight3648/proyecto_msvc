@@ -11,13 +11,6 @@ import com.smedinamsvc.resenia.service.ReseniaService;
 @RestController
 @RequestMapping("/api/v1/resenias")
 
-    /*ACÁ LA API INTERACTUA CON LA BASE DE DATOS MEDIANTE LOS ENDPOINTS:
-     - GET
-     - POST
-     - PUT
-     - DELETE
-    */
-
 public class ReseniaController {
 
     private final ReseniaService reseniaService;
@@ -63,7 +56,7 @@ public class ReseniaController {
     @PutMapping("/{id}")
     public ResponseEntity<Resenia> actualizarResenia(@PathVariable Long id, @RequestBody Resenia resenia) {
         resenia.setId(id); // Asegura que se use el ID del path
-        Resenia actualizarResenia = reseniaService.updateById(resenia);
+        Resenia actualizarResenia = reseniaService.update(resenia);
         return ResponseEntity.ok(actualizarResenia);
     }
 }
