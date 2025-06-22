@@ -111,6 +111,14 @@ public class ClienteController {
 
     }
 
+    @DeleteMapping("/eliminar_cliente/{id}")
+    public ResponseEntity<Cliente> deleteById(@PathVariable Long id){
+
+        Cliente cliente = clienteService.deleteById(id);
+        return ResponseEntity.status(202).body(cliente);
+
+    }
+
 }
 
 

@@ -1,6 +1,7 @@
 package com.msvc.clientes.ServicesTest;
 
 
+import com.msvc.clientes.DTO.ClienteDTO;
 import com.msvc.clientes.Exceptions.ClienteException;
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.repository.ClienteRepository;
@@ -24,14 +25,16 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ClienteServicesTest {
-
+    
     @Mock
     private ClienteRepository clienteRepository;
 
     @InjectMocks
     private ClienteServiceimpl clienteServiceimpl;
 
+    
     private Cliente clientePrueba;
+
     private List<Cliente> clientes = new ArrayList<>();
 
     @BeforeEach
@@ -110,24 +113,30 @@ public class ClienteServicesTest {
 
     }
 
-/*    @Test
+    @Test
     @DisplayName("Debe mostrar clientes por rut")
     public void shouldFindClientesByRunCliente(){
 
-        when(clienteRepository.findByRunCliente(clientePrueba.getRunCliente())).thenReturn(Optional.of(this.clientePrueba));
 
-        Cliente result = clienteServiceimpl.findByRunCliente(clientePrueba.getRunCliente());
+        when(clienteRepository.findByRunCliente("11111111-1")).thenReturn(Optional.of(this.clientePrueba));
+
+        Cliente result = clienteServiceimpl.findByRunCliente("11111111-1");
 
         assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(this.clientePrueba);
+        assertThat(result.getRunCliente()).isEqualTo(clientePrueba.getRunCliente());
+        assertThat(result.getCorreoCliente()).isEqualTo(clientePrueba.getCorreoCliente());
+        assertThat(result.getNombreCompleto()).isEqualTo(clientePrueba.getNombreCompleto());
+        assertThat(result.getFechaNacimiento()).isEqualTo(clientePrueba.getFechaNacimiento());
+        assertThat(result.isEstadoCuenta()).isEqualTo(clientePrueba.isEstadoCuenta());
 
-        verify(clienteRepository, times(1)).findByRunCliente(clientePrueba.getRunCliente());
+        verify(clienteRepository, times(1)).findByRunCliente("11111111-1");
 
     }
-*/
+
     @Test
     @DisplayName("Debe guardar clientes")
     public void shouldSaveClientes(){
+
 
         when(clienteRepository.save(any(Cliente.class))).thenReturn(this.clientePrueba);
 

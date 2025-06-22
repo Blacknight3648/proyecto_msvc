@@ -11,6 +11,7 @@ public interface ClienteService {
     Cliente findById(Long id);
     ClienteDTO findByRunCliente(String runCliente);
     Cliente save(Cliente cliente);
+    Cliente deleteById(Long id);
     Cliente update(Long id, ClienteDTO clienteDTO);
     Cliente suspend(Long id, ClienteDTO clienteDTO);
 
