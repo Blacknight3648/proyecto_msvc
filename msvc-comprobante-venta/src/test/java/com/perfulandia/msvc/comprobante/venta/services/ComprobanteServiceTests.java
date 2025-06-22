@@ -1,7 +1,15 @@
 package com.perfulandia.msvc.comprobante.venta.services;
 
+import com.perfulandia.msvc.comprobante.venta.clients.CarritoClientRest;
+import com.perfulandia.msvc.comprobante.venta.clients.ClienteClientRest;
+import com.perfulandia.msvc.comprobante.venta.clients.SucursalClientRest;
+import com.perfulandia.msvc.comprobante.venta.clients.VendedorClientRest;
 import com.perfulandia.msvc.comprobante.venta.dtos.*;
 import com.perfulandia.msvc.comprobante.venta.exceptions.ComprobanteException;
+import com.perfulandia.msvc.comprobante.venta.models.Carrito;
+import com.perfulandia.msvc.comprobante.venta.models.Cliente;
+import com.perfulandia.msvc.comprobante.venta.models.Sucursal;
+import com.perfulandia.msvc.comprobante.venta.models.Vendedor;
 import com.perfulandia.msvc.comprobante.venta.models.entities.Comprobante;
 import com.perfulandia.msvc.comprobante.venta.repositories.ComprobanteRepository;
 import net.datafaker.Faker;
@@ -26,11 +34,27 @@ import static org.mockito.Mockito.*;
 public class ComprobanteServiceTests {
 
     @Mock
+    private ClienteClientRest clienteClientRest;
+
+    @Mock
+    private VendedorClientRest vendedorClientRest;
+
+    @Mock
+    private SucursalClientRest sucursalClientRest;
+
+    @Mock
+    private CarritoClientRest carritoClientRest;
+
+    @Mock
     private ComprobanteRepository comprobanteRepository;
 
     @InjectMocks
     private ComprobanteServiceImpl comprobanteService;
 
+    private Cliente clientePrueba;
+    private Vendedor vendedorPrueba;
+    private Sucursal sucursalPrueba;
+    private Carrito carritoPrueba;
     private Comprobante comprobantePrueba;
     private List<Comprobante> comprobantes = new ArrayList<>();
 

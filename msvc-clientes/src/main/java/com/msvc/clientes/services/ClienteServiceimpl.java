@@ -4,7 +4,6 @@ import com.msvc.clientes.DTO.ClienteDTO;
 import com.msvc.clientes.Exceptions.ClienteException;
 import com.msvc.clientes.models.Cliente;
 import com.msvc.clientes.repository.ClienteRepository;
-import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,14 +33,14 @@ public class ClienteServiceimpl implements ClienteService{
 
         String run = runCliente.toUpperCase();
 
-        Cliente cliente = null;
+        Cliente cliente = clienteRepository.findByRunCliente(run).orElseThrow(()-> new ClienteException("El cliente con el rut "+ run + " no esta en la base de datos"));
 
-        try {
+    /*    try {
             this.clienteRepository.findByRunCliente(run);
         }catch (FeignException ex){
             throw new ClienteException("El cliente con el rut "+ run + " no esta en la base de datos");
         }
-
+    */
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setRunCliente(cliente.getRunCliente());
         clienteDTO.setCorreoCliente(cliente.getCorreoCliente());
@@ -67,6 +66,17 @@ public class ClienteServiceimpl implements ClienteService{
         }
 
 
+    }
+
+    @Override
+    public Cliente deleteById(Long id){
+
+        if (!clienteRepository.existsById(id)){
+            throw new ClienteException("No se puede eliminar: cliente no esta en sistema");
+        }
+        clienteRepository.deleteById(id);
+
+        return null;
     }
 
     @Override
