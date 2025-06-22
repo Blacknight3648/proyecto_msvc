@@ -36,17 +36,18 @@ public class ReseniaController {
         return ResponseEntity.ok(reseniaService.save(resenia));
     }
 
-    @PutMapping
-    public ResponseEntity<Resenia> update(@RequestBody Resenia resenia) throws Exception {
+    @PutMapping("/{id}")
+    public ResponseEntity<Resenia> update(@PathVariable Long id, @RequestBody Resenia resenia) throws Exception {
+        resenia.setId(id);
         return ResponseEntity.ok(reseniaService.update(resenia));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         reseniaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
 }
 
 
