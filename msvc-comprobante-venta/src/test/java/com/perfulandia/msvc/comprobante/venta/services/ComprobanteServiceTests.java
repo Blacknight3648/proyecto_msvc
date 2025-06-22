@@ -2,7 +2,6 @@ package com.perfulandia.msvc.comprobante.venta.services;
 
 import com.perfulandia.msvc.comprobante.venta.dtos.*;
 import com.perfulandia.msvc.comprobante.venta.exceptions.ComprobanteException;
-import com.perfulandia.msvc.comprobante.venta.models.Vendedor;
 import com.perfulandia.msvc.comprobante.venta.models.entities.Comprobante;
 import com.perfulandia.msvc.comprobante.venta.repositories.ComprobanteRepository;
 import net.datafaker.Faker;
@@ -24,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MedicoServiceTests {
+public class ComprobanteServiceTests {
 
     @Mock
     private ComprobanteRepository comprobanteRepository;
@@ -33,7 +32,7 @@ public class MedicoServiceTests {
     private ComprobanteServiceImpl comprobanteService;
 
     private Comprobante comprobantePrueba;
-    private List<ComprobanteDTO> comprobantes = new ArrayList<>();
+    private List<Comprobante> comprobantes = new ArrayList<>();
 
     @BeforeEach
     public void setUp(){
@@ -41,7 +40,7 @@ public class MedicoServiceTests {
         Faker faker = new Faker(Locale.of("es", "CL"));
         for(int i=0;i<100;i++){
 
-            ComprobanteDTO comprobante = new ComprobanteDTO();
+            Comprobante comprobante = new Comprobante();
             CarritoDTO carrito = new CarritoDTO();
             ClienteDTO cliente = new ClienteDTO();
             SucursalDTO sucursal = new SucursalDTO();
@@ -54,11 +53,12 @@ public class MedicoServiceTests {
 
             int numero = faker.number().numberBetween(8000000, 25000000);
             String digito = faker.regexify("[0-9K]");
-            String cuerpo = String.format("%.d", numero).replace(',','.');
+            String cuerpo = String.format("%d", numero).replace(',','.');
             String rut = cuerpo + "-" + digito;
             cliente.setRunCliente(rut);
             cliente.setNombreCompleto(faker.name().fullName());
             cliente.setFechaNacimiento(LocalDate.now().minusYears(faker.number().numberBetween(18,70)));
+
 
 
             sucursal.setDireccionSucursal(faker.address().fullAddress());
@@ -71,10 +71,11 @@ public class MedicoServiceTests {
             comprobante.setFactura(faker.bool().bool());
             comprobante.setHoraComprobante(LocalDateTime.now().minusDays(faker.number().numberBetween(0, 30)));
 
-            comprobante.setCliente(cliente);
-            comprobante.setVendedor(vendedor);
-            comprobante.setSucursal(sucursal);
-            comprobante.setCarrito(carrito);
+
+            comprobante.setIdCliente(faker.number().numberBetween(1L,100L));
+            comprobante.setIdVendedor(faker.number().numberBetween(1L,100L));
+            comprobante.setIdSucursal(faker.number().numberBetween(1L,100L));
+            comprobante.setIdCarrito(faker.number().numberBetween(1L,100L));
 
             this.comprobantes.add(comprobante);
         }
@@ -88,7 +89,7 @@ public class MedicoServiceTests {
 
         when(comprobanteRepository.findAll()).thenReturn(this.comprobantes);
 
-        List<ComprobanteDTO> result = comprobanteService.findAll();
+        List<Comprobante> result = comprobanteService.findAllModels();
 
         assertThat(result).hasSize(101);
         assertThat(result).contains(this.comprobantePrueba);

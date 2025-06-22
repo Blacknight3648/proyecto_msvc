@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ComprobanteService {
     List<ComprobanteDTO> findAll();
+    List<Comprobante> findAllModels();
     Comprobante findById(Long id);
     Comprobante save(Comprobante comprobante);
     void deleteById(Long id);
