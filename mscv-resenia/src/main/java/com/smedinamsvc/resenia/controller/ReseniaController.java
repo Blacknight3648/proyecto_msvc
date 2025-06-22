@@ -2,7 +2,7 @@ package com.smedinamsvc.resenia.controller;
 
 import java.util.List;
 
-import com.smedinamsvc.resenia.exceptions.ReseniaExceptions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.smedinamsvc.resenia.model.Resenia;
@@ -13,52 +13,40 @@ import com.smedinamsvc.resenia.service.ReseniaService;
 
 public class ReseniaController {
 
-    private final ReseniaService reseniaService;
+    @Autowired
+    private ReseniaService reseniaService;
 
-    public ReseniaController(ReseniaService reseniaService) {
-        this.reseniaService = reseniaService;
-    }
-
-    //READ
     @GetMapping
-    public ResponseEntity<List<Resenia>> listarResenias() {
-        List<Resenia> resenias = reseniaService.findAll();
-        return ResponseEntity.ok(resenias);
+    public ResponseEntity<List<Resenia>> getAll() {
+        return ResponseEntity.ok(reseniaService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Resenia> obtenerPorId(@PathVariable Long id) throws ReseniaExceptions {
-        Resenia resenia = reseniaService.findById(id);
-        return ResponseEntity.ok(resenia);
+    public ResponseEntity<Resenia> getById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(reseniaService.findById(id));
     }
 
     @GetMapping("/producto/{productoId}")
-    public ResponseEntity<List<Resenia>> listarPorProducto(@PathVariable Long productoId) throws ReseniaExceptions {
-        List<Resenia> resenias = reseniaService.findByProductoId(productoId);
-        return ResponseEntity.ok(resenias);
+    public ResponseEntity<List<Resenia>> getByProducto(@PathVariable Long productoId) throws Exception {
+        return ResponseEntity.ok(reseniaService.findByProductoId(productoId));
     }
 
-    //CREATE
     @PostMapping
-    public ResponseEntity<Resenia> crearResenia(@RequestBody Resenia resenia) throws ReseniaExceptions {
-        Resenia nuevaResenia = reseniaService.save(resenia);
-        return ResponseEntity.ok(nuevaResenia);
+    public ResponseEntity<Resenia> create(@RequestBody Resenia resenia) throws Exception {
+        return ResponseEntity.ok(reseniaService.save(resenia));
     }
 
-    //DELETE
+    @PutMapping
+    public ResponseEntity<Resenia> update(@RequestBody Resenia resenia) throws Exception {
+        return ResponseEntity.ok(reseniaService.update(resenia));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarResenia(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         reseniaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    //UPDATE
-    @PutMapping("/{id}")
-    public ResponseEntity<Resenia> actualizarResenia(@PathVariable Long id, @RequestBody Resenia resenia) {
-        resenia.setId(id); // Asegura que se use el ID del path
-        Resenia actualizarResenia = reseniaService.update(resenia);
-        return ResponseEntity.ok(actualizarResenia);
-    }
 }
 
 

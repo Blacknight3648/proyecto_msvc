@@ -10,9 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
-
 @Entity
 @Table (name= "resenia")
 @Data
@@ -50,15 +47,5 @@ public class Resenia {
     @Column(name = "id_cliente", nullable = false)
     @NotNull(message = "El ID del cliente no puede estar vacio")
     private Long idCliente;
-
-    //SE AGREGA LA HORA DE LA RESENIA
-    @Column(name = "fecha_hora_resenia", nullable = false, updatable = false)
-    private LocalDateTime fechaHoraResenia;
-
-    //Inicializa el campo automaticamente
-    @PrePersist
-    protected void onCreate() {
-        this.fechaHoraResenia = LocalDateTime.now();
-    }
 
 }
