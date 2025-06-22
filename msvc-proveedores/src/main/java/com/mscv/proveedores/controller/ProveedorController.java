@@ -1,7 +1,8 @@
 package com.mscv.proveedores.controller;
 
-import com.mscv.proveedores.DTO.ProveedorDTO;
+import com.mscv.proveedores.Exceptions.ProveedorException;
 import com.mscv.proveedores.model.Proveedores;
+import com.mscv.proveedores.service.ProveedorService;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,38 +18,44 @@ import java.util.List;
 public class ProveedorController {
 
     @Autowired
-    private com.mscv.proveedores.service.ProveedorService proveedorService;
+    private ProveedorService proveedorService;
 
+    // READ: obtener todos
     @GetMapping
     public ResponseEntity<List<Proveedores>> findAll() {
-        List<Proveedores> proveedores = this.proveedorService.findAll();
-        return ResponseEntity.status(200).body(proveedores);
+        List<Proveedores> proveedores = proveedorService.findAll();
+        return ResponseEntity.ok(proveedores);
     }
 
+    // READ: obtener por ID
     @GetMapping("/{id}")
     public ResponseEntity<Proveedores> findById(@PathVariable Long id) {
-        Proveedores proveedor = this.proveedorService.findById(id);
-        return ResponseEntity.status(200).body(proveedor);
+        Proveedores proveedor = proveedorService.findById(id);
+        return ResponseEntity.ok(proveedor);
     }
 
-
+    // CREATE: crear nuevo proveedor
     @PostMapping
     public ResponseEntity<Proveedores> create(@Valid @RequestBody Proveedores proveedor) {
-        Proveedores nuevoProveedor = this.proveedorService.save(proveedor);
+        Proveedores nuevoProveedor = proveedorService.save(proveedor);
         return ResponseEntity.status(201).body(nuevoProveedor);
     }
 
-    @PutMapping("/{id}/suspender")
-    public ResponseEntity<Proveedores> suspend(@PathVariable Long id, @Valid @RequestBody ProveedorDTO proveedorDTO) {
-        Proveedores proveedorSuspendido = this.proveedorService.suspend(id, proveedorDTO);
-        return ResponseEntity.status(200).body(proveedorSuspendido);
+    // UPDATE: actualizar datos completos usando modelo
+    @PutMapping("/{id}")
+    public ResponseEntity<Proveedores> update(@PathVariable Long id, @RequestBody Proveedores proveedor) throws ProveedorException {
+        proveedor.setIdProveedor(id);
+        Proveedores actualizado = proveedorService.update(proveedor);
+        return ResponseEntity.ok(actualizado);
     }
 
-    /*@PutMapping("/{id}/actualizar")
-    public ResponseEntity<Proveedores> update(@PathVariable Long id, @Valid @RequestBody ProveedorDTO proveedorDTO) {
-        Proveedores proveedorActualizado = this.proveedorService.suspend(id, proveedorDTO);
-        return ResponseEntity.status(200).body(proveedorActualizado);
-    }*/
+
+    // DELETE: eliminar proveedor
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        proveedorService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
 

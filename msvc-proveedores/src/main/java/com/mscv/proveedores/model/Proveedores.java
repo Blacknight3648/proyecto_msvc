@@ -1,7 +1,5 @@
 package com.mscv.proveedores.model;
 
-import com.mscv.proveedores.service.ProveedorServiceImpl;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -12,7 +10,6 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Proveedores {
 
     @Id
@@ -21,7 +18,7 @@ public class Proveedores {
     private Long idProveedor;
 
     @Column(name = "run_proveedor", nullable = false, unique = true)
-    @Pattern(regexp = "\\d{1,8}-[\\dKk]", message = "El formato del run Proveedor debe ser 11.111.111-X")
+    @Pattern(regexp = "\\d{7,8}-[\\dkK]", message = "El formato del run Proveedor debe ser 12345678-K")
     private String runProveedor;
 
     @Column(name = "razon_social", nullable = false)
@@ -31,5 +28,7 @@ public class Proveedores {
     @Column(name = "suspencion", nullable = false)
     @NotNull(message = "El campo suspencion no puede estar nulo")
     private Boolean suspencion;
+
+    
 }
 
