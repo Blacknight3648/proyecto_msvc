@@ -106,6 +106,49 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     }
 
     @Override
+    public List<Comprobante> findAllModels() {
+        return this.comprobanteRepository.findAll().stream().map(comprobante -> {
+
+            Vendedor vendedor = null;
+            try{
+                vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
+            }catch (FeignException ex){
+                throw new ComprobanteException("El cliente buscado no existe");
+            }
+
+            Cliente cliente = null;
+            try{
+                cliente = this.clienteClientRest.findById(comprobante.getIdCliente());
+            }catch(FeignException ex){
+                throw new ComprobanteException("El cliente buscado no existe");
+            }
+            Sucursal sucursal = null;
+            try{
+                sucursal = this.sucursalClientRest.findById(comprobante.getIdSucursal());
+            }catch (FeignException ex){
+                throw new ComprobanteException("La sucursal buscada no existe");
+            }
+
+            Carrito carrito = null;
+            try {
+                carrito = this.carritoClientRest.findById(comprobante.getIdCarrito());
+            }catch (FeignException ex){
+                throw new ComprobanteException("El carrito buscado no existe");
+            }
+
+            Comprobante comprobante1 = new Comprobante();
+            comprobante1.setIdCarrito(carrito.getIdCarrito());
+            comprobante1.setIdVendedor(vendedor.getIdVendedor());
+            comprobante1.setIdSucursal(sucursal.getIdSucursal());
+            comprobante1.setIdCliente(cliente.getIdCliente());
+            comprobante1.setFactura(comprobante.getFactura());
+            comprobante1.setHoraComprobante(comprobante.getHoraComprobante());
+            comprobante1.setIdComprobante(comprobante.getIdComprobante());
+            return comprobante1;
+        }).toList();
+    }
+
+    @Override
     public Comprobante findById(Long id) {
         return this.comprobanteRepository.findById(id).orElseThrow(
                 () -> new ComprobanteException("El comprobante con id "+id+" no se encuentra en la base de datos")
@@ -181,4 +224,5 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     public List<Comprobante> findByCarritoId(Long carritoId) {
         return this.comprobanteRepository.findByIdCarrito(carritoId);
     }
+
 }

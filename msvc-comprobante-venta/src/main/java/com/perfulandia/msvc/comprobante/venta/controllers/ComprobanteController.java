@@ -26,6 +26,11 @@ public class ComprobanteController {
         return ResponseEntity.status(200).body(this.comprobanteService.findAll());
     }
 
+    @GetMapping
+    public ResponseEntity<List<Comprobante>> findAllModels(){
+        return ResponseEntity.status(200).body(this.comprobanteService.findAllModels());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Comprobante> findById(@PathVariable Long id){
         return ResponseEntity.status(200).body(this.comprobanteService.findById(id));
