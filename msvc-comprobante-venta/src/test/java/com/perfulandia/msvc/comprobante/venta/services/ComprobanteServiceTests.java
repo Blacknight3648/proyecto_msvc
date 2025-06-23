@@ -51,10 +51,7 @@ public class ComprobanteServiceTests {
     @InjectMocks
     private ComprobanteServiceImpl comprobanteService;
 
-    private Cliente clientePrueba;
-    private Vendedor vendedorPrueba;
-    private Sucursal sucursalPrueba;
-    private Carrito carritoPrueba;
+
     private Comprobante comprobantePrueba;
     private List<Comprobante> comprobantes = new ArrayList<>();
 
@@ -78,7 +75,7 @@ public class ComprobanteServiceTests {
 
             comprobante.setIdCliente(faker.number().numberBetween(1L,100L));
             comprobante.setIdVendedor(faker.number().numberBetween(1L,100L));
-            comprobante.setIdSucursal(faker.number().numberBetween(1L,100L));
+            comprobante.setIdSucursal(1L);
             comprobante.setIdCarrito(faker.number().numberBetween(1L,100L));
 
             this.comprobantes.add(comprobante);
@@ -89,14 +86,15 @@ public class ComprobanteServiceTests {
     @DisplayName("Debe listar todos los comprobantes")
     public void shouldFindAllComprobantes(){
 
-        this.comprobantes.add(this.comprobantePrueba);
 
         when(comprobanteRepository.findAll()).thenReturn(this.comprobantes);
 
-        List<Comprobante> result = comprobanteService.findAllModels();
+
+        List<ComprobanteDTO> result = comprobanteService.findAll();
+
 
         assertThat(result).hasSize(100);
-        assertThat(result).contains(this.comprobantePrueba);
+        assertThat(result.getFirst().getSucursal()).isEqualTo(1);
 
         verify(comprobanteRepository, times(1)).findAll();
     }
