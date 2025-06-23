@@ -27,8 +27,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
+
 @ExtendWith(MockitoExtension.class)
 public class ProductoServiceTest {
+
 
     @Mock
     private ProductoRepository productoRepository;
@@ -48,7 +50,7 @@ public class ProductoServiceTest {
         for(int i=0;i<100;i++){
 
             ProductoModel productoModel = new ProductoModel();
-            productoModel.setIdProducto((Long) i);
+            productoModel.setIdProducto(Long.valueOf(i));
             productoModel.setDescProducto(faker.lorem().paragraph());
             productoModel.setNombre(faker.name().fullName());
             productoModel.setPrecio(faker.number().numberBetween(10000,30000));
@@ -56,14 +58,14 @@ public class ProductoServiceTest {
             this.productoModel.add(productoModel);
         }
         this.productoPrueba = new ProductoModel(
-                    1L, "|  |", 15000, "Pedriatra"
+                    1L, "|  |", 15000, "Perfume 1"
         );
 
     }
 
     @Test
-    @DisplayName("Debe listar todos los médicos")
-    public void shouldFindAllMedicos(){
+    @DisplayName("Debe listar todos los productos")
+    public void shouldFindAllProductos(){
 
         this.productoModel.add(this.productoPrueba);
 
@@ -79,8 +81,8 @@ public class ProductoServiceTest {
     }
 
     @Test
-    @DisplayName("Debe encontrar un medico por id")
-    public void shouldFindMEdicoById(){
+    @DisplayName("Debe encontrar un producto por id")
+    public void shouldFindProductoById(){
         when(productoRepository.findById(1L)).thenReturn(Optional.of(this.productoPrueba));
         ProductoModel result = productoService.findById(1L);
         assertThat(result).isNotNull();
@@ -89,21 +91,20 @@ public class ProductoServiceTest {
     }
 
     @Test
-    @DisplayName("Debe entregar una excepcion cuando medico id no exista")
+    @DisplayName("Debe entregar una excepcion cuando producto id no exista")
     public void shouldNotFindProductoById(){
         Long idInexistente = 999L;
         when(productoRepository.findById(idInexistente)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> {
             productoService.findById(idInexistente);
         }).isInstanceOf(ProductoException.class)
-                .hasMessageContaining("El medico con id " + idInexistente
-                        + " no se encuentra en la base de datos");
+                .hasMessageContaining("El producto con el id: " + idInexistente + " no se encuentra en la base de datos");
         verify(productoRepository, times(1)).findById(idInexistente);
     }
 
     @Test
     @DisplayName("Debe guardar un nuevo medico")
-    public void shouldSaveMedico(){
+    public void shouldSaveProducto(){
         when(productoRepository.save(any(ProductoModel.class))).thenReturn(this.productoPrueba);
         ProductoModel result = productoService.save(this.productoPrueba);
         assertThat(result).isNotNull();
