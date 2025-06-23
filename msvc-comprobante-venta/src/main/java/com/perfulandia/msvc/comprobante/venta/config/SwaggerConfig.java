@@ -12,8 +12,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenApi(){
         return new OpenAPI()
                 .info(new Info()
-                .title("wawawa")
-                        .description("wiwiwi")
+                .title("Comprobantes")
+                        .description("MSVC para comprobante")
                         .version("1.0.0"));
 
     }

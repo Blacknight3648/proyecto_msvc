@@ -88,7 +88,7 @@ public class SucursalServiceTests {
         assertThatThrownBy(()->{
             sucursalServiceImpl.findById(idInexistente);
         }).isInstanceOf(SucursalException.class)
-                .hasMessageContaining("La sucursal con id "+ idInexistente +" no se encuentra en la base de datos");
+                .hasMessageContaining("La sucursal con id "+idInexistente+" no existe");
         verify(sucursalRepository, times(1)).findById(idInexistente);
     }
 
@@ -97,6 +97,21 @@ public class SucursalServiceTests {
     public void shouldSaveSucursal(){
         when(sucursalRepository.save(any(Sucursal.class))).thenReturn(this.sucursalPrueba);
 
-        Sucursal result = sucursalServiceImpl.save()
+        Sucursal result = sucursalServiceImpl.save(this.sucursalPrueba);
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(this.sucursalPrueba);
+
+        verify(sucursalRepository, times(1)).save(any(Sucursal.class));
+    }
+
+    @Test
+    @DisplayName("No debe guardar sucursal")
+    public void shouldNotSaveSucursales(){
+
+        when(sucursalRepository.save(any(Sucursal.class))).thenThrow(new SucursalException("Error al guardar sucursal"));
+
+        assertThatThrownBy(()-> sucursalRepository.save(this.sucursalPrueba)).isInstanceOf(Sucursal.class).hasMessageContaining("Error al guardar");
+
+        verify(sucursalRepository, times(1)).save(any(Sucursal.class));
     }
 }

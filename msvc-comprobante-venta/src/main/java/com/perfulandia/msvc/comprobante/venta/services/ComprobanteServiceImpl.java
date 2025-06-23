@@ -176,11 +176,13 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Comprobante deleteById(Long id) {
         if (!comprobanteRepository.existsById(id)){
             throw new ComprobanteException("No se puede eliminar: comprobante no encontrado");
         }
         comprobanteRepository.deleteById(id);
+
+        return null;
     }
 
     @Override

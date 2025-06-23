@@ -65,32 +65,12 @@ public class ComprobanteServiceTests {
         for(int i=0;i<100;i++){
 
             Comprobante comprobante = new Comprobante();
-            CarritoDTO carrito = new CarritoDTO();
-            ClienteDTO cliente = new ClienteDTO();
-            SucursalDTO sucursal = new SucursalDTO();
-            VendedorDTO vendedor = new VendedorDTO();
 
-            carrito.setIdProducto(faker.number().numberBetween(1L,100L));
-            carrito.setCantidad(faker.number().numberBetween(1,100));
-            carrito.setPrecioTotal(faker.number().numberBetween(1,100));
-            carrito.setCupon(faker.bothify("?#??-#?##"));
 
             int numero = faker.number().numberBetween(8000000, 25000000);
             String digito = faker.regexify("[0-9K]");
             String cuerpo = String.format("%d", numero).replace(',','.');
             String rut = cuerpo + "-" + digito;
-            cliente.setRunCliente(rut);
-            cliente.setNombreCompleto(faker.name().fullName());
-            cliente.setFechaNacimiento(LocalDate.now().minusYears(faker.number().numberBetween(18,70)));
-
-
-
-            sucursal.setDireccionSucursal(faker.address().fullAddress());
-            sucursal.setNombreSucursal(faker.address().buildingNumber());
-
-            vendedor.setRunVendedor(rut);
-            vendedor.setNombreCompleto(faker.name().fullName());
-            vendedor.setFechaNacimiento(LocalDate.now().minusYears(faker.number().numberBetween(18,50)));
 
             comprobante.setFactura(faker.bool().bool());
             comprobante.setHoraComprobante(LocalDateTime.now().minusDays(faker.number().numberBetween(0, 30)));
@@ -115,7 +95,7 @@ public class ComprobanteServiceTests {
 
         List<Comprobante> result = comprobanteService.findAllModels();
 
-        assertThat(result).hasSize(101);
+        assertThat(result).hasSize(100);
         assertThat(result).contains(this.comprobantePrueba);
 
         verify(comprobanteRepository, times(1)).findAll();

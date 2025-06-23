@@ -1,8 +1,10 @@
 package com.perfulandia.msvc.comprobante.venta.controllers;
 
+
+import com.perfulandia.msvc.comprobante.venta.assemblers.ComprobanteDTOModelAssembler;
+import com.perfulandia.msvc.comprobante.venta.assemblers.ComprobanteModelAssembler;
 import com.perfulandia.msvc.comprobante.venta.dtos.ComprobanteDTO;
 import com.perfulandia.msvc.comprobante.venta.dtos.ErrorDTO;
-import com.perfulandia.msvc.comprobante.venta.models.Cliente;
 import com.perfulandia.msvc.comprobante.venta.models.entities.Comprobante;
 import com.perfulandia.msvc.comprobante.venta.services.ComprobanteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,20 +17,33 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.hateoas.*;
+import io.swagger.v3.oas.annotations.*;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/comprobantes")
+@RequestMapping("/api/v2/comprobantes")
 @Validated
-@Tag(name = "Comprobante", description = "Esta seccion contiene los CRUD de comprobante")
-public class ComprobanteController {
+@Tag(name = "Comprobantes HATEOAS", description = "Esta seccion contiene los CRUD a comprobantes")
+public class ComprobanteControllerV2 {
 
     @Autowired
     private ComprobanteService comprobanteService;
+
+    @Autowired
+    private ComprobanteModelAssembler comprobanteModelAssembler;
+
+    @Autowired
+    private ComprobanteDTOModelAssembler comprobanteDTOModelAssembler;
 
     @GetMapping("/mostrar_comprobantes")
     @Operation(
@@ -37,11 +52,19 @@ public class ComprobanteController {
                     " de que no se encuentre nada retorna una lista vacía"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Se retornaron todos los comprobantes")
+            @ApiResponse(responseCode = "200", description = "Se retornaron todos los comprobantes", content = @Content(mediaType = MediaTypes.HAL_JSON_VALUE,schema = @Schema(implementation = Comprobante.class)))
     })
-    public ResponseEntity<List<ComprobanteDTO>> findAll(){
-        List<ComprobanteDTO> comprobantes = this.comprobanteService.findAll();
-        return ResponseEntity.status(200).body(comprobantes);
+    public ResponseEntity<CollectionModel<EntityModel<ComprobanteDTO>>> findAll(){
+
+        List<EntityModel<ComprobanteDTO>> entityModels = this.comprobanteService.findAll()
+                .stream()
+                .map(comprobanteDTOModelAssembler::toModel)
+                .toList();
+        CollectionModel<EntityModel<ComprobanteDTO>> collectionModel = CollectionModel.of(
+                entityModels,
+                linkTo(methodOn(ComprobanteControllerV2.class).findAll()).withSelfRel()
+        );
+        return ResponseEntity.status(200).body(collectionModel);
     }
 
     @GetMapping("/mostrar_comprobantes_models")
@@ -51,11 +74,19 @@ public class ComprobanteController {
                     " de que no se encuentre nada retorna una lista vacía"
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Se retornaron todos los comprobantes")
+            @ApiResponse(responseCode = "200", description = "Se retornaron todos los comprobantes", content = @Content(mediaType = MediaTypes.HAL_JSON_VALUE,schema = @Schema(implementation = Comprobante.class)))
     })
-    public ResponseEntity<List<Comprobante>> findAllModels(){
-        List<Comprobante> comprobantes = this.comprobanteService.findAllModels();
-        return ResponseEntity.status(200).body(comprobantes);
+    public ResponseEntity<CollectionModel<EntityModel<Comprobante>>> findAllModels(){
+
+        List<EntityModel<Comprobante>> entityModels = this.comprobanteService.findAllModels()
+                .stream()
+                .map(comprobanteModelAssembler::toModel)
+                .toList();
+        CollectionModel<EntityModel<Comprobante>> collectionModel = CollectionModel.of(
+                entityModels,
+                linkTo(methodOn(ComprobanteControllerV2.class).findAllModels()).withSelfRel()
+        );
+        return ResponseEntity.status(200).body(collectionModel);
     }
 
     @GetMapping("id/{id}")
@@ -77,9 +108,11 @@ public class ComprobanteController {
     @Parameters(value = {
             @Parameter(name = "id", description = "Este es el id unico de un comprobante",required = true)
     })
-    public ResponseEntity<Comprobante> findById(@PathVariable Long id){
-        Comprobante comprobante = this.comprobanteService.findById(id);
-        return ResponseEntity.status(200).body(comprobante);
+    public ResponseEntity<EntityModel<Comprobante>> findById(@PathVariable Long id){
+        EntityModel<Comprobante> entityModel = this.comprobanteModelAssembler.toModel(
+                comprobanteService.findById(id)
+        );
+        return ResponseEntity.status(200).body(entityModel);
     }
 
     @PostMapping("/crearComprobante")
@@ -209,6 +242,4 @@ public class ComprobanteController {
         Comprobante comprobante = comprobanteService.deleteById(id);
         return ResponseEntity.status(202).body(comprobante);
     }
-
-
 }
