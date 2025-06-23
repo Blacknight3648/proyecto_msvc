@@ -104,11 +104,9 @@ public class ClienteServicesTest {
     public void shouldNotFindClientesById(){
         Long idInexistente = 999L;
         when(clienteRepository.findById(idInexistente)).thenReturn(Optional.empty());
-        assertThatThrownBy(() -> {
-            clienteServiceimpl.findById(idInexistente);
-        }).isInstanceOf(ClienteException.class)
-                .hasMessageContaining("El medico con id " + idInexistente
-                        + " no se encuentra en la base de datos");
+        assertThatThrownBy(() ->
+            clienteServiceimpl.findById(idInexistente)).isInstanceOf(ClienteException.class).hasMessageContaining("El cliente con id "+ idInexistente + " no se encuentra en la base de datos");
+
         verify(clienteRepository, times(1)).findById(idInexistente);
 
     }
@@ -152,11 +150,9 @@ public class ClienteServicesTest {
     @DisplayName("No debe guardar clientes")
     public void shouldNotSaveClientes(){
 
-        when(clienteRepository.save(any(Cliente.class))).thenReturn(null);
+        when(clienteRepository.save(any(Cliente.class))).thenThrow(new ClienteException("Error al guardar cliente"));
 
-        Cliente result = clienteServiceimpl.save(this.clientePrueba);
-        assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(this.clientePrueba);
+        assertThatThrownBy(()-> clienteServiceimpl.save(this.clientePrueba)).isInstanceOf(ClienteException.class).hasMessageContaining("Error al guarda");
 
         verify(clienteRepository, times(1)).save(any(Cliente.class));
 

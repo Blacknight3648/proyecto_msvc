@@ -32,9 +32,9 @@ public class ClienteController {
 
     @GetMapping("/mostrar_clientes")
     @Operation(
-            summary = "Devuelve todos los medicos,",
-            description = "Este medtodo debe retornar una lista de clientes, en caso"+
-                    "de que no se encuentre nada retorna una lista vacia"
+            summary = "Devuelve todos los clientes,",
+            description = "Este metodo debe retornar una lista de clientes, en caso"+
+                    " de que no se encuentre nada retorna una lista vacia"
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Se retornan todos los clientes")
@@ -49,7 +49,7 @@ public class ClienteController {
     @Operation(
             summary = "Devuelve un cliente respecto a su id",
             description = "Este metodo debe retornar un Cliente cuando es consultado"+
-                    "mediante su Id"
+                    " mediante su Id"
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Se  retorna el cliente encontrado"),
@@ -71,7 +71,29 @@ public class ClienteController {
     }
 
     @GetMapping("/run/{runCliente}")
-    public ResponseEntity<ClienteDTO> findByRun(String runCliente){
+    @Operation(
+
+            summary = "Devuelve un cliente con respecto a su rut",
+            description = "Este metodo debe retornar un Cliente cuando es consultado"+
+                    " mediante su rut"
+
+    )
+    @ApiResponses(value = {
+
+            @ApiResponse(responseCode = "200", description = "Se retorna el cliente encontrado"),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Error - Cliente con este rut no existe",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class)
+                    )
+            )
+    })
+    @Parameters(value = {
+            @Parameter(name = "id", description = "Este es el rut unico de un cliente", required = true)
+    })
+    public ResponseEntity<ClienteDTO> findByRunCliente(String runCliente){
         ClienteDTO clienteDTO = this.clienteService.findByRunCliente(runCliente);
         return ResponseEntity.status(200).body(clienteDTO);
 
@@ -99,12 +121,47 @@ public class ClienteController {
     }
 
     @PutMapping("/suspender/{id}")
+    @Operation(
+            summary = "Endpoint que permite suspender un cliente",
+            description = "Este endpoint recibe el ID del cliente por la URL y permite modificar el estado de cuenta a traves de un ClienteDTO para suspender al cliente correspondiente."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "Cliente suspendido correctamente"),
+            @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos en la solicitud")
+    })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            description = "Debe enviarse un JSON con los datos requeridos del cliente a suspender",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ClienteDTO.class)
+            )
+    )
     public ResponseEntity<Cliente> suspend(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO) {
         Cliente clienteSuspendido = clienteService.suspend(id, clienteDTO);
         return ResponseEntity.status(202).body(clienteSuspendido);
     }
 
     @PutMapping("/modificar/{id}")
+    @Operation(
+            summary = "Endpoint que permite modificar un cliente existente",
+            description = "Este endpoint permite actualizar los datos de un cliente específico. " +
+                    "Se debe enviar el ID del cliente como parte de la URL y un cuerpo en formato ClienteDTO con los datos modificados."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "Cliente modificado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida o datos incorrectos")
+    })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            description = "Debe enviarse un JSON con los datos modificados del cliente",
+            content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ClienteDTO.class)
+            )
+    )
     public ResponseEntity<Cliente> update(@PathVariable Long id, @Valid @RequestBody ClienteDTO clienteDTO){
         Cliente clienteModificado = clienteService.update(id, clienteDTO);
         return ResponseEntity.status(202).body(clienteModificado);
@@ -112,6 +169,16 @@ public class ClienteController {
     }
 
     @DeleteMapping("/eliminar_cliente/{id}")
+    @Operation(
+            summary = "Eliminar un cliente por ID",
+            description = "Este endpoint permite eliminar un cliente específico utilizando su ID. " +
+                    "Devuelve el cliente eliminado si la operación fue exitosa."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "202", description = "Cliente eliminado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Cliente no encontrado"),
+            @ApiResponse(responseCode = "400", description = "ID inválido")
+    })
     public ResponseEntity<Cliente> deleteById(@PathVariable Long id){
 
         Cliente cliente = clienteService.deleteById(id);

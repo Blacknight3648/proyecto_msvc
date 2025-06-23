@@ -12,6 +12,7 @@ public class VendedorDTO {
     private String runVendedor;
     private LocalDate fechaNacimiento;
     private String nombreCompleto;
+    private String correoVendedor;
     private boolean estadoCuenta;
 
 

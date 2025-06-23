@@ -34,6 +34,12 @@ public class Vendedor {
     @NotBlank(message = "El campo nombre completo de vendedor no puede estar vacio")
     private String nombreCompleto;
 
+    @Column(name = "correo_cliente", nullable = false)
+    @NotNull(message = "El campo correo no puede ser nulo")
+    @NotBlank(message = "El campo correo no puede estar vacio")
+    private  String correoVendedor;
+
+
     @Column(name = "estado_cuenta")
     @NotNull(message = "El campo estado de cuenta no puede ser nulo")
     private boolean estadoCuenta;

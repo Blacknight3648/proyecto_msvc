@@ -29,9 +29,54 @@ public class VendedorServiceimpl implements VendedorService{
     }
 
     @Override
+    public VendedorDTO findByRunVendedor(String runVendedor) {
+        String run = runVendedor.toUpperCase();
+
+        Vendedor vendedor = vendedorRepository.findByRunVendedor(run).orElseThrow(()-> new VendedorException("El vendedor con el rut "+ run + " no esta en la base de datos"));
+
+        VendedorDTO vendedorDTO =  new VendedorDTO();
+        vendedorDTO.setRunVendedor(vendedor.getRunVendedor());
+        vendedorDTO.setCorreoVendedor(vendedor.getCorreoVendedor());
+        vendedorDTO.setNombreCompleto(vendedor.getNombreCompleto());
+        vendedorDTO.setFechaNacimiento(vendedor.getFechaNacimiento());
+        vendedorDTO.setEstadoCuenta(vendedor.isEstadoCuenta());
+
+        return vendedorDTO;
+    }
+
+    @Override
     public Vendedor save(Vendedor vendedor) {
         vendedor.setEstadoCuenta(true);
-        return vendedorRepository.save(vendedor);
+
+        if(!this.vendedorRepository.findByRunVendedor(vendedor.getRunVendedor()).isPresent()){
+            return vendedorRepository.save(vendedor);
+        }else{
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public Vendedor deleteById(Long id) {
+        if (!vendedorRepository.existsById(id)){
+            throw new VendedorException("No se puede eliminar: vendedor no esta en sistema");
+        }
+
+        return null;
+    }
+
+    @Override
+    public Vendedor update(Long id, VendedorDTO vendedorDTO) {
+        Vendedor vendedor = this.vendedorRepository.findById(id).orElseThrow(() -> new VendedorException("El vendedor con id "+ id +" no se encuentra en la base de datos"));
+
+        vendedor.setFechaNacimiento(vendedorDTO.getFechaNacimiento());
+        vendedor.setCorreoVendedor(vendedorDTO.getCorreoVendedor());
+        vendedor.setNombreCompleto(vendedorDTO.getNombreCompleto());
+
+        Vendedor update = vendedorRepository.save(vendedor);
+
+        return update;
+
+
     }
 
     @Override
