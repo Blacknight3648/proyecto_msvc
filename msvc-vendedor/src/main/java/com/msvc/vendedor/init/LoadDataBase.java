@@ -28,7 +28,7 @@ public class LoadDataBase implements CommandLineRunner {
     public void run(String... args) throws  Exception{
         Faker faker = new Faker(Locale.of("es", "CL"));
         if (vendedorRepository.count()==0){
-            for (int i=0;i<1000;i++){
+            for (int i=0;i<100;i++){
                 Vendedor vendedor = new Vendedor();
                 LocalDate fechaNacimiento = LocalDate.now().minusYears(faker.number().numberBetween(18, 80));
                 vendedor.setFechaNacimiento(fechaNacimiento);
@@ -41,8 +41,10 @@ public class LoadDataBase implements CommandLineRunner {
                 String restante = numeroString.substring(0,numeroString.length()-1);
                 vendedor.setRunVendedor(restante+"-"+ultimo);
 
-                Vendedor = vendedorRepository.save(Vendedor);
-                logger.info("El Vendedor creado es : {}", Vendedor.toString());
+
+
+                vendedor = vendedorRepository.save(vendedor);
+                logger.info("El Vendedor creado es : {}", vendedor.toString());
             }
         }
     }

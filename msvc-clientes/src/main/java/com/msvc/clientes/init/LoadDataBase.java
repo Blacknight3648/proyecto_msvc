@@ -27,7 +27,7 @@ public class LoadDataBase implements CommandLineRunner {
     public void run(String... args) throws  Exception{
         Faker faker = new Faker(Locale.of("es", "CL"));
         if (clienteRepository.count()==0){
-            for (int i=0;i<1000;i++){
+            for (int i=0;i<100;i++){
                 Cliente cliente = new Cliente();
                 LocalDate fechaNacimiento = LocalDate.now().minusYears(faker.number().numberBetween(18, 80));
                 cliente.setFechaNacimiento(fechaNacimiento);
