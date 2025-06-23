@@ -4,6 +4,7 @@ import com.smedinamsvc.resenia.exceptions.ReseniaExceptions;
 import com.smedinamsvc.resenia.model.Resenia;
 import com.smedinamsvc.resenia.repository.ReseniaRepository;
 import com.smedinamsvc.resenia.service.ReseniaService;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Data
 @Service
-
+@Builder
 public class ReseniaServiceImpl implements ReseniaService {
 
     @Autowired

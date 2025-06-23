@@ -5,10 +5,9 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table (name= "resenia")
@@ -16,6 +15,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Getter
+@Setter
+@EqualsAndHashCode
+@Builder
 public class Resenia {
 
     //ID DE LA TABLA: SE AUTOGENERA DE FOMRA AUTOMATICA
@@ -48,5 +51,4 @@ public class Resenia {
     @NotNull(message = "El ID del cliente no puede estar vacio")
     private Long idCliente;
 
-    //Estoy probando
 }
