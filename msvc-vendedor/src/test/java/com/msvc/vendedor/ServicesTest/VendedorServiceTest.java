@@ -109,7 +109,29 @@ public class VendedorServiceTest {
         verify(vendedorRepository,times(1)).findById(idInexistente);
     }
 
+    @Test
+    @DisplayName("Debe guardar vendedores")
+    public void shouldSaveVendedoresA(){
 
+        when(vendedorRepository.save(any(Vendedor.class))).thenReturn(this.vendedorPrueba);
+
+        Vendedor result = vendedorServiceimpl.save(this.vendedorPrueba);
+        assertThat(result).isNotNull();
+        assertThat(result).isEqualTo(this.vendedorPrueba);
+
+        verify(vendedorRepository,times(1)).save(any(Vendedor.class));
+    }
+
+    @Test
+    @DisplayName("No debe guardar clientes")
+    public void shouldNotSaveVendedoresa(){
+
+        when(vendedorRepository.save(any(Vendedor.class))).thenThrow(new VendedorException("Error al guardar vendedor"));
+
+        assertThatThrownBy(()-> vendedorServiceimpl.save(this.vendedorPrueba)).isInstanceOf(VendedorException.class).hasMessageContaining("Error al guardar");
+
+        verify(vendedorRepository,times(1)).save(any(Vendedor.class));
+    }
 
 
 

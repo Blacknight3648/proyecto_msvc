@@ -1,5 +1,7 @@
 package com.msvc.vendedor.controllers;
 
+import com.msvc.vendedor.assamblers.VendedorDTOModelAssambler;
+import com.msvc.vendedor.assamblers.VendedorModelAssambler;
 import com.msvc.vendedor.dtos.ErrorDTO;
 import com.msvc.vendedor.dtos.VendedorDTO;
 import com.msvc.vendedor.models.Vendedor;
@@ -11,21 +13,33 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
 @RestController
-@RequestMapping("/api/v1/vendedor")
+@RequestMapping("/api/v2/vendedor")
 @Validated
+@Tag(name = "Clientes HATEOAS", description = "Esta seccion contiene los CRUD a vendedores")
 public class VendedorControllerV2 {
 
     @Autowired
     private VendedorService vendedorService;
+
+    @Autowired
+    private VendedorModelAssambler vendedorModelAssambler;
+    
+    @Autowired
+    private VendedorDTOModelAssambler vendedorDTOModelAssambler;
 
     @GetMapping("/mostrar_vendedores")
     @Operation(
@@ -36,9 +50,13 @@ public class VendedorControllerV2 {
     @ApiResponses(value ={
             @ApiResponse(responseCode = "200", description = "Se retornan todos los vendedores")
     })
-    public ResponseEntity<List<Vendedor>>findAll(){
-        List<Vendedor> vendedores = this.vendedorService.findAll();
-        return ResponseEntity.status(200).body(vendedores);
+    public ResponseEntity<CollectionModel<EntityModel<Vendedor>>>findAll(){
+        List<EntityModel<Vendedor>> entityModels = this.vendedorService.findAll().stream().map(vendedorModelAssambler::toModel).toList();
+        CollectionModel<EntityModel<Vendedor>> collectionModel = CollectionModel.of(
+                entityModels,
+                linkTo(methodOn(VendedorControllerV2.class).findAll()).withSelfRel()
+        );
+        return ResponseEntity.status(200).body(collectionModel);
     }
 
     @GetMapping("/id/{id}")
