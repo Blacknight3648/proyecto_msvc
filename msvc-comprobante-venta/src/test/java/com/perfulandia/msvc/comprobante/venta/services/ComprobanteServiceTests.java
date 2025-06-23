@@ -50,9 +50,11 @@ public class ComprobanteServiceTests {
 
     @InjectMocks
     private ComprobanteServiceImpl comprobanteService;
-
-
-    private Comprobante comprobantePrueba;
+    private Cliente clienteTest;
+    private Vendedor vendedorTest;
+    private Sucursal sucursalTest;
+    private Carrito carritoTest;
+    private Comprobante comprobanteTest;
     private List<Comprobante> comprobantes = new ArrayList<>();
 
     @BeforeEach
@@ -61,22 +63,46 @@ public class ComprobanteServiceTests {
         Faker faker = new Faker(Locale.of("es", "CL"));
         for(int i=0;i<100;i++){
 
-            Comprobante comprobante = new Comprobante();
-
-
-            int numero = faker.number().numberBetween(8000000, 25000000);
+            String numero = faker.idNumber().valid().replaceAll("-", "");
             String digito = faker.regexify("[0-9K]");
-            String cuerpo = String.format("%d", numero).replace(',','.');
-            String rut = cuerpo + "-" + digito;
+            String restante = numero.substring(0, numero.length()-1);
+            String rut = restante + "-" + digito;
 
+            clienteTest = new Cliente(
+                    faker.number().numberBetween(1L,100L),
+                    rut,
+                    LocalDate.now().minusYears(faker.number().numberBetween(18,50)),
+                    faker.name().fullName()
+            );
+
+            vendedorTest = new Vendedor(
+                    faker.number().numberBetween(1L,100L),
+                    rut,
+                    LocalDate.now().minusYears(faker.number().numberBetween(18,50)),
+                    faker.name().fullName()
+            );
+            carritoTest = new Carrito(
+                    faker.number().numberBetween(1L,100L),
+                    faker.number().numberBetween(1000,999999),
+                    faker.funnyName().name(),
+                    faker.number().numberBetween(1L,100L),
+                    faker.number().numberBetween(1L,100L)
+            );
+            sucursalTest = new Sucursal(
+                    faker.number().numberBetween(1L,100L),
+                    faker.company().name(),
+                    faker.address().fullAddress()
+            );
+
+
+            Comprobante comprobante = new Comprobante();
             comprobante.setFactura(faker.bool().bool());
             comprobante.setHoraComprobante(LocalDateTime.now().minusDays(faker.number().numberBetween(0, 30)));
 
-
-            comprobante.setIdCliente(faker.number().numberBetween(1L,100L));
-            comprobante.setIdVendedor(faker.number().numberBetween(1L,100L));
-            comprobante.setIdSucursal(1L);
-            comprobante.setIdCarrito(faker.number().numberBetween(1L,100L));
+            comprobante.setIdCliente(clienteTest.getIdCliente());
+            comprobante.setIdVendedor(vendedorTest.getIdVendedor());
+            comprobante.setIdSucursal(sucursalTest.getIdSucursal());
+            comprobante.setIdCarrito(carritoTest.getIdCarrito());
 
             this.comprobantes.add(comprobante);
         }
@@ -86,15 +112,20 @@ public class ComprobanteServiceTests {
     @DisplayName("Debe listar todos los comprobantes")
     public void shouldFindAllComprobantes(){
 
+        this.comprobantes.add(this.comprobanteTest);
 
         when(comprobanteRepository.findAll()).thenReturn(this.comprobantes);
-
+        when(carritoClientRest.findById(carritoTest.getIdCarrito()));
 
         List<ComprobanteDTO> result = comprobanteService.findAll();
 
 
-        assertThat(result).hasSize(100);
-        assertThat(result.getFirst().getSucursal()).isEqualTo(1);
+        assertThat(result).
+
+
+
+
+
 
         verify(comprobanteRepository, times(1)).findAll();
     }
@@ -102,10 +133,10 @@ public class ComprobanteServiceTests {
     @Test
     @DisplayName("Debe encontrar comprobante por id")
     public void shouldFindComprobanteById(){
-        when(comprobanteRepository.findById(1L)).thenReturn(Optional.of(this.comprobantePrueba));
+        when(comprobanteRepository.findById(1L)).thenReturn(Optional.of(this.comprobanteTest));
         Comprobante result = comprobanteService.findById(1L);
         assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(this.comprobantePrueba);
+        assertThat(result).isEqualTo(this.comprobanteTest);
         verify(comprobanteRepository,times(1)).findById(1L);
     }
 
@@ -124,10 +155,10 @@ public class ComprobanteServiceTests {
     @Test
     @DisplayName("Debe guardar un nuevo medico")
     public void shouldSaveComprobante(){
-        when(comprobanteRepository.save(any(Comprobante.class))).thenReturn(this.comprobantePrueba);
-        Comprobante result = comprobanteService.save(this.comprobantePrueba);
+        when(comprobanteRepository.save(any(Comprobante.class))).thenReturn(this.comprobanteTest);
+        Comprobante result = comprobanteService.save(this.comprobanteTest);
         assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(this.comprobantePrueba);
+        assertThat(result).isEqualTo(this.comprobanteTest);
         verify(comprobanteRepository,times(1)).save(any(Comprobante.class));
     }
 

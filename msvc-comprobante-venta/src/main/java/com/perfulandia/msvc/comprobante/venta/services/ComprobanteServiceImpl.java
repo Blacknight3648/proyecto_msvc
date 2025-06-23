@@ -80,6 +80,7 @@ public class ComprobanteServiceImpl implements ComprobanteService {
             vendedorDTO.setFechaNacimiento(vendedor.getFechaNacimiento());
             vendedorDTO.setNombreCompleto(vendedor.getNombreCompleto());
 
+
             ClienteDTO clienteDTO = new ClienteDTO();
             clienteDTO.setRunCliente(cliente.getRunCliente());
             clienteDTO.setFechaNacimiento(cliente.getFechaNacimiento());
@@ -90,8 +91,6 @@ public class ComprobanteServiceImpl implements ComprobanteService {
             sucursalDTO.setDireccionSucursal(sucursal.getDireccionSucursal());
 
             CarritoDTO carritoDTO = new CarritoDTO();
-            carritoDTO.setIdProducto(carrito.getIdProducto());
-            carritoDTO.setCantidad(carrito.getCantidad());
             carritoDTO.setCupon(carrito.getCupon());
             carritoDTO.setPrecioTotal(carrito.getPrecioTotal());
 
