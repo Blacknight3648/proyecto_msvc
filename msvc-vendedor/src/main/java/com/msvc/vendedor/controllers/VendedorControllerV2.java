@@ -71,12 +71,13 @@ public class VendedorControllerV2 {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation =  ErrorDTO.class)))
     })
     @Parameters(value = {
-            @Parameter(name = "id",description = "Este es el id unico de un cliente", required = true)
+            @Parameter(name = "id",description = "Este es el id unico de un Vendedor", required = true)
     })
-    public ResponseEntity<Vendedor> findById(@PathVariable Long id){
+    public ResponseEntity<EntityModel<Vendedor>> findById(@PathVariable Long id){
 
-        Vendedor vendedor = this.vendedorService.findById(id);
-        return ResponseEntity.status(200).body(vendedor);
+
+        EntityModel<Vendedor> entityModel = this.vendedorModelAssambler.toModel(vendedorService.findById(id));
+        return ResponseEntity.status(200).body(entityModel);
 
     }
 
