@@ -4,11 +4,12 @@ import com.msvc.vendedor.controllers.VendedorControllerV2;
 import com.msvc.vendedor.dtos.VendedorDTO;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.stereotype.Component;
 
 import javax.swing.text.html.parser.Entity;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
+@Component
 public class VendedorDTOModelAssambler implements RepresentationModelAssembler <VendedorDTO, EntityModel<VendedorDTO>>{
 
     @Override

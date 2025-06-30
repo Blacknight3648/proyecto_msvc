@@ -101,7 +101,7 @@ public class VendedorControllerV2 {
             )
     })
     @Parameters(value = {
-            @Parameter(name = "rut", description = "Este es el rut unico de un cliente", required = true)
+            @Parameter(name = "runVendedor", description = "Este es el rut unico de un cliente", required = true)
     })
     public ResponseEntity<EntityModel<VendedorDTO>> findByRunVendedor(String runVendedor){
         EntityModel<VendedorDTO> entityModel = this.vendedorDTOModelAssambler.toModel(
