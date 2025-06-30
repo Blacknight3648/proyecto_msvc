@@ -26,6 +26,8 @@ import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
+/*http://localhost:8023/doc/swagger-ui/index.html*/
+
 @RestController
 @RequestMapping("/api/v2/vendedor")
 @Validated
