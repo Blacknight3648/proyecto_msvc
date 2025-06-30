@@ -20,9 +20,9 @@ public class ClienteModelAssamabler implements RepresentationModelAssembler<Clie
 
                 entity,
                 linkTo(methodOn(ClienteControllerV2.class).findById(entity.getIdCliente())).withSelfRel(),
-                linkTo(methodOn(ClienteControllerV2.class).findAll()).withSelfRel(),
-                linkTo(methodOn(ClienteControllerV2.class).findByRun(entity.getRunCliente())).withSelfRel(),
-                Link.of("http://localhost:8020/cliente"+entity.getIdCliente()).withSelfRel()
+              /*  linkTo(methodOn(ClienteControllerV2.class).findAll()).withSelfRel(),
+                linkTo(methodOn(ClienteControllerV2.class).findByRun(entity.getRunCliente())).withSelfRel(),*/
+                Link.of("http://localhost:8020/cliente/id/"+entity.getIdCliente()).withSelfRel()
 
         );
 

@@ -84,7 +84,7 @@ public class VendedorControllerV2 {
     @GetMapping("/run/{runVendedor}")
     @Operation(
 
-            summary = "Devuelve un cliente con respecto a su rut",
+            summary = "Devuelve un vendedor con respecto a su rut",
             description = "Este metodo debe retornar un Vendedor cuando es consultado"+
                     " mediante su rut"
 
@@ -101,15 +101,17 @@ public class VendedorControllerV2 {
             )
     })
     @Parameters(value = {
-            @Parameter(name = "id", description = "Este es el rut unico de un cliente", required = true)
+            @Parameter(name = "rut", description = "Este es el rut unico de un cliente", required = true)
     })
-    public ResponseEntity<VendedorDTO> findByRunVendedor(String runVendedor){
+    public ResponseEntity<EntityModel<VendedorDTO>> findByRunVendedor(String runVendedor){
+        EntityModel<VendedorDTO> entityModel = this.vendedorDTOModelAssambler.toModel(
+                vendedorService.findByRunVendedor(runVendedor)
+        );
 
-        VendedorDTO vendedorDTO=this.vendedorService.findByRunVendedor(runVendedor);
-        return ResponseEntity.status(200).body(vendedorDTO);
+        return ResponseEntity.status(200).body(entityModel);
 
     }
-/*aaaaaa*/
+
 
     @PostMapping("/crearVendedor")
     @Operation(

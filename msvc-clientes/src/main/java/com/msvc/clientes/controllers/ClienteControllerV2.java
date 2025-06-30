@@ -45,8 +45,8 @@ public class ClienteControllerV2 {
 
     @GetMapping(value = "/mostrar_clientes" ) /* produces = MediaType.HAL_JSON_VALUE*/
     @Operation(
-            summary = "Devuelve todos los medicos,",
-            description = "Este medtodo debe retornar una lista de clientes, en caso"+
+            summary = "Devuelve todos los clientes,",
+            description = "Este metodo debe retornar una lista de clientes, en caso"+
                     "de que no se encuentre nada retorna una lista vacia"
     )
     @ApiResponses(value = {
@@ -95,6 +95,25 @@ public class ClienteControllerV2 {
     }
 
     @GetMapping("/run/{runCliente}")
+    @Operation(
+            summary = "Devuelve un cliente con respecto a su rut",
+            description = "Este metodo debe retornar un cliente cuando es consultado"+
+                    " mediante su rut"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Retorna el cliente encontrado"),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Error - Cliente con rut no existe",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class)
+                    )
+            )
+    })
+    @Parameters(value = {
+            @Parameter(name = "rut", description = "Este es el rut unico de un cliente", required = true)
+    })
     public ResponseEntity<EntityModel<ClienteDTO>> findByRun(String runCliente){
         EntityModel<ClienteDTO> entityModel = this.clienteDTOModelAssembler.toModel(
                 clienteService.findByRunCliente(runCliente)

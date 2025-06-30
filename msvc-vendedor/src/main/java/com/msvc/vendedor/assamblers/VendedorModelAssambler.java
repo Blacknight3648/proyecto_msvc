@@ -14,9 +14,9 @@ public class VendedorModelAssambler implements RepresentationModelAssembler<Vend
         return EntityModel.of(
                 entity,
                 linkTo(methodOn(VendedorControllerV2.class).findById(entity.getIdVendedor())).withSelfRel(),
-                linkTo(methodOn(VendedorControllerV2.class).findAll()).withSelfRel(),
-                linkTo(methodOn(VendedorControllerV2.class).findByRunVendedor(entity.getRunVendedor())).withSelfRel(),
-                Link.of("http://localjost:8023/vendedor"+entity.getIdVendedor()).withSelfRel()
+                /*linkTo(methodOn(VendedorControllerV2.class).findAll()).withSelfRel(),
+                linkTo(methodOn(VendedorControllerV2.class).findByRunVendedor(entity.getRunVendedor())).withSelfRel(),*/
+                Link.of("http://localjost:8023/vendedor/id/"+entity.getIdVendedor()).withSelfRel()
         );
     }
 }
