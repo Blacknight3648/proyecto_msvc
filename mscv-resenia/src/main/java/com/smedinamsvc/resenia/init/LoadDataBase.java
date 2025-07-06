@@ -29,28 +29,23 @@ public class LoadDataBase implements CommandLineRunner {
             for (int i = 0; i < 1000; i++) {
                 Resenia resenia = new Resenia();
 
-                // Generar un productoId aleatorio
-                Long productoId = faker.number().randomNumber(3, false);
+                Long productoId = (long) faker.number().numberBetween(1, 1000);
                 resenia.setProductoId(productoId);
 
-                // Generar un idCliente aleatorio
-                Long idCliente = faker.number().randomNumber(3, false);
+                Long idCliente = (long) faker.number().numberBetween(1, 1000);
                 resenia.setIdCliente(idCliente);
 
-                // Generar una valoración aleatoria entre 1 y 5
                 Integer valoracion = faker.number().numberBetween(1, 6);
                 resenia.setValoracion(valoracion);
 
-                // Generar un comentario de reseña
                 String comentario = faker.lorem().sentence(20);
                 resenia.setResenia(comentario);
 
-                // Guardar la reseña en la base de datos
                 resenia = reseniaRepository.save(resenia);
 
-                // Log de la reseña creada
                 logger.info("Reseña creada: {}", resenia.toString());
             }
         }
     }
 }
+
