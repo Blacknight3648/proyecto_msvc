@@ -3,13 +3,12 @@ package com.smedinamsvc.resenia.dtos;
 import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

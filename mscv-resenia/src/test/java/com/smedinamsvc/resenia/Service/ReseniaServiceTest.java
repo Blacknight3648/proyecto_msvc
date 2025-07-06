@@ -1,5 +1,9 @@
 package com.smedinamsvc.resenia.Service;
 
+import com.smedinamsvc.resenia.client.ReseniaClienteClient;
+import com.smedinamsvc.resenia.client.ReseniaProductoClient;
+import com.smedinamsvc.resenia.dtos.ClienteDTO;
+import com.smedinamsvc.resenia.dtos.ProductoDTO;
 import com.smedinamsvc.resenia.exceptions.ReseniaExceptions;
 import com.smedinamsvc.resenia.model.Resenia;
 import com.smedinamsvc.resenia.repository.ReseniaRepository;
@@ -12,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
@@ -21,6 +26,12 @@ import static org.mockito.Mockito.*;
 public class ReseniaServiceTest {
 
     @Mock
+    private ReseniaProductoClient reseniaProductoClient;
+
+    @Mock
+    private ReseniaClienteClient reseniaClienteClient;
+
+    @Mock
     private ReseniaRepository reseniaRepository;
 
     @InjectMocks
@@ -28,7 +39,6 @@ public class ReseniaServiceTest {
 
     private Resenia reseniaTest;
 
-    // Se ejecuta antes de cada test
     @BeforeEach
     public void setUp() {
         reseniaTest = new Resenia(
@@ -41,8 +51,20 @@ public class ReseniaServiceTest {
     }
 
     @Test
-    @DisplayName("Debe guardar una reseña")
+    @DisplayName("Debe guardar una reseña (validando producto y cliente)")
     public void shouldSaveResenia() throws ReseniaExceptions {
+        ProductoDTO productoDTO = new ProductoDTO(10L, "Producto Test", 5000, "Desc");
+        ClienteDTO clienteDTO = new ClienteDTO(
+                100L,              // idCliente
+                "11-1",            // runCliente
+                LocalDate.of(1990, 1, 1),
+                "Cliente Test",
+                "cliente@test.com",
+                true
+        );
+
+        when(reseniaProductoClient.getProductoById(10L)).thenReturn(productoDTO);
+        when(reseniaClienteClient.getClienteById(100L)).thenReturn(clienteDTO);
         when(reseniaRepository.save(reseniaTest)).thenReturn(reseniaTest);
 
         Resenia result = reseniaService.save(reseniaTest);
@@ -50,7 +72,40 @@ public class ReseniaServiceTest {
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(reseniaTest);
 
+        verify(reseniaProductoClient, times(1)).getProductoById(10L);
+        verify(reseniaClienteClient, times(1)).getClienteById(100L);
         verify(reseniaRepository, times(1)).save(reseniaTest);
+    }
+
+    @Test
+    @DisplayName("Debe lanzar excepción si el producto no existe")
+    public void shouldThrowWhenProductNotFound() {
+        when(reseniaProductoClient.getProductoById(10L)).thenThrow(new RuntimeException("Producto no encontrado"));
+
+        assertThatThrownBy(() -> reseniaService.save(reseniaTest))
+                .isInstanceOf(ReseniaExceptions.class)
+                .hasMessageContaining("El producto con ID 10 no existe");
+
+        verify(reseniaProductoClient, times(1)).getProductoById(10L);
+        verify(reseniaClienteClient, never()).getClienteById(any());
+        verify(reseniaRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("Debe lanzar excepción si el cliente no existe")
+    public void shouldThrowWhenClientNotFound() {
+        ProductoDTO productoDTO = new ProductoDTO(10L, "Producto Test", 5000, "Desc");
+
+        when(reseniaProductoClient.getProductoById(10L)).thenReturn(productoDTO);
+        when(reseniaClienteClient.getClienteById(100L)).thenThrow(new RuntimeException("Cliente no encontrado"));
+
+        assertThatThrownBy(() -> reseniaService.save(reseniaTest))
+                .isInstanceOf(ReseniaExceptions.class)
+                .hasMessageContaining("El cliente con ID 100 no existe");
+
+        verify(reseniaProductoClient, times(1)).getProductoById(10L);
+        verify(reseniaClienteClient, times(1)).getClienteById(100L);
+        verify(reseniaRepository, never()).save(any());
     }
 
     @Test
