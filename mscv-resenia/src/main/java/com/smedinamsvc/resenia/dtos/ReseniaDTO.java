@@ -1,14 +1,13 @@
-package com.msvc.clientes.DTO;
+package com.smedinamsvc.resenia.dtos;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@ToString
+@NoArgsConstructor
+
 public class ReseniaDTO {
     private Long id;
     private Long productoId;

@@ -12,7 +12,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API RESTful - MSCV - Resenia")
+                        .title("API RESTful - MSCV (Microservicio de) - Resenia")
                         .description("Esta es la API dedicada al microservicio de reseñas. Aquí podrás gestionar y consultar las reseñas asociadas a productos y clientes.")
                         .version("1.0.0")
                 );
