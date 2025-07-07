@@ -1,7 +1,7 @@
 package com.mscv.proveedores.controller;
 
 import com.mscv.proveedores.Exceptions.ProveedorException;
-import com.mscv.proveedores.model.Proveedores;
+import com.mscv.proveedores.model.Proveedor;
 import com.mscv.proveedores.service.ProveedorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -23,30 +23,30 @@ public class ProveedorControllerV2 {
 
     // READ: obtener todos
     @GetMapping
-    public ResponseEntity<List<Proveedores>> findAll() {
-        List<Proveedores> proveedores = proveedorService.findAll();
+    public ResponseEntity<List<Proveedor>> findAll() {
+        List<Proveedor> proveedores = proveedorService.findAll();
         return ResponseEntity.ok(proveedores);
     }
 
     // READ: obtener por ID
     @GetMapping("/{id}")
-    public ResponseEntity<Proveedores> findById(@PathVariable Long id) {
-        Proveedores proveedor = proveedorService.findById(id);
+    public ResponseEntity<Proveedor> findById(@PathVariable Long id) {
+        Proveedor proveedor = proveedorService.findById(id);
         return ResponseEntity.ok(proveedor);
     }
 
     // CREATE: crear nuevo proveedor
     @PostMapping
-    public ResponseEntity<Proveedores> create(@Valid @RequestBody Proveedores proveedor) {
-        Proveedores nuevoProveedor = proveedorService.save(proveedor);
+    public ResponseEntity<Proveedor> create(@Valid @RequestBody Proveedor proveedor) {
+        Proveedor nuevoProveedor = proveedorService.save(proveedor);
         return ResponseEntity.status(201).body(nuevoProveedor);
     }
 
     // UPDATE: actualizar datos completos usando modelo
     @PutMapping("/{id}")
-    public ResponseEntity<Proveedores> update(@PathVariable Long id, @RequestBody Proveedores proveedor) throws ProveedorException {
+    public ResponseEntity<Proveedor> update(@PathVariable Long id, @RequestBody Proveedor proveedor) throws ProveedorException {
         proveedor.setIdProveedor(id);
-        Proveedores actualizado = proveedorService.update(proveedor);
+        Proveedor actualizado = proveedorService.update(proveedor);
         return ResponseEntity.ok(actualizado);
     }
 

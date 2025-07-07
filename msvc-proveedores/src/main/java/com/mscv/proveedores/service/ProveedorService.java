@@ -3,25 +3,25 @@ package com.mscv.proveedores.service;
 import java.util.List;
 
 import com.mscv.proveedores.Exceptions.ProveedorException;
-import com.mscv.proveedores.model.Proveedores;
+import com.mscv.proveedores.model.Proveedor;
 
 public interface ProveedorService {
 
     // READ: listar todos los proveedores
-    List<Proveedores> findAll();
+    List<Proveedor> findAll();
 
     // READ: buscar proveedor por ID
-    Proveedores findById(Long id) throws ProveedorException;
+    Proveedor findById(Long id) throws ProveedorException;
 
     // READ: listar proveedores según estado de suspensión
-    List<Proveedores> findBySuspencion(boolean suspencion);
+    List<Proveedor> findBySuspencion(boolean suspencion);
 
     // CREATE: guardar un proveedor nuevo
-    Proveedores save(Proveedores proveedor) throws ProveedorException;
+    Proveedor save(Proveedor proveedor) throws ProveedorException;
 
     // DELETE: eliminar proveedor por ID
     void deleteById(Long id) throws ProveedorException;
 
     // UPDATE: actualizar proveedor completo (entidad Proveedores)
-    Proveedores update(Proveedores proveedor) throws ProveedorException;
+    Proveedor update(Proveedor proveedor) throws ProveedorException;
 }

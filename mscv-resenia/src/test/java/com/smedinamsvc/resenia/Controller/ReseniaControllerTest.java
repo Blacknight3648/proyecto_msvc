@@ -2,6 +2,7 @@ package com.smedinamsvc.resenia.Controller;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,9 +21,10 @@ public class ReseniaControllerTest {
     TestRestTemplate testRestTemplate;
 
     @Test
+    @DisplayName("GET EJECUTADO")
     public void shouldReturnAllReseniasWhenListIsRequested() {
         // 1. Hacer llamada al endpoint
-        ResponseEntity<String> response = testRestTemplate.getForEntity("/api/v1/resenias", String.class);
+        ResponseEntity<String> response = testRestTemplate.getForEntity("/api/v2/resenias", String.class);
 
         // 2. Verificar que status es 200 OK
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -31,7 +33,7 @@ public class ReseniaControllerTest {
         DocumentContext documentContext = JsonPath.parse(response.getBody());
         int reseniasCount = documentContext.read("$.length()");
 
-        // 4. Validar que haya al menos 1 reseña (ajústalo si quieres exactos)
+        // 4. Validar que haya al menos 1 reseña
         assertThat(reseniasCount).isGreaterThanOrEqualTo(0);
     }
 }

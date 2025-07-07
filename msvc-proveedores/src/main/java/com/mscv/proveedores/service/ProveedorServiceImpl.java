@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mscv.proveedores.Exceptions.ProveedorException;
 import com.mscv.proveedores.Repository.ProveedorRepository;
-import com.mscv.proveedores.model.Proveedores;
+import com.mscv.proveedores.model.Proveedor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,20 +28,20 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     // READ: listar todos
     @Override
-    public List<Proveedores> findAll() {
+    public List<Proveedor> findAll() {
         return proveedorRepository.findAll();
     }
 
     // READ: buscar por ID
     @Override
-    public Proveedores findById(Long id) throws ProveedorException {
+    public Proveedor findById(Long id) throws ProveedorException {
         return proveedorRepository.findById(id)
                 .orElseThrow(() -> new ProveedorException("No se encontró el proveedor con ID: " + id));
     }
 
     // CREATE: guardar nuevo proveedor
     @Override
-    public Proveedores save(Proveedores proveedor) throws ProveedorException {
+    public Proveedor save(Proveedor proveedor) throws ProveedorException {
         if (proveedor == null) {
             throw new ProveedorException("El proveedor no puede ser nulo");
         }
@@ -59,7 +59,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     // UPDATE: actualizar proveedor completo (razón social y RUN)
     @Override
-    public Proveedores update(Proveedores proveedor) throws ProveedorException {
+    public Proveedor update(Proveedor proveedor) throws ProveedorException {
         if (proveedor.getIdProveedor() == null || !proveedorRepository.existsById(proveedor.getIdProveedor())) {
             throw new ProveedorException("El proveedor a actualizar no existe");
         }
@@ -68,7 +68,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
     // READ: listar por estado de suspensión
     @Override
-    public List<Proveedores> findBySuspencion(boolean suspencion) {
+    public List<Proveedor> findBySuspencion(boolean suspencion) {
         return proveedorRepository.findBySuspencion(suspencion);
     }
 

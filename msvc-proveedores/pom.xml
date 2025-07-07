@@ -4,21 +4,21 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- Informacion del parent -->
+	<!-- Parent -->
 	<parent>
 		<groupId>org.example</groupId>
 		<artifactId>MSVC-PERFULANDIA</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<!-- Identificacion del microservicio -->
+	<!-- Identificación del microservicio -->
 	<groupId>com.mscv.proveedores</groupId>
 	<artifactId>msvc-proveedores</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>msvc-proveedores</name>
 	<description>Gestión de proveedores</description>
 
-	<!-- Propiedades del proyecto -->
+	<!-- Propiedades -->
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2024.0.1</spring-cloud.version>
@@ -45,20 +45,20 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
-		<!-- Spring HATEOAS (si lo usas para hipermedios) -->
+		<!-- HATEOAS -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-hateoas</artifactId>
 		</dependency>
 
-		<!-- OpenAPI/Swagger para documentación -->
+		<!-- OpenAPI / Swagger -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.8.9</version>
 		</dependency>
 
-		<!-- DevTools para desarrollo -->
+		<!-- DevTools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -66,7 +66,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Base de datos en memoria H2 -->
+		<!-- H2 database -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -79,6 +79,13 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.38</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- DataFaker -->
+		<dependency>
+			<groupId>net.datafaker</groupId>
+			<artifactId>datafaker</artifactId>
+			<version>2.3.0</version>
 		</dependency>
 
 		<!-- Testing -->
@@ -104,15 +111,9 @@
 			<version>3.25.3</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.datafaker</groupId>
-			<artifactId>datafaker</artifactId>
-			<version>2.3.0</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 
-	<!-- Importar dependencias de Spring Cloud -->
+	<!-- Dependency Management Spring Cloud -->
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -125,10 +126,9 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<!-- Configuración de build -->
 	<build>
 		<plugins>
-			<!-- Plugin para compilación con Lombok -->
+			<!-- Maven Compiler -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -146,7 +146,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- Plugin Spring Boot -->
+			<!-- Spring Boot Maven Plugin -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -161,5 +161,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
+
 
