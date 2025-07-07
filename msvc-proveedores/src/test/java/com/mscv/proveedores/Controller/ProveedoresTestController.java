@@ -1,4 +1,4 @@
-package com.smedinamsvc.resenia.Controller;
+package com.mscv.proveedores.Controller;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
@@ -15,16 +15,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class ReseniaControllerTest {
+public class ProveedoresTestController {
 
     @Autowired
     TestRestTemplate testRestTemplate;
 
     @Test
     @DisplayName("GET EJECUTADO")
-    public void shouldReturnAllReseniasWhenListIsRequested() {
+    public void shouldReturnAllProveedoresWhenListIsRequested(){
+
         // 1. Hacer llamada al endpoint
-        ResponseEntity<String> response = testRestTemplate.getForEntity("/api/v2/resenias", String.class);
+        ResponseEntity<String> response = testRestTemplate.getForEntity("/api/v2/proveedores", String.class);
 
         // 2. Verificar que status es 200 OK
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -36,5 +37,5 @@ public class ReseniaControllerTest {
         // 4. Validar que haya al menos 1 reseña
         assertThat(reseniasCount).isGreaterThanOrEqualTo(0);
     }
-}
 
+}
