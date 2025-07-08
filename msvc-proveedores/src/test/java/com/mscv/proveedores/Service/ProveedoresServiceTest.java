@@ -2,7 +2,7 @@ package com.mscv.proveedores.Service;
 
 import com.mscv.proveedores.Exceptions.ProveedorException;
 import com.mscv.proveedores.Repository.ProveedorRepository;
-import com.mscv.proveedores.model.Proveedores;
+import com.mscv.proveedores.model.Proveedor;
 import com.mscv.proveedores.service.ProveedorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,11 +26,11 @@ class ProveedoresServiceTest {
     @InjectMocks
     private ProveedorServiceImpl proveedorService;
 
-    private Proveedores proveedorTest;
+    private Proveedor proveedorTest;
 
     @BeforeEach
     void setUp() {
-        proveedorTest = new Proveedores();
+        proveedorTest = new Proveedor();
         proveedorTest.setIdProveedor(1L);
         proveedorTest.setRunProveedor("12345678-9");
         proveedorTest.setRazonSocial("Ejemplo Spa");
@@ -42,7 +42,7 @@ class ProveedoresServiceTest {
     void shouldSaveProveedor() throws ProveedorException {
         when(proveedorRepository.save(proveedorTest)).thenReturn(proveedorTest);
 
-        Proveedores result = proveedorService.save(proveedorTest);
+        Proveedor result = proveedorService.save(proveedorTest);
 
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(proveedorTest);
@@ -65,7 +65,7 @@ class ProveedoresServiceTest {
     void shouldFindProveedorById() throws ProveedorException {
         when(proveedorRepository.findById(1L)).thenReturn(Optional.of(proveedorTest));
 
-        Proveedores result = proveedorService.findById(1L);
+        Proveedor result = proveedorService.findById(1L);
 
         assertThat(result).isNotNull();
         assertThat(result.getIdProveedor()).isEqualTo(1L);
@@ -90,7 +90,7 @@ class ProveedoresServiceTest {
     void shouldFindAllProveedores() {
         when(proveedorRepository.findAll()).thenReturn(List.of(proveedorTest));
 
-        List<Proveedores> result = proveedorService.findAll();
+        List<Proveedor> result = proveedorService.findAll();
 
         assertThat(result).isNotEmpty();
         assertThat(result).contains(proveedorTest);
@@ -104,7 +104,7 @@ class ProveedoresServiceTest {
         when(proveedorRepository.existsById(1L)).thenReturn(true);
         when(proveedorRepository.save(proveedorTest)).thenReturn(proveedorTest);
 
-        Proveedores result = proveedorService.update(proveedorTest);
+        Proveedor result = proveedorService.update(proveedorTest);
 
         assertThat(result).isEqualTo(proveedorTest);
 
@@ -154,7 +154,7 @@ class ProveedoresServiceTest {
     void shouldFindProveedoresBySuspencion() {
         when(proveedorRepository.findBySuspencion(false)).thenReturn(List.of(proveedorTest));
 
-        List<Proveedores> result = proveedorService.findBySuspencion(false);
+        List<Proveedor> result = proveedorService.findBySuspencion(false);
 
         assertThat(result).isNotEmpty();
         assertThat(result.get(0).getSuspencion()).isFalse();
