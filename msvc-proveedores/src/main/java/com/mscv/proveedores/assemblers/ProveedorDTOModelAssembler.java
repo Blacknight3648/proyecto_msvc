@@ -16,7 +16,8 @@ public class ProveedorDTOModelAssembler implements RepresentationModelAssembler<
 
         return EntityModel.of(
                 entity,
-                linkTo(methodOn(ProveedorControllerV2.class).findById(entity.getIdProveedor())).withSelfRel()
+                linkTo(methodOn(ProveedorControllerV2.class).findById(entity.getIdProveedor())).withSelfRel(),
+                linkTo(methodOn(ProveedorControllerV2.class)).withRel("Todos los Proveedores")
         );
 
     }

@@ -17,7 +17,7 @@ public class ReseniaDTOModelAssembler implements RepresentationModelAssembler<Re
         return EntityModel.of(
                 reseniaDTO,
                 linkTo(ReseniaControllerV2.class).slash(reseniaDTO.getId()).withSelfRel(),
-                linkTo(methodOn(ReseniaControllerV2.class).getAll()).withRel("allResenias")
+                linkTo(methodOn(ReseniaControllerV2.class).getAll()).withRel("Todas las Resenias")
         );
     }
 }
