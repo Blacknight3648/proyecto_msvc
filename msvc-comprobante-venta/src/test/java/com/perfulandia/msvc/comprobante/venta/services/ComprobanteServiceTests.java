@@ -60,52 +60,45 @@ public class ComprobanteServiceTests {
     @BeforeEach
     public void setUp(){
 
-        Faker faker = new Faker(Locale.of("es", "CL"));
-        for(int i=0;i<100;i++){
+        Cliente cliente = new Cliente();
+        cliente.setIdCliente(1L);
+        cliente.setRunCliente("21.509.150-3");
+        cliente.setFechaNacimiento(LocalDate.now());
+        cliente.setNombreCompleto("Ignacio Perez");
 
-            String numero = faker.idNumber().valid().replaceAll("-", "");
-            String digito = faker.regexify("[0-9K]");
-            String restante = numero.substring(0, numero.length()-1);
-            String rut = restante + "-" + digito;
+        Vendedor vendedor = new Vendedor();
+        vendedor.setIdVendedor(1L);
+        vendedor.setRunVendedor("21.509.150-3");
+        vendedor.setFechaNacimiento(LocalDate.now());
+        vendedor.setNombreCompleto("Ignacio Perez");
 
-            clienteTest = new Cliente(
-                    faker.number().numberBetween(1L,100L),
-                    rut,
-                    LocalDate.now().minusYears(faker.number().numberBetween(18,50)),
-                    faker.name().fullName()
-            );
+        Sucursal sucursal = new Sucursal();
+        sucursal.setIdSucursal(1L);
+        sucursal.setNombreSucursal("Valparaiso");
+        sucursal.setDireccionSucursal("Av. Valparaiso");
 
-            vendedorTest = new Vendedor(
-                    faker.number().numberBetween(1L,100L),
-                    rut,
-                    LocalDate.now().minusYears(faker.number().numberBetween(18,50)),
-                    faker.name().fullName()
-            );
-            carritoTest = new Carrito(
-                    faker.number().numberBetween(1L,100L),
-                    faker.number().numberBetween(1000,999999),
-                    faker.funnyName().name(),
-                    faker.number().numberBetween(1L,100L),
-                    faker.number().numberBetween(1L,100L)
-            );
-            sucursalTest = new Sucursal(
-                    faker.number().numberBetween(1L,100L),
-                    faker.company().name(),
-                    faker.address().fullAddress()
-            );
+        Carrito carrito = new Carrito();
+        carrito.setIdCarrito(1L);
+        carrito.setIdVendedor(1L);
+        carrito.setIdCliente(1L);
+        carrito.setPrecioTotal(9999);
+        carrito.setCupon("Cupon");
 
+        Comprobante comprobante = new Comprobante();
+        comprobante.setIdComprobante(1L);
+        comprobante.setHoraComprobante(LocalDateTime.now());
+        comprobante.setFactura(true);
+        comprobante.setIdVendedor(1L);
+        comprobante.setIdCarrito(1L);
+        comprobante.setIdSucursal(1L);
+        comprobante.setIdCliente(1L);
 
-            Comprobante comprobante = new Comprobante();
-            comprobante.setFactura(faker.bool().bool());
-            comprobante.setHoraComprobante(LocalDateTime.now().minusDays(faker.number().numberBetween(0, 30)));
+        this.comprobantes.add(comprobante);
 
-            comprobante.setIdCliente(clienteTest.getIdCliente());
-            comprobante.setIdVendedor(vendedorTest.getIdVendedor());
-            comprobante.setIdSucursal(sucursalTest.getIdSucursal());
-            comprobante.setIdCarrito(carritoTest.getIdCarrito());
+        this.comprobanteTest = new Comprobante(
+          1L,LocalDateTime.now(),1L,1L,1L,1L,true
+        );
 
-            this.comprobantes.add(comprobante);
-        }
     }
 
     @Test
@@ -115,19 +108,14 @@ public class ComprobanteServiceTests {
         this.comprobantes.add(this.comprobanteTest);
 
         when(comprobanteRepository.findAll()).thenReturn(this.comprobantes);
-        when(carritoClientRest.findById(carritoTest.getIdCarrito()));
 
-        List<ComprobanteDTO> result = comprobanteService.findAll();
-
-
-        assertThat(result).
-
-
-
+        List<Comprobante> result = comprobanteService.findAllModels();
 
 
 
         verify(comprobanteRepository, times(1)).findAll();
+
+
     }
 
     @Test
@@ -148,18 +136,45 @@ public class ComprobanteServiceTests {
         assertThatThrownBy(()->{
             comprobanteService.findById(idInexistente);
         }).isInstanceOf(ComprobanteException.class)
-                .hasMessageContaining("El comprobante con id "+idInexistente+" no se encuentra en la base de datos");
+                .hasMessageContaining("El comprobante con id: "+idInexistente+" no se encuentra en la base de datos.");
         verify(comprobanteRepository,times(1)).save(any(Comprobante.class));
     }
 
     @Test
     @DisplayName("Debe guardar un nuevo medico")
     public void shouldSaveComprobante(){
+
+        when(clienteClientRest.findById(1L)).thenReturn(this.clienteTest);
+        when(vendedorClientRest.findById(1L)).thenReturn(this.vendedorTest);
+        when(sucursalClientRest.findById(1L)).thenReturn(this.sucursalTest);
         when(comprobanteRepository.save(any(Comprobante.class))).thenReturn(this.comprobanteTest);
+
         Comprobante result = comprobanteService.save(this.comprobanteTest);
+
         assertThat(result).isNotNull();
         assertThat(result).isEqualTo(this.comprobanteTest);
-        verify(comprobanteRepository,times(1)).save(any(Comprobante.class));
+
+        verify(clienteClientRest, times(1)).findById(1L);
+        verify(vendedorClientRest, times(1)).findById(1L);
+        verify(sucursalClientRest, times(1)).findById(1L);
+
     }
 
+    @Test
+    @DisplayName("No debe guardar comprobantes")
+    public void shouldNotSaveComprobantes(){
+
+        when(comprobanteRepository.save(any(Comprobante.class))).thenThrow(new ComprobanteException("Error al validar vendedor, cliente o sucursal"));
+
+
+        assertThatThrownBy(()-> comprobanteService.save(this.comprobanteTest)).isInstanceOf(Comprobante.class).hasMessageContaining("Error al guardar");
+
+
+        verify(comprobanteService, times(1)).save(any(Comprobante.class));
+
+    }
 }
+
+
+
+

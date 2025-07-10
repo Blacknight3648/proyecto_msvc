@@ -1,7 +1,6 @@
 package com.perfulandia.msvc.comprobante.venta.controllers;
 
 
-import com.perfulandia.msvc.comprobante.venta.assemblers.ComprobanteDTOModelAssembler;
 import com.perfulandia.msvc.comprobante.venta.assemblers.ComprobanteModelAssembler;
 import com.perfulandia.msvc.comprobante.venta.dtos.ComprobanteDTO;
 import com.perfulandia.msvc.comprobante.venta.dtos.ErrorDTO;
@@ -23,8 +22,6 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.hateoas.*;
-import io.swagger.v3.oas.annotations.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 

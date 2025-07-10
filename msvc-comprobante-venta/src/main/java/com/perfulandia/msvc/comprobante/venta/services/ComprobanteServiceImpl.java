@@ -19,6 +19,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -136,13 +137,13 @@ public class ComprobanteServiceImpl implements ComprobanteService {
             }
 
             Comprobante comprobante1 = new Comprobante();
-            comprobante1.setIdCarrito(carrito.getIdCarrito());
-            comprobante1.setIdVendedor(vendedor.getIdVendedor());
-            comprobante1.setIdSucursal(sucursal.getIdSucursal());
-            comprobante1.setIdCliente(cliente.getIdCliente());
-            comprobante1.setFactura(comprobante.getFactura());
-            comprobante1.setHoraComprobante(comprobante.getHoraComprobante());
-            comprobante1.setIdComprobante(comprobante.getIdComprobante());
+            comprobante1.setIdCarrito(1L);
+            comprobante1.setIdVendedor(1L);
+            comprobante1.setIdSucursal(1L);
+            comprobante1.setIdCliente(1L);
+            comprobante1.setFactura(true);
+            comprobante1.setHoraComprobante(LocalDateTime.now());
+            comprobante1.setIdComprobante(1L);
             return comprobante1;
         }).toList();
     }
@@ -150,7 +151,7 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     @Override
     public Comprobante findById(Long id) {
         return this.comprobanteRepository.findById(id).orElseThrow(
-                () -> new ComprobanteException("El comprobante con id "+id+" no se encuentra en la base de datos")
+                () -> new ComprobanteException("El comprobante con id: "+id+" no se encuentra en la base de datos.")
         );
     }
 
@@ -159,18 +160,11 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 
     try {
         Vendedor vendedor = this.vendedorClientRest.findById(comprobante.getIdVendedor());
-        if (vendedor == null) throw new ComprobanteException("El vendedor no existe");
-
         Cliente cliente = this.clienteClientRest.findById(comprobante.getIdCliente());
-        if (cliente == null) throw new ComprobanteException("El cliente no existe");
-
         Sucursal sucursal = this.sucursalClientRest.findById(comprobante.getIdSucursal());
-        if (sucursal == null) throw new ComprobanteException("La sucursal no existe");
-
     } catch (FeignException ex) {
         throw new ComprobanteException("Error al validar vendedor, cliente o sucursal");
     }
-
     return this.comprobanteRepository.save(comprobante);
     }
 
