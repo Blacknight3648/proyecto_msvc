@@ -17,6 +17,8 @@ import feign.FeignException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,6 +36,9 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Autowired
     private ProductoClientRest productoClientRest;
+
+    @Autowired
+    private CarritoServiceImpl carritoRepository;
 
     @Override
     public List<CarritoDTO> findAll() {
@@ -134,7 +139,42 @@ public class CarritoServiceImpl implements CarritoService {
 
         return update;
     }
+    @Override
+    public List<Carrito> findAllModels() {
+    return this.carritoRespository.findAll().stream().map(carrito -> {
 
+        Vendedor vendedor = null;
+        try{
+            vendedor = this.vendedorClientRest.findById(carrito.getIdVendedor());
+        }catch (FeignException ex){
+            throw new CarritoException("El vendedor buscado no existe");
+        }
+
+        Cliente cliente = null;
+        try{
+            cliente = this.clienteClientRest.findById(carrito.getIdCliente());
+        }catch(FeignException ex){
+            throw new CarritoException("El cliente buscado no existe");
+        }
+
+        Producto producto = null;
+        try{
+            producto = this.productoClientRest.findById(producto.getIdProducto());
+        }catch(FeignException ex){
+            throw new CarritoException("El producto buscado no existe");
+        }
+
+        Carrito carrito1 = new Carrito();
+        carrito1.setIdCarrito(1L);
+        carrito1.setIdProducto(1L);
+        carrito1.setIdVendedor(1L);
+        carrito1.setIdCliente(1L);
+        carrito1.setCupon("cupon");
+        carrito1.setCantidad(5);
+        carrito1.setPrecioTotal(9999);
+        return carrito1;
+    }).toList();
+    }
 
     @Override
     public List<Carrito> findByClienteId(Long clienteId) {

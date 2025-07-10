@@ -19,7 +19,7 @@ public class VendedorModelAssambler implements RepresentationModelAssembler<Vend
                 linkTo(methodOn(VendedorControllerV2.class).findById(entity.getIdVendedor())).withSelfRel(),
                 /*linkTo(methodOn(VendedorControllerV2.class).findAll()).withSelfRel(),
                 linkTo(methodOn(VendedorControllerV2.class).findByRunVendedor(entity.getRunVendedor())).withSelfRel(),*/
-                Link.of("http://localjost:8023/vendedor/"+entity.getIdVendedor()).withSelfRel()
+                Link.of("http://localhost:8023/vendedor/"+entity.getIdVendedor()).withSelfRel()
         );
     }
 }

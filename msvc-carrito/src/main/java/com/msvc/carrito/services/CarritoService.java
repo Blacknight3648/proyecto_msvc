@@ -8,6 +8,7 @@ import java.util.List;
 public interface CarritoService {
 
     List<CarritoDTO> findAll();
+    List<Carrito> findAllModels();
     Carrito findById(Long id);
     Carrito save(Carrito carrito);
     List<Carrito> findByClienteId(Long clienteId);

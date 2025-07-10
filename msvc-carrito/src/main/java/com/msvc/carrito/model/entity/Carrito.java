@@ -37,5 +37,4 @@ public class Carrito {
     private Long idVendedor;
 
 
-
 }
